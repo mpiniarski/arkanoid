@@ -1,2 +1,0 @@
-# arkanoid
-Arkanoid game
