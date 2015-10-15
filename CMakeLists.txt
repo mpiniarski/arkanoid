@@ -8,6 +8,8 @@ set(SOURCE_FILES
     Engine/Game.h
     Engine/Scene.cpp
     Engine/Scene.h
-    main.cpp)
+    main.cpp 
+	 Engine/Entity.cpp 
+	 Engine/Entity.h)
 
 add_executable(arkanoid ${SOURCE_FILES})
