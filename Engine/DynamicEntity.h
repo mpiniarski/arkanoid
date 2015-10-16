@@ -15,7 +15,7 @@ protected:
 
 public:
     Scene *scene;
-    DynamicEntity(Scene *scene, std::string name);
+    DynamicEntity(Scene *scene, std::string nadme);
     int update() override ;
 };
 

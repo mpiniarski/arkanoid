@@ -7,6 +7,10 @@ using namespace std;
 
 DynamicEntity::DynamicEntity(Scene *scene, string name) : Entity(scene, name) {
     this->scene = scene;
+    isMovingDown = false;
+    isMovingUp = false;
+    isMovingRight = false;
+    isMovingLeft = false;
     width = sprite.getTexture()->getSize().x;
     height = sprite.getTexture()->getSize().y;
     pos_x = 800/2 - (width / 2);
