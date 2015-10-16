@@ -16,7 +16,7 @@ protected:
 public:
     sf::Sprite sprite;
     Scene *scene;
-    virtual int update();
+    virtual int update(){};
     Entity(Scene *scene);
     Entity(Scene *scene, std::string name);
 };
