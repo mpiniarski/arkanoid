@@ -3,15 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-using namespace std;
-
 class Scene;
 
 class Entity {
 public:
-    sf::Sprite *sprite;
+    sf::Sprite sprite;
     Scene *scene;
     Entity(Scene *scene);
-    Entity(Scene *scene, string name);
+    Entity(Scene *scene, std::string name);
 };
 

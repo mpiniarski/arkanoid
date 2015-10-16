@@ -2,12 +2,20 @@
 
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-
 class Game {
 public:
     sf::RenderWindow Window;
-    Game(string name);
+    Game(std::string name);
+};
+
+
+class Suma {
+private:
+    int a;
+    int b;
+public:
+    Suma(int x, int y);
+
 };
 
 

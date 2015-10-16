@@ -1,26 +1,23 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <string>
-#include "Game.h"
 #include <unordered_map>
 #include <list>
 
-using namespace std;
-
-
 class Entity;
+class Game;
 
 class Scene{
 private:
-    string name;
+    std::string name;
     Game *game;
-    unordered_map<string,sf::Texture*> TextureMap;
-
-    list<Entity*> EntityList;
+    std::unordered_map<std::string,sf::Texture&> TextureMap;
+    std::list<Entity*> EntityList;
 
 public:
-    Scene(string name, Game *game);
-    sf::Texture* getTexture(string name);
+    Scene(std::string name, Game *game);
+    sf::Texture & getTexture(std::string name);
     void run();
 
 private:

@@ -1,6 +1,7 @@
 #include "Engine/Game.h"
 #include "Engine/Scene.h"
 #include <SFML/Graphics.hpp>
+
 using namespace std;
 
 int main()
@@ -9,7 +10,6 @@ int main()
 
 	Scene *scene = new Scene("Menu",&game);
 	scene->run();
-
 
 
 	delete scene;

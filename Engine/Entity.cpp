@@ -1,16 +1,18 @@
-#include <unordered_map>
 #include "Entity.h"
+
 #include "Scene.h"
 
+using namespace std;
 
-Entity::Entity(Scene *scene) {
+Entity::Entity(Scene *scene)
+{
     this->scene = scene;
-    sprite = new sf::Sprite;
 }
 
-Entity::Entity(Scene *scene, string name) {
+Entity::Entity(Scene *scene, string name):
+    sprite(scene->getTexture(name))
+{
     this->scene = scene;
 
-    sprite = new sf::Sprite( *scene->getTexture("texture1") );
-    sprite->setPosition(50,50);
+    sprite.setPosition(50,50);
 }
