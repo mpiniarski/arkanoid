@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 #include "Game.h"
-#include "Entity.h"
+#include "DynamicEntity.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -13,7 +13,8 @@ Scene::Scene(string name, Game *game) {
 
     resourceManager.loadTextureFromFile("texture1","res/img/hostile_shot.png");
 
-    Entity *entity = new Entity(this,"texture1");
+    DynamicEntity *entity = new DynamicEntity(this,"texture1");
+    platform = entity;
     EntityList.push_back(entity);
 }
 
@@ -21,6 +22,7 @@ void Scene::run(){
     while( game->Window.isOpen() )
     {
         handleEvents();
+        updateEntities();
         renderWindow();
     }
 }
@@ -40,12 +42,17 @@ void Scene::handleEvents() {
 void Scene::renderWindow() {
     game->Window.clear( sf::Color( 0, 0, 0 ) );
 
-    game->Window.draw(EntityList.front()->sprite);
-
-//    for( list<Entity*>::iterator i = EntityList.begin(); i!=EntityList.end(); i++){
-//        game->Window.draw( **i );
-//    }
+    for( auto &i : EntityList){
+        game->Window.draw( i->sprite );
+    }
 
     game->Window.display();
 }
 
+void Scene::updateEntities() {
+
+    for( auto &i : EntityList){
+        i->update();
+    }
+
+}

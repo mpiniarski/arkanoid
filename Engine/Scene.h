@@ -9,11 +9,13 @@
 
 class Entity;
 class Game;
+class DynamicEntity;
 
 class Scene{
 private:
     std::string name;
     Game *game;
+    DynamicEntity *platform;
 
     std::list<Entity*> EntityList;
 
@@ -24,6 +26,7 @@ public:
     ResourceManager resourceManager;
 private:
     void handleEvents();
+    void updateEntities();
     void renderWindow();
 };
 
