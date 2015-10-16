@@ -2,9 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Scene.h"
 
 using namespace std;
+
+class Scene;
 
 class Entity {
 public:

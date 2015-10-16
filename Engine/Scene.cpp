@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "Game.h"
+#include "Entity.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 Scene::Scene(string name, Game *game) {
     this->name = name;
@@ -10,11 +12,8 @@ Scene::Scene(string name, Game *game) {
     texture->loadFromFile("hostile_shot.png");
     TextureMap.insert( {"texture1",texture} );
 
-    std::unordered_map<std::string,sf::Texture*>::const_iterator got = TextureMap.find ("texture1");
-    sf::Sprite *sprite = new sf::Sprite( *got->second );
-    sprite->setPosition(50,50);
-    SpriteList.push_back(sprite);
-
+    Entity *entity = new Entity(this,"texture1");
+    EntityList.push_back(entity);
 }
 
 void Scene::run(){
@@ -40,9 +39,17 @@ void Scene::handleEvents() {
 void Scene::renderWindow() {
     game->Window.clear( sf::Color( 0, 0, 0 ) );
 
-    for( auto i = SpriteList.begin(); i!=SpriteList.end(); i++){
-        game->Window.draw(**i);
-    }
+    game->Window.draw(*EntityList.front()->sprite);
+
+
+//    for( list<Entity*>::iterator i = EntityList.begin(); i!=EntityList.end(); i++){
+//        game->Window.draw( **i );
+//    }
 
     game->Window.display();
+}
+
+sf::Texture * Scene::getTexture(string name) {
+    unordered_map<string,sf::Texture*>::iterator got = TextureMap.find(name);
+    return (got->second);
 }
