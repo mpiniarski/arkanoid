@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <list>
 
+#include "ResourceManager.h"
+
 class Entity;
 class Game;
 
@@ -12,14 +14,14 @@ class Scene{
 private:
     std::string name;
     Game *game;
-    std::unordered_map<std::string,sf::Texture&> TextureMap;
+
     std::list<Entity*> EntityList;
 
 public:
     Scene(std::string name, Game *game);
-    sf::Texture & getTexture(std::string name);
     void run();
 
+    ResourceManager resourceManager;
 private:
     void handleEvents();
     void renderWindow();

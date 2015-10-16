@@ -8,14 +8,3 @@ public:
     Game(std::string name);
 };
 
-
-class Suma {
-private:
-    int a;
-    int b;
-public:
-    Suma(int x, int y);
-
-};
-
-

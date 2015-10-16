@@ -10,7 +10,7 @@ Entity::Entity(Scene *scene)
 }
 
 Entity::Entity(Scene *scene, string name):
-    sprite(scene->getTexture(name))
+    sprite(scene->resourceManager.getTextureFromMap(name))
 {
     this->scene = scene;
 
