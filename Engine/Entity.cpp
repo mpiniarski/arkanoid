@@ -1,6 +1,7 @@
 #include "Entity.h"
 
 #include "Scene.h"
+#include "DynamicEntity.h"
 
 using namespace std;
 
