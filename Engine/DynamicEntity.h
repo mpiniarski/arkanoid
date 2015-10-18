@@ -3,6 +3,9 @@
 #include "Entity.h"
 
 class Scene;
+namespace DIRECTION {
+    enum { UP, DOWN, LEFT, RIGHT, STOP };
+}
 
 class DynamicEntity : public Entity {
 protected:
@@ -15,7 +18,9 @@ protected:
 
 public:
     Scene *scene;
-    DynamicEntity(Scene *scene, std::string nadme);
+    DynamicEntity(Scene *scene, std::string name);
     int update() override ;
+    void changeDirection(int direction);
+    void resetDirection(int direction);
 };
 

@@ -35,7 +35,18 @@ void Scene::handleEvents() {
             game->Window.close();
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
             game->Window.close();
-
+        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left ) {
+            platform->changeDirection(DIRECTION::LEFT);
+        }
+        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right ) {
+            platform->changeDirection(DIRECTION::RIGHT);
+        }
+        else if( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Left ) {
+            platform->resetDirection(DIRECTION::LEFT);
+        }
+        else if( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Right ) {
+            platform->resetDirection(DIRECTION::RIGHT);
+        }
     }
 }
 
