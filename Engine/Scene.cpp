@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "DynamicEntity.h"
+#include "Platform.h"
+#include "Ball.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -13,9 +15,15 @@ Scene::Scene(string name, Game *game) {
 
     resourceManager.loadTextureFromFile("texture1","res/img/hostile_shot.png");
 
-    DynamicEntity *entity = new DynamicEntity(this,"texture1");
+    Platform *entity = new Platform(this,"texture1");
     platform = entity;
     EntityList.push_back(entity);
+
+    resourceManager.loadTextureFromFile("texture2","res/img/ball.png");
+
+    Ball *entity2 = new Ball(this,"texture2");
+    ball = entity2;
+    EntityList.push_back(entity2);
 }
 
 void Scene::run(){
@@ -31,10 +39,12 @@ void Scene::handleEvents() {
     sf::Event event;
     while( game->Window.pollEvent( event ) )
     {
-        if( event.type == sf::Event::Closed )
+        if( event.type == sf::Event::Closed ) {
             game->Window.close();
-        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape )
+        }
+        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
             game->Window.close();
+        }
         else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left ) {
             platform->changeDirection(DIRECTION::LEFT);
         }

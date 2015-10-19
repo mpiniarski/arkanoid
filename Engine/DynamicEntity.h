@@ -4,22 +4,23 @@
 
 class Scene;
 namespace DIRECTION {
-    enum { UP, DOWN, LEFT, RIGHT, STOP };
+    enum { UP, DOWN, LEFT, RIGHT };
+    enum { STOP, MOVING, HELD };
 }
 
 class DynamicEntity : public Entity {
 protected:
-    bool isMovingUp;
-    bool isMovingRight;
-    bool isMovingDown;
-    bool isMovingLeft;
+    int isMovingRight;
+    int isMovingLeft;
+    int isMovingUp;
+    int isMovingDown;
     int velocity;
     int acceleration;
 
 public:
-    Scene *scene;
     DynamicEntity(Scene *scene, std::string name);
-    int update() override ;
+    //int update() ;
+    void makeStep();
     void changeDirection(int direction);
     void resetDirection(int direction);
 };

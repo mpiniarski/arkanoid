@@ -6,6 +6,8 @@
 #include <list>
 
 #include "ResourceManager.h"
+#include "Platform.h"
+#include "Ball.h"
 
 class Entity;
 class Game;
@@ -15,7 +17,8 @@ class Scene{
 private:
     std::string name;
     Game *game;
-    DynamicEntity *platform;
+    Platform *platform;
+    Ball *ball;
 
     std::list<Entity*> EntityList;
 
