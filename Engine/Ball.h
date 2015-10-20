@@ -3,7 +3,9 @@
 #include "DynamicEntity.h"
 
 class Ball : public DynamicEntity {
-t 
+private:
+    void wallCollision();
+    void platformCollision();
 public:
     Ball(Scene *scene, std::string name);
     int update();

@@ -61,7 +61,7 @@ void Scene::handleEvents() {
 }
 
 void Scene::renderWindow() {
-    game->Window.clear( sf::Color( 0, 0, 0 ) );
+    game->Window.clear( sf::Color( 30, 30, 30 ) );
 
     for( auto &i : EntityList){
         game->Window.draw( i->sprite );

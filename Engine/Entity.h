@@ -8,12 +8,12 @@ class DynamicEntity;
 
 class Entity {
 protected:
+
+public:
     int width;
     int height;
     float pos_x;
     float pos_y;
-
-public:
     sf::Sprite sprite;
     Scene *scene;
     virtual int update() {};

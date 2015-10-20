@@ -13,7 +13,7 @@ DynamicEntity::DynamicEntity(Scene *scene, string name) : Entity(scene, name) {
     width = sprite.getTexture()->getSize().x;
     height = sprite.getTexture()->getSize().y;
     pos_x = 800/2 - (width / 2);
-    pos_y = 530;
+    pos_y = 300;
     velocity = 0;
     sprite.setPosition(pos_x,pos_y);
 }

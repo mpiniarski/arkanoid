@@ -17,12 +17,12 @@ class Scene{
 private:
     std::string name;
     Game *game;
-    Platform *platform;
-    Ball *ball;
 
     std::list<Entity*> EntityList;
 
 public:
+    Platform *platform;
+    Ball *ball;
     Scene(std::string name, Game *game);
     void run();
 
