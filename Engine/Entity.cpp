@@ -14,6 +14,6 @@ Entity::Entity(Scene *scene, string name):
     sprite(scene->resourceManager.getTextureFromMap(name))
 {
     this->scene = scene;
-
     sprite.setPosition(50,50);
+    scene->addEntity(this);
 }

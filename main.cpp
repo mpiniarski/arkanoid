@@ -1,5 +1,5 @@
 #include "Engine/Game.h"
-#include "Engine/Scene.h"
+#include "GameplayScene.h"
 #include <SFML/Graphics.hpp>
 
 using namespace std;
@@ -8,10 +8,9 @@ int main()
 {
 	Game game("Arkanoid by Asia and Marcin");
 
-	Scene *scene = new Scene("Menu",&game);
-	scene->run();
+	GameplayScene scene("Menu",&game);
+	scene.run();
 
 
-	delete scene;
 	return 111;
 }

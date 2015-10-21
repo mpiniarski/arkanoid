@@ -6,30 +6,37 @@
 #include <list>
 
 #include "ResourceManager.h"
-#include "Platform.h"
-#include "Ball.h"
+#include "Game.h"
 
 class Entity;
-class Game;
 class DynamicEntity;
 
 class Scene{
 private:
+
+protected:
     std::string name;
     Game *game;
 
+    void initialize();
+
     std::list<Entity*> EntityList;
 
+    void uploadResources();
+
 public:
-    Platform *platform;
-    Ball *ball;
     Scene(std::string name, Game *game);
     void run();
-
     ResourceManager resourceManager;
+    void addEntity(Entity *entity);
+
 private:
-    void handleEvents();
-    void updateEntities();
     void renderWindow();
+    void updateEntities();
+
+    virtual void createEntities();
+    virtual void handleEvents();
+    virtual void uploadTextures();
 };
+
 

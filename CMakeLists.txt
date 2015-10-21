@@ -14,6 +14,6 @@ set(SOURCE_FILES
 		Engine/ResourceManager.cpp
 		Engine/ResourceManager.h
 		Engine/DynamicEntity.cpp 
-		Engine/DynamicEntity.h Engine/Platform.cpp Engine/Platform.h Engine/Ball.cpp Engine/Ball.h)
+		Engine/DynamicEntity.h Platform.cpp Platform.h Ball.cpp Ball.h GameplayScene.cpp GameplayScene.h)
 
 add_executable(arkanoid ${SOURCE_FILES})
