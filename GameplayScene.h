@@ -8,6 +8,7 @@ class Ball;
 class GameplayScene : public Scene {
 public:
     GameplayScene(const std::string &name, Game *game);
+
     Platform *platform;
     Ball *ball;
 

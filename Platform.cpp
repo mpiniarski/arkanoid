@@ -3,7 +3,7 @@
 using namespace std;
 
 Platform::Platform(Scene *scene, string name) : DynamicEntity( scene, name ) {
-    DynamicEntity::velocity = 12;
+    DynamicEntity::velocity = 6.0;
 }
 
 int Platform::update() {

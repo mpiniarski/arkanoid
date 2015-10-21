@@ -5,7 +5,7 @@ using namespace std;
 Ball::Ball(GameplayScene *scene, string name) : DynamicEntity( scene, name ) {
     isMovingUp = DIRECTION::MOVING;
     isMovingRight = DIRECTION::MOVING;
-    velocity = 4;
+    velocity = 2.5;
 }
 
 void Ball::wallCollision() {

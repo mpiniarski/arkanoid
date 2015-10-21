@@ -32,11 +32,25 @@ void Scene::addEntity(Entity *entity) {
 }
 
 void Scene::run(){
+    sf::Clock clock;
+    float timeSinceLastRender = 0.0;
+    float timePerFrame =  (1.0 / game->FPS);
+    cout<<timePerFrame;
+    bool render = true;
+
     while( game->Window.isOpen() )
     {
+        timeSinceLastRender += clock.restart().asSeconds();
+        if(timeSinceLastRender >= timePerFrame) render = true;
+
         handleEvents();
-        updateEntities();
-        renderWindow();
+
+        if(render){
+            updateEntities();
+            renderWindow();
+            timeSinceLastRender -= timePerFrame;
+            render = false;
+        }
     }
 }
 

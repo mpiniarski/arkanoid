@@ -14,7 +14,7 @@ protected:
     int isMovingLeft;
     int isMovingUp;
     int isMovingDown;
-    int velocity;
+    double velocity;
     int acceleration;
 
 public:
