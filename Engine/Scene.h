@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "Game.h"
 
+class TextEntity;
 class GraphicalEntity;
 class Entity;
 
@@ -31,7 +32,7 @@ public:
     void addEntity(Entity *entity);
 
     void drawOnWindow(GraphicalEntity &drawable);
-//    void drawOnWindow(TextEntity &drawable);
+    void drawOnWindow(TextEntity &drawable);
 
 private:
     void renderWindow();
@@ -40,6 +41,7 @@ private:
     virtual void createEntities();
     virtual void handleEvents();
     virtual void uploadTextures();
+    virtual void uploadFonts();
 
 };
 

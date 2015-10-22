@@ -17,3 +17,19 @@ sf::Texture &ResourceManager::getTextureFromMap(std::string name) {
     auto found = TextureMap.find(name);
     return (found->second);
 }
+
+void ResourceManager::loadFontFromFile(string name, string filepath) {
+    sf::Font *font = new sf::Font();
+    font->loadFromFile(filepath);
+    FontMap.insert( {name,*font} );
+    addFontToMap(name,font);
+}
+
+void ResourceManager::addFontToMap(std::string name, sf::Font *font) {
+    FontMap.insert( {name,*font} );
+}
+
+sf::Font &ResourceManager::getFontFromMap(std::string name) {
+    auto found = FontMap.find(name);
+    return (found->second);
+}

@@ -1,9 +1,8 @@
 #include "Ball.h"
-#include "GameplayScene.h"
 
 using namespace std;
 
-Ball::Ball(GameplayScene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {
+Ball::Ball(Scene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {
     isMovingUp = DIRECTION::MOVING;
     isMovingRight = DIRECTION::MOVING;
     velocity = 2.5;

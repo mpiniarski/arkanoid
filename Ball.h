@@ -10,7 +10,7 @@ private:
     void wallCollision();
     void platformCollision(GraphicalEntity *platform);
 public:
-    Ball(GameplayScene *scene, const sf::Texture &texture);
+    Ball(Scene *scene, const sf::Texture &texture);
     int update();
 
     GraphicalEntity* colisionMaker;

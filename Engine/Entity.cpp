@@ -14,7 +14,5 @@ Entity::Entity(Scene *scene)
 
     velocity = 0;
     acceleration = 0;
-
-    scene->addEntity(this);
 }
 

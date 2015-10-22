@@ -8,7 +8,8 @@ class GraphicalEntity : public Entity, public sf::Sprite{
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);
 
-    virtual int draw();
+    int draw();
+
     void makeStep();
     void changeDirection(int direction);
     void resetDirection(int direction);

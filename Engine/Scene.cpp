@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Entity.h"
 #include "GraphicalEntity.h"
+#include "TextEntity.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -20,9 +21,13 @@ void Scene::initialize() {
 
 void Scene::uploadResources() {
     uploadTextures();
+    uploadFonts();
 }
 
 void Scene::uploadTextures() {
+}
+
+void Scene::uploadFonts() {
 }
 
 void Scene::createEntities() {
@@ -78,6 +83,6 @@ void Scene::drawOnWindow(GraphicalEntity &drawable) {
     game->Window.draw(drawable);
 }
 
-//void Scene::drawOnWindow(TextEntity &drawable) {
-//    game->Window.draw(drawable);
-//}
+void Scene::drawOnWindow(TextEntity &drawable) {
+    game->Window.draw(drawable);
+}
