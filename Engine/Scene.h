@@ -8,8 +8,8 @@
 #include "ResourceManager.h"
 #include "Game.h"
 
+class GraphicalEntity;
 class Entity;
-class DynamicEntity;
 
 class Scene{
 private:
@@ -30,6 +30,9 @@ public:
     ResourceManager resourceManager;
     void addEntity(Entity *entity);
 
+    void drawOnWindow(GraphicalEntity &drawable);
+//    void drawOnWindow(TextEntity &drawable);
+
 private:
     void renderWindow();
     void updateEntities();
@@ -37,6 +40,7 @@ private:
     virtual void createEntities();
     virtual void handleEvents();
     virtual void uploadTextures();
+
 };
 
 

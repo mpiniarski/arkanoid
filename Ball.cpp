@@ -1,19 +1,23 @@
 #include "Ball.h"
+#include "GameplayScene.h"
 
 using namespace std;
 
-Ball::Ball(GameplayScene *scene, string name) : DynamicEntity( scene, name ) {
+Ball::Ball(GameplayScene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {
     isMovingUp = DIRECTION::MOVING;
     isMovingRight = DIRECTION::MOVING;
     velocity = 2.5;
 }
 
 void Ball::wallCollision() {
+    float pos_x = getPosition().x;
+    float pos_y = getPosition().y;
+
     if(isMovingLeft == DIRECTION::MOVING && pos_x <= 0) {
         isMovingLeft = DIRECTION::STOP;
         isMovingRight = DIRECTION::MOVING;
     }
-    else if(isMovingRight == DIRECTION::MOVING && pos_x >= 800 - sprite.getTexture()->getSize().x) {
+    else if(isMovingRight == DIRECTION::MOVING && pos_x >= 800 - getWidth()) {
         isMovingRight = DIRECTION::STOP;
         isMovingLeft = DIRECTION::MOVING;
     }
@@ -21,38 +25,38 @@ void Ball::wallCollision() {
         isMovingUp = DIRECTION::STOP;
         isMovingDown = DIRECTION::MOVING;
     }
-    else if(isMovingDown == DIRECTION::MOVING && pos_y >= 600 - sprite.getTexture()->getSize().y) {
+    else if(isMovingDown == DIRECTION::MOVING && pos_y >= 600 - getHeight()) {
         isMovingDown = DIRECTION::STOP;
         isMovingUp = DIRECTION::MOVING;
     }
 }
 
-void Ball::platformCollision(Entity *platform) {
-    if((pos_y + height) > (  platform->pos_x )
-       && (pos_y + height) < (platform->pos_y + platform->height)
-       && (pos_x + width) > (platform->pos_x)
-       && (pos_x) < (platform->pos_x + platform->width)) {
+void Ball::platformCollision(GraphicalEntity *platform) {
+    if((getPosition().y + getHeight()) > (  platform->getPosition().x )
+       && (getPosition().y + getHeight()) < (platform->getPosition().y + platform->getHeight())
+       && (getPosition().x + getWidth()) > (platform->getPosition().x)
+       && (getPosition().x) < (platform->getPosition().x + platform->getWidth())) {
         isMovingDown = DIRECTION::STOP;
         isMovingUp = DIRECTION::MOVING;
     }
-    else if((pos_y) < (platform->pos_y + platform->height)
-       && (pos_y) > (platform->pos_y)
-       && (pos_x + width) > (platform->pos_x)
-       && (pos_x) < (platform->pos_x + platform->width)) {
+    else if((getPosition().y) < (platform->getPosition().y + platform->getHeight())
+       && (getPosition().y) > (platform->getPosition().y)
+       && (getPosition().x + getWidth()) > (platform->getPosition().x)
+       && (getPosition().x) < (platform->getPosition().x + platform->getWidth())) {
         isMovingUp = DIRECTION::STOP;
         isMovingDown = DIRECTION::MOVING;
     }
-    else if((pos_x) < (platform->pos_x + platform->width)
-            && (pos_x) > (platform->pos_x)
-            && (pos_y + height) > (platform->pos_y)
-            && (pos_y) < (platform->pos_y + platform->height)) {
+    else if((getPosition().x) < (platform->getPosition().x + platform->getWidth())
+            && (getPosition().x) > (platform->getPosition().x)
+            && (getPosition().y + getHeight()) > (platform->getPosition().y)
+            && (getPosition().y) < (platform->getPosition().y + platform->getHeight())) {
         isMovingLeft = DIRECTION::STOP;
         isMovingRight = DIRECTION::MOVING;
     }
-    else if((pos_x + width) > (platform->pos_x)
-            && (pos_x + width) < (platform->pos_x + platform->width)
-            && (pos_y + height) > (platform->pos_y)
-            && (pos_y) < (platform->pos_y + platform->height)) {
+    else if((getPosition().x + getWidth()) > (platform->getPosition().x)
+            && (getPosition().x + getWidth()) < (platform->getPosition().x + platform->getWidth())
+            && (getPosition().y + getHeight()) > (platform->getPosition().y)
+            && (getPosition().y) < (platform->getPosition().y + platform->getHeight())) {
         isMovingRight = DIRECTION::STOP;
         isMovingLeft = DIRECTION::MOVING;
     }
@@ -61,6 +65,6 @@ void Ball::platformCollision(Entity *platform) {
 int Ball::update() {
     platformCollision(colisionMaker);
     wallCollision();
-    DynamicEntity::makeStep();
-    sprite.setPosition(pos_x, pos_y);
+    makeStep();
 }
+

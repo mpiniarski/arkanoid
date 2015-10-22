@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Engine/DynamicEntity.h"
-#include "GameplayScene.h"
+#include "Engine/GraphicalEntity.h"
 
+class GameplayScene;
+class Platform;
 
-class Ball : public DynamicEntity {
+class Ball : public GraphicalEntity {
 private:
     void wallCollision();
-    void platformCollision(Entity *platform);
+    void platformCollision(GraphicalEntity *platform);
 public:
-    Ball(GameplayScene *scene, std::string name);
+    Ball(GameplayScene *scene, const sf::Texture &texture);
     int update();
 
-    Entity* colisionMaker;
+    GraphicalEntity* colisionMaker;
 
 };

@@ -1,7 +1,8 @@
 #include "Scene.h"
 
 #include "Game.h"
-#include "DynamicEntity.h"
+#include "Entity.h"
+#include "GraphicalEntity.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -34,7 +35,7 @@ void Scene::addEntity(Entity *entity) {
 void Scene::run(){
     sf::Clock clock;
     float timeSinceLastRender = 0.0;
-    float timePerFrame =  (1.0 / game->FPS);
+    double timePerFrame =  (1.0 / game->FPS);
     cout<<timePerFrame;
     bool render = true;
 
@@ -58,6 +59,7 @@ void Scene::handleEvents() {
 }
 
 void Scene::updateEntities() {
+
     for( auto &i : EntityList){
         i->update();
     }
@@ -66,9 +68,16 @@ void Scene::updateEntities() {
 void Scene::renderWindow() {
     game->Window.clear( sf::Color( 30, 30, 30 ) );
     for( auto &i : EntityList){
-        game->Window.draw( i->sprite );
+        i->draw();
     }
     game->Window.display();
 }
 
 
+void Scene::drawOnWindow(GraphicalEntity &drawable) {
+    game->Window.draw(drawable);
+}
+
+//void Scene::drawOnWindow(TextEntity &drawable) {
+//    game->Window.draw(drawable);
+//}

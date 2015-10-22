@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Engine/Scene.h"
+#include "Platform.h"
+#include "Ball.h"
 
-class Platform;
-class Ball;
 
 class GameplayScene : public Scene {
 public:

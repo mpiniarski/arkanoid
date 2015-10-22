@@ -1,11 +1,12 @@
 #pragma once
 
-#include "Engine/DynamicEntity.h"
+#include "Engine/GraphicalEntity.h"
 
-class Platform : public DynamicEntity {
+class GameplayScene;
+class Platform : public GraphicalEntity {
 
 public:
-    Platform(Scene *scene, std::string name);
+    Platform(GameplayScene *scene, const sf::Texture &texture);
     int update();
 };
 

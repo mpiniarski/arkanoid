@@ -1,24 +1,28 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <string>
+#include "Scene.h"
 
-class Scene;
 class DynamicEntity;
+
+namespace DIRECTION {
+    enum { UP, DOWN, LEFT, RIGHT };
+    enum { STOP, MOVING, HELD };
+}
 
 class Entity {
 protected:
+    int isMovingRight;
+    int isMovingLeft;
+    int isMovingUp;
+    int isMovingDown;
+    double velocity;
+    int acceleration;
 
 public:
-    int width;
-    int height;
-    float pos_x;
-    float pos_y;
-    sf::Sprite sprite;
     Scene *scene;
-    virtual int update() {};
-    virtual void makeStep() {};
     Entity(Scene *scene);
-    Entity(Scene *scene, std::string name);
+
+    virtual int update() = 0;
+    virtual int draw() = 0;
 };
 

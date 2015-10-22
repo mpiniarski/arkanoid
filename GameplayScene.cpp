@@ -14,11 +14,11 @@ void GameplayScene::uploadTextures() {
 
 void GameplayScene::createEntities() {
 
-    Platform *entity = new Platform(this,"texture1");
+    Platform *entity = new Platform(this,resourceManager.getTextureFromMap("texture1"));
     platform = entity;
     addEntity(entity);
 
-    Ball *entity2 = new Ball(this,"texture2");
+    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"));
     ball = entity2;
     ball->colisionMaker = platform;
     addEntity(entity2);
