@@ -8,6 +8,6 @@ Platform::Platform(Scene *scene, const sf::Texture &texture) : GraphicalEntity( 
     velocity = 6.0;
 }
 
-int Platform::update() {
+void Platform::update() {
     makeStep();
 }

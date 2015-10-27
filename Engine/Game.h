@@ -1,11 +1,23 @@
 #pragma once
 
+#include <string>
 #include <SFML/Graphics.hpp>
 
+class Scene;
+
 class Game {
-public:
+private:
+    Scene* currentScene;
     float FPS;
+public:
     sf::RenderWindow Window;
-    Game(std::string name);
+
+public:
+    Game(std::string title, int width, int height);
+    void launchScene(Scene* scene);
+    int getWindowWidth() { return Window.getSize().x;}
+    int getWindowHeight() { return Window.getSize().x;}
+    float getFPS() { return FPS;}
+
 };
 

@@ -1,9 +1,7 @@
 #include "GameplayScene.h"
-#include "Platform.h"
-#include "Ball.h"
 
 
-GameplayScene::GameplayScene(const std::string &name, Game *game): Scene(name, game) {
+GameplayScene::GameplayScene(Game *game): Scene(game) {
     initialize();
 }
 
@@ -20,7 +18,7 @@ void GameplayScene::createEntities() {
 
     Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"));
     ball = entity2;
-    ball->colisionMaker = platform;
+    ball->addCollisionMaker(platform);
     addEntity(entity2);
 }
 

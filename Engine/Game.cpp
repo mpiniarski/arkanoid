@@ -1,15 +1,21 @@
 #include "Game.h"
-
-#include <string>
-#include <SFML/Graphics.hpp>
-
+#include "Scene.h"
 
 using namespace std;
 
-Game::Game(string name):
-        Window(sf::VideoMode( 800, 600 ), name/*, sf::Style::Fullscreen*/ )
+Game::Game(string title, int width, int height):
+        Window(sf::VideoMode( width, height ), title/*, sf::Style::Fullscreen*/ )
 {
+    currentScene = NULL;
     FPS = 60.0;
     Window.setFramerateLimit(75);
     Window.setVerticalSyncEnabled(true);
+}
+
+void Game::launchScene(Scene *scene) {
+    if(currentScene != NULL){
+       delete currentScene;
+    }
+    currentScene = scene;
+    currentScene->run();
 }

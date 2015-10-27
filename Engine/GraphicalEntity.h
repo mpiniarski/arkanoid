@@ -1,21 +1,36 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include "Entity.h"
 
-class GraphicalEntity : public Entity, public sf::Sprite{
+namespace DIRECTION {
+    enum { UP, DOWN, LEFT, RIGHT };
+    enum { STOP, MOVING, HELD };
+};
 
+class GraphicalEntity : public Entity, public sf::Sprite {
+protected:
+    int movingRight;
+    int movingLeft;
+    int movingUp;
+    int movingDown;
+    double velocity;
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);
 
-    int draw();
+    void draw() ;
+    virtual void update() ;
 
-    void makeStep();
+    float getWidth();
+    float getHeight();
+
     void changeDirection(int direction);
     void resetDirection(int direction);
 
-    float getWidth() {return getTexture()->getSize().x;};
-    float getHeight() {return getTexture()->getSize().y;}
+    virtual void manageCollision(GraphicalEntity* ge){};
+
+protected:
+    void makeStep();
 };
 
 

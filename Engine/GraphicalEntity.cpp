@@ -1,25 +1,30 @@
 #include "GraphicalEntity.h"
+#include "Scene.h"
 
 GraphicalEntity::GraphicalEntity(Scene *scene, const sf::Texture &texture) : Entity(scene), Sprite(texture)
 {
+    movingUp = DIRECTION::STOP;
+    movingDown = DIRECTION::STOP;
+    movingRight = DIRECTION::STOP;
+    movingLeft = DIRECTION::STOP;
+    velocity = 0;
     setPosition(0,0);
 }
 
-int GraphicalEntity::draw() {
+void GraphicalEntity::draw() {
     scene->drawOnWindow(*this);
-    return 0;
 }
 
 void GraphicalEntity::makeStep() {
     float pos_x = getPosition().x;
     float pos_y = getPosition().y;
-    if(isMovingLeft == DIRECTION::MOVING && pos_x >= 0)
+    if(movingLeft == DIRECTION::MOVING && pos_x >= 0)
         pos_x -= velocity;
-    else if(isMovingRight == DIRECTION::MOVING && pos_x <= 800 - getWidth())
+    else if(movingRight == DIRECTION::MOVING && pos_x <= 800 - getWidth())
         pos_x += velocity;
-    if(isMovingUp == DIRECTION::MOVING && pos_y >= 0)
+    if(movingUp == DIRECTION::MOVING && pos_y >= 0)
         pos_y -= velocity;
-    else if(isMovingDown == DIRECTION::MOVING && pos_y <= 600 - getHeight())
+    else if(movingDown == DIRECTION::MOVING && pos_y <= 600 - getHeight())
         pos_y += velocity;
 
     setPosition(pos_x, pos_y);
@@ -28,32 +33,38 @@ void GraphicalEntity::makeStep() {
 void GraphicalEntity::changeDirection(int direction) {
     switch(direction) {
         case DIRECTION::LEFT:
-            if(isMovingRight) isMovingRight = DIRECTION::HELD;
-            isMovingLeft = DIRECTION::MOVING;
+            if(movingRight) movingRight = DIRECTION::HELD;
+            movingLeft = DIRECTION::MOVING;
             break;
         case DIRECTION::RIGHT:
-            if(isMovingLeft) isMovingLeft = DIRECTION::HELD;
-            isMovingRight = DIRECTION::MOVING;
+            if(movingLeft) movingLeft = DIRECTION::HELD;
+            movingRight = DIRECTION::MOVING;
             break;
         case DIRECTION::UP:
-            if(isMovingDown) isMovingDown = DIRECTION::HELD;
-            isMovingUp = DIRECTION::MOVING;
+            if(movingDown) movingDown = DIRECTION::HELD;
+            movingUp = DIRECTION::MOVING;
             break;
         case DIRECTION::DOWN:
-            if(isMovingUp) isMovingUp = DIRECTION::HELD;
-            isMovingDown = DIRECTION::MOVING;
+            if(movingUp) movingUp = DIRECTION::HELD;
+            movingDown = DIRECTION::MOVING;
             break;
     }
 }
 
 void GraphicalEntity::resetDirection(int direction) {
     if(direction == DIRECTION::LEFT) {
-        isMovingLeft = DIRECTION::STOP;
-        if(isMovingRight == DIRECTION::HELD) isMovingRight = DIRECTION::MOVING;
+        movingLeft = DIRECTION::STOP;
+        if(movingRight == DIRECTION::HELD) movingRight = DIRECTION::MOVING;
     }
     else if(direction == DIRECTION::RIGHT) {
-        isMovingRight = DIRECTION::STOP;
-        if(isMovingLeft == DIRECTION::HELD) isMovingLeft = DIRECTION::MOVING;
+        movingRight = DIRECTION::STOP;
+        if(movingLeft == DIRECTION::HELD) movingLeft = DIRECTION::MOVING;
     }
 }
 
+void GraphicalEntity::update() {
+    makeStep();
+}
+
+float GraphicalEntity::getWidth() {return getTexture()->getSize().x;};
+float GraphicalEntity::getHeight() {return getTexture()->getSize().y;}

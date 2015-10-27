@@ -1,5 +1,6 @@
 #pragma once
 
+#include <list>
 #include "Engine/GraphicalEntity.h"
 
 class GameplayScene;
@@ -7,12 +8,14 @@ class Platform;
 
 class Ball : public GraphicalEntity {
 private:
-    void wallCollision();
-    void platformCollision(GraphicalEntity *platform);
+    std::list<GraphicalEntity*> collisionList;
+
 public:
     Ball(Scene *scene, const sf::Texture &texture);
-    int update();
+    void update();
+    void addCollisionMaker(GraphicalEntity* ge);
 
-    GraphicalEntity* colisionMaker;
-
+private:
+    void detectCollision(GraphicalEntity *ge);
+    void wallCollision();
 };

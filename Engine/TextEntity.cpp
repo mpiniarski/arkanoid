@@ -1,4 +1,5 @@
 #include "TextEntity.h"
+#include "Scene.h"
 
 using namespace std;
 
@@ -6,7 +7,6 @@ TextEntity::TextEntity(Scene *scene, string context, const sf::Font &font) : Ent
     setPosition(0,0);
 }
 
-int TextEntity::draw() {
+void TextEntity::draw() {
     scene->drawOnWindow(*this);
-    return 0;
 }

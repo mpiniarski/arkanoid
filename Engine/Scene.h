@@ -1,48 +1,50 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <unordered_map>
 #include <list>
 
-#include "ResourceManager.h"
 #include "Game.h"
+#include "ResourceManager.h"
+#include "Entity.h"
+#include "GraphicalEntity.h"
+#include "TextEntity.h"
 
-class TextEntity;
-class GraphicalEntity;
-class Entity;
 
 class Scene{
 private:
+    std::list<Entity*> EntityList;
+    std::map<std::string,GraphicalEntity*> GraphicalEntityMap;
+    std::map<std::string,TextEntity*> TextEntityMap;
 
 protected:
-    std::string name;
     Game *game;
-
-    void initialize();
-
-    std::list<Entity*> EntityList;
-
-    void uploadResources();
+    ResourceManager resourceManager;
 
 public:
-    Scene(std::string name, Game *game);
+    Scene(Game *game);
     void run();
-    ResourceManager resourceManager;
-    void addEntity(Entity *entity);
 
     void drawOnWindow(GraphicalEntity &drawable);
     void drawOnWindow(TextEntity &drawable);
 
-private:
-    void renderWindow();
-    void updateEntities();
+protected:
+    void initialize();
+    void addEntity(Entity *entity);
 
-    virtual void createEntities();
-    virtual void handleEvents();
+private:
+    void uploadResources();
     virtual void uploadTextures();
     virtual void uploadFonts();
+//    virtual void uploadSoundBuffers();
 
+    virtual void createEntities();
+
+    virtual void handleEvents();
+
+    void updateEntities();
+
+    void renderWindow();
 };
 
 

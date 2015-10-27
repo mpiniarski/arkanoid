@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Engine/Scene.h"
 #include "Platform.h"
 #include "Ball.h"
 
+#include "Engine/Scene.h"
+
 
 class GameplayScene : public Scene {
-public:
-    GameplayScene(const std::string &name, Game *game);
-
+private:
     Platform *platform;
     Ball *ball;
-
+public:
+    GameplayScene(Game *game);
+private:
     void uploadTextures() override;
     void createEntities() override;
     void handleEvents() override;

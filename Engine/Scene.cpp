@@ -1,16 +1,10 @@
 #include "Scene.h"
 
-#include "Game.h"
-#include "Entity.h"
-#include "GraphicalEntity.h"
-#include "TextEntity.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 
 using namespace std;
 
-Scene::Scene(string name, Game *game) {
-    this->name = name;
+Scene::Scene(Game *game) {
     this->game = game;
 }
 
@@ -40,7 +34,7 @@ void Scene::addEntity(Entity *entity) {
 void Scene::run(){
     sf::Clock clock;
     float timeSinceLastRender = 0.0;
-    double timePerFrame =  (1.0 / game->FPS);
+    double timePerFrame =  (1.0 / game->getFPS() );
     cout<<timePerFrame;
     bool render = true;
 

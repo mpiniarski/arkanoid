@@ -1,9 +1,6 @@
 #include "MenuScene.h"
-#include "Engine/TextEntity.h"
-#include "Platform.h"
-#include "Ball.h"
 
-MenuScene::MenuScene(const std::string &name, Game *game) : Scene(name, game) {
+MenuScene::MenuScene(Game *game) : Scene(game) {
     initialize();
     chosenOption = OPTION::NEWGAME;
     markOption();
@@ -55,11 +52,9 @@ void MenuScene::handleEvents() {
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down ) {
             changeOption(DIRECTION::DOWN);
-            markOption();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up ) {
             changeOption(DIRECTION::UP);
-            markOption();
         }
         else break;
     }
@@ -68,6 +63,7 @@ void MenuScene::handleEvents() {
 void MenuScene::changeOption(int direction) {
     if(direction == DIRECTION::DOWN && chosenOption <= OPTION::EXIT) chosenOption++;
     else if(direction == DIRECTION::UP && chosenOption >= OPTION::NEWGAME) chosenOption--;
+    markOption();
 }
 
 void MenuScene::markOption() {
