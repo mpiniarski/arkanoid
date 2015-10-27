@@ -3,17 +3,10 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include "Entity.h"
 
-namespace DIRECTION {
-    enum { UP, DOWN, LEFT, RIGHT };
-    enum { STOP, MOVING, HELD };
-};
-
 class GraphicalEntity : public Entity, public sf::Sprite {
 protected:
-    int movingRight;
-    int movingLeft;
-    int movingUp;
-    int movingDown;
+    int movingHorizontal;
+    int movingVertical;
     double velocity;
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);

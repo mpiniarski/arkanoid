@@ -1,4 +1,5 @@
 #include "GameplayScene.h"
+#include <SFML/Graphics.hpp>
 
 
 GameplayScene::GameplayScene(Game *game): Scene(game) {
@@ -32,17 +33,27 @@ void GameplayScene::handleEvents() {
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
             game->Window.close();
         }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left ) {
-            platform->changeDirection(DIRECTION::LEFT);
+        else if( event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Left) {
+                platform->changeDirection(DIRECTION::LEFT);
+                isKeyHeld[DIRECTION::LEFT] = true;
+            }
+            else if (event.key.code == sf::Keyboard::Right) {
+                platform->changeDirection(DIRECTION::RIGHT);
+                isKeyHeld[DIRECTION::RIGHT] = true;
+            }
         }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right ) {
-            platform->changeDirection(DIRECTION::RIGHT);
-        }
-        else if( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Left ) {
-            platform->resetDirection(DIRECTION::LEFT);
-        }
-        else if( event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Right ) {
-            platform->resetDirection(DIRECTION::RIGHT);
+        else if( event.type == sf::Event::KeyReleased ) {
+            if( event.key.code == sf::Keyboard::Left ) {
+                platform->resetDirection(DIRECTION::LEFT);
+                isKeyHeld[DIRECTION::LEFT] = false;
+                if (isKeyHeld[DIRECTION::RIGHT]) platform->changeDirection(DIRECTION::RIGHT);
+            }
+            else if( event.key.code == sf::Keyboard::Right ) {
+                platform->resetDirection(DIRECTION::RIGHT);
+                isKeyHeld[DIRECTION::RIGHT] = false;
+                if (isKeyHeld[DIRECTION::LEFT]) platform->changeDirection(DIRECTION::LEFT);
+            }
         }
         else break;
     }

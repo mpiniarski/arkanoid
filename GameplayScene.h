@@ -8,6 +8,7 @@
 
 class GameplayScene : public Scene {
 private:
+    bool isKeyHeld[4];
     Platform *platform;
     Ball *ball;
 public:

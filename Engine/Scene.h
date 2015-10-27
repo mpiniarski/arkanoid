@@ -6,10 +6,14 @@
 
 #include "Game.h"
 #include "ResourceManager.h"
-#include "Entity.h"
-#include "GraphicalEntity.h"
-#include "TextEntity.h"
 
+namespace DIRECTION {
+    enum { UP, DOWN, LEFT, RIGHT };
+};
+
+class Entity;
+class GraphicalEntity;
+class TextEntity;
 
 class Scene{
 private:
@@ -18,8 +22,8 @@ private:
     std::map<std::string,TextEntity*> TextEntityMap;
 
 protected:
-    Game *game;
     ResourceManager resourceManager;
+    Game *game;
 
 public:
     Scene(Game *game);
@@ -27,6 +31,9 @@ public:
 
     void drawOnWindow(GraphicalEntity &drawable);
     void drawOnWindow(TextEntity &drawable);
+
+    int getWindowWidth();
+    int getWindowHeight();
 
 protected:
     void initialize();

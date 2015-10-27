@@ -1,6 +1,12 @@
 #include "Scene.h"
 
+#include "Entity.h"
+#include "GraphicalEntity.h"
+#include "TextEntity.h"
+#include <SFML/Graphics.hpp>
+
 #include <iostream>
+
 
 using namespace std;
 
@@ -80,3 +86,6 @@ void Scene::drawOnWindow(GraphicalEntity &drawable) {
 void Scene::drawOnWindow(TextEntity &drawable) {
     game->Window.draw(drawable);
 }
+
+int Scene::getWindowWidth() { return game->getWindowWidth();}
+int Scene::getWindowHeight() { return game->getWindowHeight();}

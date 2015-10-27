@@ -16,7 +16,7 @@ public:
     Game(std::string title, int width, int height);
     void launchScene(Scene* scene);
     int getWindowWidth() { return Window.getSize().x;}
-    int getWindowHeight() { return Window.getSize().x;}
+    int getWindowHeight() { return Window.getSize().y;}
     float getFPS() { return FPS;}
 
 };

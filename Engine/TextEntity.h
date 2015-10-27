@@ -13,6 +13,5 @@ public:
 
     float getWidth() {return getLocalBounds().width;};
     float getHeight() {return getLocalBounds().height;}
-
 };
 

@@ -3,10 +3,8 @@
 
 GraphicalEntity::GraphicalEntity(Scene *scene, const sf::Texture &texture) : Entity(scene), Sprite(texture)
 {
-    movingUp = DIRECTION::STOP;
-    movingDown = DIRECTION::STOP;
-    movingRight = DIRECTION::STOP;
-    movingLeft = DIRECTION::STOP;
+    movingHorizontal = 0;
+    movingVertical = 0;
     velocity = 0;
     setPosition(0,0);
 }
@@ -18,47 +16,46 @@ void GraphicalEntity::draw() {
 void GraphicalEntity::makeStep() {
     float pos_x = getPosition().x;
     float pos_y = getPosition().y;
-    if(movingLeft == DIRECTION::MOVING && pos_x >= 0)
-        pos_x -= velocity;
-    else if(movingRight == DIRECTION::MOVING && pos_x <= 800 - getWidth())
-        pos_x += velocity;
-    if(movingUp == DIRECTION::MOVING && pos_y >= 0)
-        pos_y -= velocity;
-    else if(movingDown == DIRECTION::MOVING && pos_y <= 600 - getHeight())
-        pos_y += velocity;
-
+    pos_x += movingHorizontal/100 * velocity;
+    pos_y += movingVertical/100 * velocity;
+    if (pos_x<=0) pos_x = 0;
+    else if (pos_x+getWidth() >= scene->getWindowWidth()) pos_x = scene->getWindowWidth() - getWidth();
+    if (pos_y<=0) pos_y = 0;
+    else if (pos_y+getHeight() >= scene->getWindowHeight()) pos_y = scene->getWindowHeight() - getHeight();
     setPosition(pos_x, pos_y);
 }
 
 void GraphicalEntity::changeDirection(int direction) {
     switch(direction) {
         case DIRECTION::LEFT:
-            if(movingRight) movingRight = DIRECTION::HELD;
-            movingLeft = DIRECTION::MOVING;
+            movingHorizontal = -100;
             break;
         case DIRECTION::RIGHT:
-            if(movingLeft) movingLeft = DIRECTION::HELD;
-            movingRight = DIRECTION::MOVING;
+            movingHorizontal = 100;
             break;
         case DIRECTION::UP:
-            if(movingDown) movingDown = DIRECTION::HELD;
-            movingUp = DIRECTION::MOVING;
+            movingVertical = -100;
             break;
         case DIRECTION::DOWN:
-            if(movingUp) movingUp = DIRECTION::HELD;
-            movingDown = DIRECTION::MOVING;
+            movingVertical = 100;
             break;
     }
 }
 
 void GraphicalEntity::resetDirection(int direction) {
-    if(direction == DIRECTION::LEFT) {
-        movingLeft = DIRECTION::STOP;
-        if(movingRight == DIRECTION::HELD) movingRight = DIRECTION::MOVING;
-    }
-    else if(direction == DIRECTION::RIGHT) {
-        movingRight = DIRECTION::STOP;
-        if(movingLeft == DIRECTION::HELD) movingLeft = DIRECTION::MOVING;
+    switch(direction) {
+        case DIRECTION::LEFT:
+            movingHorizontal = 0;
+            break;
+        case DIRECTION::RIGHT:
+            movingHorizontal = 0;
+            break;
+        case DIRECTION::UP:
+            movingVertical = -0;
+            break;
+        case DIRECTION::DOWN:
+            movingVertical = 0;
+            break;
     }
 }
 
