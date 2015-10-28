@@ -11,7 +11,7 @@ protected:
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);
 
-    void draw() ;
+    void draw();
     virtual void update() ;
 
     float getWidth();

@@ -21,8 +21,7 @@ private:
     void changeOption(int direction);
     void markOption();
 
-    void uploadTextures() override;
-    void uploadFonts() override;
+    void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
 };

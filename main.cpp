@@ -13,6 +13,5 @@ int main()
 //	MenuScene *scene = new MenuScene(&game);
 	scene->run();
 
-
 	return 111;
 }

@@ -1,5 +1,6 @@
 #include "Scene.h"
 
+
 #include "Entity.h"
 #include "GraphicalEntity.h"
 #include "TextEntity.h"
@@ -20,14 +21,6 @@ void Scene::initialize() {
 }
 
 void Scene::uploadResources() {
-    uploadTextures();
-    uploadFonts();
-}
-
-void Scene::uploadTextures() {
-}
-
-void Scene::uploadFonts() {
 }
 
 void Scene::createEntities() {
@@ -64,7 +57,6 @@ void Scene::handleEvents() {
 }
 
 void Scene::updateEntities() {
-
     for( auto &i : EntityList){
         i->update();
     }
@@ -79,13 +71,10 @@ void Scene::renderWindow() {
 }
 
 
-void Scene::drawOnWindow(GraphicalEntity &drawable) {
+void Scene::drawOnWindow(sf::Drawable &drawable) {
     game->Window.draw(drawable);
 }
 
-void Scene::drawOnWindow(TextEntity &drawable) {
-    game->Window.draw(drawable);
-}
 
 int Scene::getWindowWidth() { return game->getWindowWidth();}
 int Scene::getWindowHeight() { return game->getWindowHeight();}

@@ -6,14 +6,11 @@ MenuScene::MenuScene(Game *game) : Scene(game) {
     markOption();
 }
 
-void MenuScene::uploadTextures() {
-//    resourceManager.loadTextureFromFile("texture1","res/img/background3.jpg");
-}
-
-void MenuScene::uploadFonts() {
+void MenuScene::uploadResources() {
     resourceManager.loadFontFromFile("font1","res/font/8_bit_operator/8bitOperatorPlus8-Bold.ttf");
 //    resourceManager.loadFontFromFile("font1","res/font/pixcel/Pixcel.ttf");
 //    resourceManager.loadFontFromFile("font1","res/font/highscore_hero/HighscoreHero.ttf");
+//    resourceManager.loadTextureFromFile("texture1","res/img/background3.jpg");
 }
 
 void MenuScene::createEntities() {

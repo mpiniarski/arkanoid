@@ -2,7 +2,7 @@
 
 #include "Scene.h"
 
-class Entity {
+class Entity{
 protected:
     Scene *scene;
 public:

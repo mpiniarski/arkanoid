@@ -9,12 +9,14 @@
 class GameplayScene : public Scene {
 private:
     bool isKeyHeld[4];
+
     Platform *platform;
     Ball *ball;
+
 public:
     GameplayScene(Game *game);
 private:
-    void uploadTextures() override;
+    void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
 };

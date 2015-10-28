@@ -6,7 +6,7 @@ GameplayScene::GameplayScene(Game *game): Scene(game) {
     initialize();
 }
 
-void GameplayScene::uploadTextures() {
+void GameplayScene::uploadResources() {
     resourceManager.loadTextureFromFile("texture1","res/img/hostile_shot.png");
     resourceManager.loadTextureFromFile("texture2","res/img/ball.png");
 }

@@ -51,7 +51,7 @@ void GraphicalEntity::resetDirection(int direction) {
             movingHorizontal = 0;
             break;
         case DIRECTION::UP:
-            movingVertical = -0;
+            movingVertical = 0;
             break;
         case DIRECTION::DOWN:
             movingVertical = 0;

@@ -7,10 +7,10 @@ class Scene;
 
 class Game {
 private:
-    Scene* currentScene;
     float FPS;
 public:
     sf::RenderWindow Window;
+    Scene* currentScene;
 
 public:
     Game(std::string title, int width, int height);
@@ -18,6 +18,5 @@ public:
     int getWindowWidth() { return Window.getSize().x;}
     int getWindowHeight() { return Window.getSize().y;}
     float getFPS() { return FPS;}
-
 };
 
