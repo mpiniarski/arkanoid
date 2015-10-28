@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/TextEntity.h"
+#include "Engine/GraphicalEntity.h"
 
 #include "Engine/Scene.h"
 
@@ -10,10 +11,7 @@ namespace OPTION {
 
 class MenuScene : public Scene {
 private:
-    TextEntity *title;
-    TextEntity *new_game;
-    TextEntity *edit_map;
-    TextEntity *exit;
+    std::map<std::string,TextEntity*> TextEntityMap;
     int chosenOption;
 public:
     MenuScene(Game *game);

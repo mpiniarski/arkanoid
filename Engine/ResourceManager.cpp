@@ -5,7 +5,6 @@ using namespace std;
 void ResourceManager::loadTextureFromFile(string name, string filepath){
     sf::Texture *texture = new sf::Texture();
     texture->loadFromFile(filepath);
-    TextureMap.insert( {name,*texture});
     addTextureToMap(name,texture);
 }
 
@@ -21,7 +20,6 @@ sf::Texture &ResourceManager::getTextureFromMap(std::string name) {
 void ResourceManager::loadFontFromFile(string name, string filepath) {
     sf::Font *font = new sf::Font();
     font->loadFromFile(filepath);
-    FontMap.insert( {name,*font} );
     addFontToMap(name,font);
 }
 

@@ -1,4 +1,5 @@
 #include "MenuScene.h"
+#include <map>
 
 MenuScene::MenuScene(Game *game) : Scene(game) {
     initialize();
@@ -7,32 +8,40 @@ MenuScene::MenuScene(Game *game) : Scene(game) {
 }
 
 void MenuScene::uploadResources() {
+    resourceManager.loadTextureFromFile("texture1","res/img/menu_background.png");
     resourceManager.loadFontFromFile("font1","res/font/8_bit_operator/8bitOperatorPlus8-Bold.ttf");
 //    resourceManager.loadFontFromFile("font1","res/font/pixcel/Pixcel.ttf");
 //    resourceManager.loadFontFromFile("font1","res/font/highscore_hero/HighscoreHero.ttf");
-//    resourceManager.loadTextureFromFile("texture1","res/img/background3.jpg");
 }
 
 void MenuScene::createEntities() {
-    title = new TextEntity(this,"Arkanoid",resourceManager.getFontFromMap("font1"));
+    GraphicalEntity *bg = new GraphicalEntity(this, resourceManager.getTextureFromMap("texture1"));
+    bg->setPosition(0,0);
+    addEntity(bg);
+
+    TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("font1"));
     title->setCharacterSize(111);
-    title->setPosition((800 - title->getWidth()) / 2, (600 - title->getHeight())/9);
+    title->setPosition( (game->getWindowWidth() - title->getWidth())/2, (game->getWindowHeight() - title->getHeight())/9);
     addEntity(title);
+    TextEntityMap.insert( {"title",title} );
 
-    new_game = new TextEntity(this,"NEW GAME",resourceManager.getFontFromMap("font1"));
+    TextEntity *new_game = new TextEntity(this, "NEW GAME", resourceManager.getFontFromMap("font1"));
     new_game->setCharacterSize(40);
-    new_game->setPosition((800 - new_game->getWidth()) / 2, 2*(600 - new_game->getHeight())/5);
+    new_game->setPosition( (game->getWindowWidth() - new_game->getWidth())/2, 2*(game->getWindowHeight() - new_game->getHeight())/5);
     addEntity(new_game);
+    TextEntityMap.insert( {"new_game",new_game} );
 
-    edit_map = new TextEntity(this,"EDIT YOUR MAP",resourceManager.getFontFromMap("font1"));
+    TextEntity *edit_map = new TextEntity(this, "EDIT YOUR MAP", resourceManager.getFontFromMap("font1"));
     edit_map->setCharacterSize(40);
-    edit_map->setPosition((800 - edit_map->getWidth()) / 2, 3*(600 - edit_map->getHeight())/5);
+    edit_map->setPosition( (game->getWindowWidth() - edit_map->getWidth())/2, 3*(game->getWindowHeight() - edit_map->getHeight())/5);
     addEntity(edit_map);
+    TextEntityMap.insert( {"edit_map",edit_map} );
 
-    exit = new TextEntity(this,"EXIT",resourceManager.getFontFromMap("font1"));
+    TextEntity *exit = new TextEntity(this, "EXIT", resourceManager.getFontFromMap("font1"));
     exit->setCharacterSize(40);
-    exit->setPosition((800 - exit->getWidth()) / 2, 4*(600 - exit->getHeight())/5);
+    exit->setPosition( (game->getWindowWidth() - exit->getWidth())/2, 4*(game->getWindowHeight() - exit->getHeight())/5);
     addEntity(exit);
+    TextEntityMap.insert( {"exit",exit} );
 }
 
 void MenuScene::handleEvents() {
@@ -64,19 +73,23 @@ void MenuScene::changeOption(int direction) {
 }
 
 void MenuScene::markOption() {
+    auto new_game = TextEntityMap.find("new_game");
+    auto edit_map = TextEntityMap.find("edit_map");
+    auto exit = TextEntityMap.find("exit");
+
     if(chosenOption == OPTION::NEWGAME) {
-        new_game->setColor(sf::Color(255,0,0));
-        edit_map->setColor(sf::Color(255,255,255));
-        exit->setColor(sf::Color(255,255,255));
+        new_game->second->setColor(sf::Color(255,0,0));
+        edit_map->second->setColor(sf::Color(255,255,255));
+        exit->second->setColor(sf::Color(255,255,255));
     }
     else if(chosenOption == OPTION::EDITMAP) {
-        new_game->setColor(sf::Color(255,255,255));
-        edit_map->setColor(sf::Color(255,0,0));
-        exit->setColor(sf::Color(255,255,255));
+        new_game->second->setColor(sf::Color(255,255,255));
+        edit_map->second->setColor(sf::Color(255,0,0));
+        exit->second->setColor(sf::Color(255,255,255));
     }
     else if(chosenOption == OPTION::EXIT) {
-        new_game->setColor(sf::Color(255,255,255));
-        edit_map->setColor(sf::Color(255,255,255));
-        exit->setColor(sf::Color(255,0,0));
+        new_game->second->setColor(sf::Color(255,255,255));
+        edit_map->second->setColor(sf::Color(255,255,255));
+        exit->second->setColor(sf::Color(255,0,0));
     }
 }
