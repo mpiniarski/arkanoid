@@ -1,4 +1,5 @@
 #include "GameplayScene.h"
+#include "MenuScene.h"
 #include <SFML/Graphics.hpp>
 
 
@@ -31,7 +32,8 @@ void GameplayScene::handleEvents() {
             game->Window.close();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
-            game->Window.close();
+            MenuScene *menu_scene = new MenuScene(game);
+            game->launchScene(menu_scene);
         }
         else if( event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Left) {

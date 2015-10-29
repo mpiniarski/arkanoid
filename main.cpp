@@ -9,9 +9,8 @@ int main()
 {
 	Game game("Arkanoid by Asia and Marcin",800,600);
 
-//	GameplayScene *scene = new GameplayScene(&game);
 	MenuScene *scene = new MenuScene(&game);
-	scene->run();
+	game.launchScene(scene);
 
 	return 111;
 }

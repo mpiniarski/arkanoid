@@ -1,4 +1,5 @@
 #include "MenuScene.h"
+#include "GameplayScene.h"
 #include <map>
 
 MenuScene::MenuScene(Game *game) : Scene(game) {
@@ -53,6 +54,14 @@ void MenuScene::handleEvents() {
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
             game->Window.close();
         }
+        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::NEWGAME ) {
+            GameplayScene *gameplay_scene = new GameplayScene(game);
+            game->launchScene(gameplay_scene);
+        }
+//        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
+//            EditMapScene *editmap_scene = new EditMapScene(game);
+//            game->launchScene(editmap_scene);
+//        }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EXIT ) {
             game->Window.close();
         }
@@ -76,20 +85,22 @@ void MenuScene::markOption() {
     auto new_game = TextEntityMap.find("new_game");
     auto edit_map = TextEntityMap.find("edit_map");
     auto exit = TextEntityMap.find("exit");
+    sf::Color red = sf::Color(255,0,0);
+    sf::Color black = sf::Color(255,255,255);
 
     if(chosenOption == OPTION::NEWGAME) {
-        new_game->second->setColor(sf::Color(255,0,0));
-        edit_map->second->setColor(sf::Color(255,255,255));
-        exit->second->setColor(sf::Color(255,255,255));
+        new_game->second->setColor(red);
+        edit_map->second->setColor(black);
+        exit->second->setColor(black);
     }
     else if(chosenOption == OPTION::EDITMAP) {
-        new_game->second->setColor(sf::Color(255,255,255));
-        edit_map->second->setColor(sf::Color(255,0,0));
-        exit->second->setColor(sf::Color(255,255,255));
+        new_game->second->setColor(black);
+        edit_map->second->setColor(red);
+        exit->second->setColor(black);
     }
     else if(chosenOption == OPTION::EXIT) {
-        new_game->second->setColor(sf::Color(255,255,255));
-        edit_map->second->setColor(sf::Color(255,255,255));
-        exit->second->setColor(sf::Color(255,0,0));
+        new_game->second->setColor(black);
+        edit_map->second->setColor(black);
+        exit->second->setColor(red);
     }
 }
