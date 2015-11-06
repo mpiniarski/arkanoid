@@ -18,7 +18,8 @@ void GameplayScene::createEntities() {
     platform = entity;
     addEntity(entity);
 
-    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"));
+//    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"));
+    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"),entity);
     ball = entity2;
     ball->addCollisionMaker(platform);
     addEntity(entity2);

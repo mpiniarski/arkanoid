@@ -4,7 +4,7 @@
 using namespace std;
 
 Platform::Platform(Scene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {
-    setPosition(800/2, 600/2);
+    setPosition(800/2, 600 - this->getHeight());
     velocity = 6.0;
 }
 

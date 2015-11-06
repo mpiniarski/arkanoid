@@ -1,11 +1,21 @@
+#include <iostream>
 #include "Ball.h"
+#include "GameplayScene.h"
 
 using namespace std;
 
 Ball::Ball(Scene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {
     movingHorizontal = -100;
     movingVertical = 100;
-    velocity = 2.5;
+    velocity = 3.0;
+    this->platform = NULL;
+}
+
+Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, texture) {
+    movingHorizontal = -100;
+    movingVertical = 100;
+    velocity = 3.0;
+    this->platform = platform;
 }
 
 void Ball::wallCollision() {
@@ -18,36 +28,35 @@ void Ball::wallCollision() {
 }
 
 void Ball::detectCollision(GraphicalEntity *ge) {
-    if((getPosition().y + getHeight()) > (  ge->getPosition().y )
-       && (getPosition().y + getHeight()) < (ge->getPosition().y + ge->getHeight())
-       && (getPosition().x + getWidth()) > (ge->getPosition().x)
-       && (getPosition().x) < (ge->getPosition().x + ge->getWidth())) {
-        movingVertical = -100;
-    }
-    else if((getPosition().y) < (ge->getPosition().y + ge->getHeight())
-       && (getPosition().y) > (ge->getPosition().y)
-       && (getPosition().x + getWidth()) > (ge->getPosition().x)
-       && (getPosition().x) < (ge->getPosition().x + ge->getWidth())) {
-        movingVertical = 100;
-    }
-    else if((getPosition().x) < (ge->getPosition().x + ge->getWidth())
-            && (getPosition().x) > (ge->getPosition().x)
-            && (getPosition().y + getHeight()) > (ge->getPosition().y)
-            && (getPosition().y) < (ge->getPosition().y + ge->getHeight())) {
-        movingHorizontal = 100;
-    }
-    else if((getPosition().x + getWidth()) > (ge->getPosition().x)
-            && (getPosition().x + getWidth()) < (ge->getPosition().x + ge->getWidth())
-            && (getPosition().y + getHeight()) > (ge->getPosition().y)
-            && (getPosition().y) < (ge->getPosition().y + ge->getHeight())) {
-        movingHorizontal = -100;
+
+    float ballCenter = this->getPosition().x + this->getWidth()/2;
+    float platformCenter = ge->getPosition().x + ge->getWidth()/2;
+    float platformEnd = ge->getPosition().x + ge->getWidth();
+    float platformStart = ge->getPosition().x;
+
+    if(this->getPosition().y + this->getHeight() > ge->getPosition().y) {
+        if(ballCenter >= platformStart && ballCenter < platformCenter) {
+            movingHorizontal = (-1) * ((ballCenter - platformCenter) * 100)/(platformStart - platformCenter);
+            movingVertical = (-1) * sqrt((20000-(movingHorizontal*movingHorizontal)));
+//            movingVertical = (-1) * ((ballCenter - platformStart) * 100)/(platformCenter - platformStart);
+        }
+        else if(ballCenter >= platformCenter && ballCenter <= platformEnd) {
+            movingHorizontal = ((ballCenter - platformCenter) * 100)/(platformEnd - platformCenter);
+            movingVertical = (-1) * sqrt((20000-(movingHorizontal*movingHorizontal)));
+//            movingVertical = (-1) * ((ballCenter - platformEnd) * 100)/(platformCenter - platformEnd);
+        }
     }
 }
 
 void Ball::update() {
-    for(auto &i : collisionList){
-        detectCollision(i);
+    if(platform != NULL) {
+        if(this->getPosition().y + (this->getHeight()/2)  <= platform->getPosition().y + (this->getHeight()/2)) {
+            detectCollision(platform);
+        }
     }
+//    for(auto &i : collisionList){
+//        detectCollision(i);
+//    }
     wallCollision();
     makeStep();
 }

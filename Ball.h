@@ -9,9 +9,11 @@ class Platform;
 class Ball : public GraphicalEntity {
 private:
     std::list<GraphicalEntity*> collisionList;
+    Platform* platform;
 
 public:
     Ball(Scene *scene, const sf::Texture &texture);
+    Ball(Scene *scene, const sf::Texture &texture, Platform* platform);
     void update();
     void addCollisionMaker(GraphicalEntity* ge);
 

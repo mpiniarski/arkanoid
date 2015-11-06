@@ -5,8 +5,8 @@
 
 class GraphicalEntity : public Entity, public sf::Sprite {
 protected:
-    int movingHorizontal;
-    int movingVertical;
+    float movingHorizontal;
+    float movingVertical;
     double velocity;
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);
