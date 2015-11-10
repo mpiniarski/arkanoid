@@ -14,8 +14,11 @@ Ball::Ball(Scene *scene, const sf::Texture &texture) : GraphicalEntity( scene, t
 }
 
 Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, texture) {
-    movingHorizontal = sqrt(10000/2);
-    movingVertical = sqrt(10000/2);
+//    movingHorizontal = sqrt(10000/2);
+//    movingVertical = sqrt(10000/2);
+    setPosition(0,250);
+    movingHorizontal = 70;
+    movingVertical = 70;
     velocity = 6.0;
     this->platform = platform;
 }
@@ -31,9 +34,9 @@ void Ball::wallCollision() {
     }
 }
 
-void Ball::detectCollision(GraphicalEntity *ge) {
+void Ball::detectCollision(Platform *ge) {
 
-    float edge = 99.9;
+    float edge = 80;        //max MovingHorizontal
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
     float radius = this->getWidth()/2;
@@ -50,7 +53,7 @@ void Ball::detectCollision(GraphicalEntity *ge) {
         movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
     }
     /** AREA 2 **/
-    if(ballCenterHeight + radius > ge->getPosition().y) {
+    else if(ballCenterHeight + radius > ge->getPosition().y) {
         if(ballCenterWidth >= platformStart && ballCenterWidth < platformCenter) {
             movingHorizontal = (-1) * ((ballCenterWidth - platformCenter) * edge)/(platformStart - platformCenter);
             movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
@@ -61,7 +64,7 @@ void Ball::detectCollision(GraphicalEntity *ge) {
         }
     }
     /** AREA 3 **/
-    if((ballCenterWidth - radius/sqrt(2)) < platformEnd
+    else if((ballCenterWidth - radius/sqrt(2)) < platformEnd
             && ballCenterWidth + radius/sqrt(2)> platformEnd
             && ballCenterHeight + radius/sqrt(2) > ge->getPosition().y
             && ballCenterHeight - radius/sqrt(2)< ge->getPosition().y) {
@@ -69,28 +72,109 @@ void Ball::detectCollision(GraphicalEntity *ge) {
         movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
     }
     /** AREA 4 **/
-    if(ballCenterWidth + radius > platformStart
+    else if(ballCenterWidth + radius > platformStart
        && ballCenterWidth - radius < platformStart
        && ballCenterHeight > ge->getPosition().y) {
         movingHorizontal *= -1;
     }
     /** AREA 5 **/
-    if(ballCenterWidth - radius < platformEnd
+    else if(ballCenterWidth - radius < platformEnd
        && ballCenterWidth + radius > platformEnd
        && ballCenterHeight > ge->getPosition().y) {
         movingHorizontal *= -1;
     }
 }
 
+void Ball::detectCollision(GraphicalEntity *ge) {
+
+    float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
+    float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
+    float radius = this->getWidth()/2;
+    float geCenter = ge->getPosition().x + ge->getWidth()/2;
+    float geEnd = ge->getPosition().x + ge->getWidth();
+    float geStart = ge->getPosition().x;
+
+    /** AREA 1 **/
+    if((ballCenterWidth + radius/sqrt(2)) > geStart
+       && ballCenterWidth - radius/sqrt(2) < geStart
+       && ballCenterHeight + radius/sqrt(2) > ge->getPosition().y
+       && ballCenterHeight - radius/sqrt(2) < ge->getPosition().y) {
+        movingHorizontal *= -1;
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 2 **/
+    else if(ballCenterHeight + radius > ge->getPosition().y
+            && ballCenterHeight - radius < ge->getPosition().y
+            && ballCenterWidth >= geStart
+            && ballCenterWidth < geEnd) {
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 3 **/
+    else if((ballCenterWidth - radius/sqrt(2)) < geEnd
+            && ballCenterWidth + radius/sqrt(2) > geEnd
+            && ballCenterHeight + radius/sqrt(2) > ge->getPosition().y
+            && ballCenterHeight - radius/sqrt(2) < ge->getPosition().y) {
+        movingHorizontal *= -1;
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 4 **/
+    else if(ballCenterWidth + radius > geStart
+            && ballCenterWidth - radius < geStart
+            && ballCenterHeight > ge->getPosition().y
+            && ballCenterHeight < ge->getPosition().y + ge->getHeight()) {
+        movingHorizontal *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 5 **/
+    else if(ballCenterWidth - radius < geEnd
+            && ballCenterWidth + radius > geEnd
+            && ballCenterHeight > ge->getPosition().y
+            && ballCenterHeight < ge->getPosition().y + ge->getHeight()) {
+        movingHorizontal *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 6 **/
+    else if((ballCenterWidth + radius/sqrt(2)) > geStart
+            && ballCenterWidth - radius/sqrt(2) < geStart
+            && ballCenterHeight - radius/sqrt(2) < ge->getPosition().y + ge->getHeight()
+            && ballCenterHeight + radius/sqrt(2) > ge->getPosition().y + ge->getHeight()) {
+        movingHorizontal *= -1;
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 7 **/
+    else if(ballCenterHeight + radius > ge->getPosition().y + ge->getHeight()
+            && ballCenterHeight - radius < ge->getPosition().y + ge->getHeight()
+            && ballCenterWidth >= geStart
+            && ballCenterWidth < geEnd) {
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+        /** AREA 8 **/
+    else if((ballCenterWidth - radius/sqrt(2)) < geEnd
+            && ballCenterWidth + radius/sqrt(2) > geEnd
+            && ballCenterHeight + radius/sqrt(2) > ge->getPosition().y + ge->getHeight()
+            && ballCenterHeight - radius/sqrt(2) < ge->getPosition().y + ge->getHeight()) {
+        movingHorizontal *= -1;
+        movingVertical *= -1;
+        ge->manageCollision(this);
+    }
+}
+
 void Ball::update() {
     if(platform != NULL) {
-        if(this->getPosition().y + (this->getHeight()/2)  <= platform->getPosition().y + (this->getHeight()/2)) {
+        if(this->getPosition().y + (this->getHeight())  >= platform->getPosition().y) {
             detectCollision(platform);
         }
+        else {
+            for(auto &i : collisionList){
+                detectCollision(i);
+            }
+        }
     }
-//    for(auto &i : collisionList){
-//        detectCollision(i);
-//    }
     wallCollision();
     makeStep();
 }
@@ -98,3 +182,4 @@ void Ball::update() {
 void Ball::addCollisionMaker(GraphicalEntity *ge) {
     collisionList.push_back(ge);
 }
+
