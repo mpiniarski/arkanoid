@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Platform.h"
-#include "Ball.h"
 
 #include "Engine/Scene.h"
+
+class Ball;
+class Platform;
 
 
 class GameplayScene : public Scene {

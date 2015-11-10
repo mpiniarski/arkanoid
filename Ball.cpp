@@ -2,6 +2,8 @@
 #include "Ball.h"
 #include "GameplayScene.h"
 
+#include "Platform.h"
+
 using namespace std;
 
 Ball::Ball(Scene *scene, const sf::Texture &texture) : GraphicalEntity( scene, texture) {

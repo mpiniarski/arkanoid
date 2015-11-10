@@ -2,27 +2,40 @@
 #include "MenuScene.h"
 #include <SFML/Graphics.hpp>
 
+#include "Platform.h"
+#include "Ball.h"
+#include "Brick.h"
+
 
 GameplayScene::GameplayScene(Game *game): Scene(game) {
     initialize();
 }
 
 void GameplayScene::uploadResources() {
-    resourceManager.loadTextureFromFile("texture1","res/img/hostile_shot.png");
-    resourceManager.loadTextureFromFile("texture2","res/img/ball.png");
+    resourceManager.loadTextureFromFile("Platform","res/img/hostile_shot.png");
+    resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
+    resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
 }
 
 void GameplayScene::createEntities() {
 
-    Platform *entity = new Platform(this,resourceManager.getTextureFromMap("texture1"));
-    platform = entity;
-    addEntity(entity);
+    platform = new Platform(this,resourceManager.getTextureFromMap("Platform"));
+    addEntity(platform);
 
-//    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"));
-    Ball *entity2 = new Ball(this,resourceManager.getTextureFromMap("texture2"),entity);
-    ball = entity2;
-    ball->addCollisionMaker(platform);
-    addEntity(entity2);
+    ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
+    addEntity(ball);
+
+    Brick *brick;
+    for (int i=1; i<=10; i++){
+        for (int j=1; j<=5; j++){
+            brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+            brick->setPosition(brick->getWidth()*i,100+brick->getHeight()*j);
+            addEntity(brick);
+            ball->addCollisionMaker(brick);
+        }
+    }
+
+
 }
 
 void GameplayScene::handleEvents() {

@@ -24,6 +24,6 @@ set(SOURCE_FILES
     MenuScene.cpp
     MenuScene.h
     Platform.cpp
-    Platform.h)
+    Platform.h Brick.cpp Brick.h)
 
 add_executable(arkanoid ${SOURCE_FILES})
