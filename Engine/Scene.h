@@ -29,6 +29,7 @@ protected:
 
 public:
     Scene(Game *game);
+    virtual ~Scene();
     void run();
 
     void drawOnWindow(sf::Drawable &drawable);

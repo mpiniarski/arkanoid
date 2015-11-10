@@ -14,6 +14,8 @@ public:
 
 public:
     Game(std::string title, int width, int height);
+    ~Game();
+    void endGame();
     void launchScene(Scene* scene);
     int getWindowWidth() { return Window.getSize().x;}
     int getWindowHeight() { return Window.getSize().y;}

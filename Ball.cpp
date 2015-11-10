@@ -183,3 +183,6 @@ void Ball::addCollisionMaker(GraphicalEntity *ge) {
     collisionList.push_back(ge);
 }
 
+Ball::~Ball() {
+    collisionList.clear();
+}

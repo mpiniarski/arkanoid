@@ -7,6 +7,7 @@ class TextEntity : public Entity, public sf::Text {
 
 public:
     TextEntity(Scene *scene, std::string content, const sf::Font &font);
+    virtual ~TextEntity() {};
 
     void draw() override;
     void update() override { };

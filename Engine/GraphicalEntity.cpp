@@ -68,3 +68,4 @@ void GraphicalEntity::update() {
 
 float GraphicalEntity::getWidth() {return getTexture()->getSize().x;};
 float GraphicalEntity::getHeight() {return getTexture()->getSize().y;}
+

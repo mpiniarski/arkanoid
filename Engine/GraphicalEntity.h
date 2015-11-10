@@ -10,6 +10,7 @@ protected:
     double velocity;
 public:
     GraphicalEntity(Scene *scene, const sf::Texture &texture);
+    virtual ~GraphicalEntity() {};
 
     void draw();
     virtual void update() ;

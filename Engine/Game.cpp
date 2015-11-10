@@ -19,3 +19,11 @@ void Game::launchScene(Scene *scene) {
     currentScene = scene;
     currentScene->run();
 }
+
+Game::~Game() {
+    if (currentScene != NULL)
+        delete currentScene;
+}
+
+void Game::endGame() {
+}

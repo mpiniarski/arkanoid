@@ -37,12 +37,13 @@ void Scene::run(){
     cout<<timePerFrame;
     bool render = true;
 
-    while( game->Window.isOpen() )
+    while(game->Window.isOpen())
     {
         timeSinceLastRender += clock.restart().asSeconds();
         if(timeSinceLastRender >= timePerFrame) render = true;
 
         handleEvents();
+        if (!game->Window.isOpen()) break;
 
         if(render){
             updateEntities();
@@ -78,3 +79,9 @@ void Scene::drawOnWindow(sf::Drawable &drawable) {
 
 int Scene::getWindowWidth() { return game->getWindowWidth();}
 int Scene::getWindowHeight() { return game->getWindowHeight();}
+
+Scene::~Scene() {
+   for (auto i : EntityList){
+       delete i;
+   }
+}

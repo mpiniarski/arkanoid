@@ -42,9 +42,6 @@ void GameplayScene::handleEvents() {
     sf::Event event;
     while( game->Window.pollEvent( event ) )
     {
-        if( event.type == sf::Event::Closed ) {
-            game->Window.close();
-        }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
             gameOver();
         }

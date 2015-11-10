@@ -14,6 +14,7 @@ private:
 public:
     Ball(Scene *scene, const sf::Texture &texture);
     Ball(Scene *scene, const sf::Texture &texture, Platform* platform);
+    ~Ball();
     void update();
     void addCollisionMaker(GraphicalEntity* ge);
 
