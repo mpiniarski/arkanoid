@@ -1,5 +1,6 @@
 #include "GraphicalEntity.h"
 #include "Scene.h"
+#include "../MenuScene.h"
 
 GraphicalEntity::GraphicalEntity(Scene *scene, const sf::Texture &texture) : Entity(scene), Sprite(texture)
 {
@@ -18,10 +19,12 @@ void GraphicalEntity::makeStep() {
     float pos_y = getPosition().y;
     pos_x += movingHorizontal/100 * velocity;
     pos_y += movingVertical/100 * velocity;
+
     if (pos_x<=0) pos_x = 0;
     else if (pos_x+getWidth() >= scene->getWindowWidth()) pos_x = scene->getWindowWidth() - getWidth();
     if (pos_y<=0) pos_y = 0;
-    else if (pos_y+getHeight() >= scene->getWindowHeight()) pos_y = scene->getWindowHeight() - getHeight();
+    else if (pos_y >= scene->getWindowHeight()) pos_y = scene->getWindowHeight();
+
     setPosition(pos_x, pos_y);
 }
 

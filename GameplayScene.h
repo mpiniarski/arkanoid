@@ -16,6 +16,7 @@ private:
 
 public:
     GameplayScene(Game *game);
+    void gameOver();
 private:
     void uploadResources() override;
     void createEntities() override;
