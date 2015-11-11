@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "GameplayScene.h"
+#include "EditMapScene.h"
 #include <map>
 
 MenuScene::MenuScene(Game *game) : Scene(game) {
@@ -58,10 +59,10 @@ void MenuScene::handleEvents() {
             GameplayScene *gameplay_scene = new GameplayScene(game);
             game->launchScene(gameplay_scene);
         }
-//        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
-//            EditMapScene *editmap_scene = new EditMapScene(game);
-//            game->launchScene(editmap_scene);
-//        }
+        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
+            EditMapScene *editmap_scene = new EditMapScene(game);
+            game->launchScene(editmap_scene);
+        }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EXIT ) {
             game->Window.close();
         }
