@@ -1,5 +1,6 @@
 #include "EditMapScene.h"
 #include "Brick.h"
+#include "MenuScene.h"
 
 EditMapScene::EditMapScene(Game *game) : Scene(game) {
     initialize();
@@ -30,11 +31,8 @@ void EditMapScene::createEntities() {
 void EditMapScene::handleEvents() {
     sf::Event event;
     while( game->Window.pollEvent( event ) ) {
-        if( event.type == sf::Event::Closed ) {
-            game->Window.close();
-        }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
-            game->Window.close();
+            exitScene(new MenuScene(game));
         }
         else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right ) {
             moveEntity(brickCursor, DIRECTION::RIGHT);
@@ -90,5 +88,14 @@ void EditMapScene::moveEntity(Brick *brickCursor, int direction) {
         float minHeight = height*16;
         if(pos_y >= minHeight) pos_y = minHeight - height;
         brickCursor->setPosition(pos_x, pos_y);
+    }
+}
+
+void EditMapScene::exitScene(Scene *nextScene) {
+    if(nextScene != NULL){
+        Scene::exitScene(nextScene);
+    }
+    else{
+        Scene::exitScene(new MenuScene(game));
     }
 }

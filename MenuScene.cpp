@@ -50,21 +50,20 @@ void MenuScene::handleEvents() {
     sf::Event event;
     while( game->Window.pollEvent( event ) ) {
         if( event.type == sf::Event::Closed ) {
-            game->Window.close();
+            exitScene();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
-            game->Window.close();
+            exitScene();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::NEWGAME ) {
-            GameplayScene *gameplay_scene = new GameplayScene(game);
-            game->launchScene(gameplay_scene);
+            exitScene(new GameplayScene(game));
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
             EditMapScene *editmap_scene = new EditMapScene(game);
             game->launchScene(editmap_scene);
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EXIT ) {
-            game->Window.close();
+            exitScene();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down ) {
             changeOption(DIRECTION::DOWN);

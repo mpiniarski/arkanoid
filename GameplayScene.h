@@ -16,9 +16,11 @@ private:
 
 public:
     GameplayScene(Game *game);
-    void gameOver();
 private:
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
+
+
+    void exitScene(Scene* nextScene = NULL) override;
 };

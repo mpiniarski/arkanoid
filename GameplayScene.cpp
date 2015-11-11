@@ -43,7 +43,7 @@ void GameplayScene::handleEvents() {
     while( game->Window.pollEvent( event ) )
     {
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
-            gameOver();
+            exitScene(new MenuScene(game));
         }
         else if( event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Left) {
@@ -71,7 +71,12 @@ void GameplayScene::handleEvents() {
     }
 }
 
-void GameplayScene::gameOver() {
-    MenuScene *menu_scene = new MenuScene(game);
-    game->launchScene(menu_scene);
+void GameplayScene::exitScene(Scene* nextScene){
+    if(nextScene != NULL){
+        Scene::exitScene(nextScene);
+    }
+    else{
+        Scene::exitScene(new MenuScene(game));
+    }
 }
+

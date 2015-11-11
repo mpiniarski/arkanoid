@@ -13,11 +13,13 @@ Game::Game(string title, int width, int height):
 }
 
 void Game::launchScene(Scene *scene) {
-    if(currentScene != NULL){
-       delete currentScene;
+    if(scene != NULL){
+        if(currentScene != NULL){
+            delete currentScene;
+        }
+        currentScene = scene;
+        currentScene->run();
     }
-    currentScene = scene;
-    currentScene->run();
 }
 
 Game::~Game() {

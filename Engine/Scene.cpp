@@ -13,6 +13,8 @@ using namespace std;
 
 Scene::Scene(Game *game) {
     this->game = game;
+    this->endScene = false;
+    this->nextScene = NULL;
 }
 
 void Scene::initialize() {
@@ -34,16 +36,15 @@ void Scene::run(){
     sf::Clock clock;
     float timeSinceLastRender = 0.0;
     double timePerFrame =  (1.0 / game->getFPS() );
-    cout<<timePerFrame;
     bool render = true;
 
-    while(game->Window.isOpen())
+    while(!endScene)
     {
         timeSinceLastRender += clock.restart().asSeconds();
         if(timeSinceLastRender >= timePerFrame) render = true;
 
         handleEvents();
-        if (!game->Window.isOpen()) break;
+//        if (!game->Window.isOpen()) break;
 
         if(render){
             updateEntities();
@@ -52,6 +53,7 @@ void Scene::run(){
             render = false;
         }
     }
+    game->launchScene(nextScene);
 }
 
 void Scene::handleEvents() {
@@ -84,4 +86,11 @@ Scene::~Scene() {
    for (auto i : EntityList){
        delete i;
    }
+}
+
+void Scene::exitScene(Scene *nextScene) {
+    this->endScene = true;
+    if (nextScene != NULL){
+        this->nextScene = nextScene;
+    }
 }

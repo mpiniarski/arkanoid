@@ -21,6 +21,8 @@ class TextEntity;
 class Scene{
 private:
     std::list<Entity*> EntityList;
+    Scene* nextScene;
+    bool endScene;
 
 protected:
     ResourceManager resourceManager;
@@ -36,6 +38,8 @@ public:
 
     int getWindowWidth();
     int getWindowHeight();
+
+    virtual void exitScene(Scene* nextScene = NULL);
 
 protected:
     void initialize();

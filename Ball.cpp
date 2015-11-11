@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Ball.h"
 #include "GameplayScene.h"
+#include "MenuScene.h"
 
 #include "Platform.h"
 
@@ -30,7 +31,7 @@ void Ball::wallCollision() {
     if(pos_x<=0 || pos_x+getWidth() >= scene->getWindowWidth() ) movingHorizontal *= -1;
     if(pos_y<=0) movingVertical *= -1;
     if(pos_y >= scene->getWindowHeight()) {
-        ((GameplayScene *) scene)->gameOver();
+        scene->exitScene();
     }
 }
 
