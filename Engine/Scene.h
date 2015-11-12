@@ -44,6 +44,7 @@ public:
 protected:
     void initialize();
     void addEntity(Entity *entity);
+    void removeEntity(Entity *entity);
 
 private:
     virtual void uploadResources();

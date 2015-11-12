@@ -2,17 +2,18 @@
 
 #include "Scene.h"
 
+
 class Entity{
 protected:
-    Scene *scene;
 public:
-    Entity(Scene *scene);
+    Scene *scene;
+    Entity(Scene *scene, std::string entityType);
     virtual ~Entity() {};
 
     virtual void update() = 0;
     virtual void draw() = 0;
 
+    const std::string type;
     bool isBroken;
-
 };
 

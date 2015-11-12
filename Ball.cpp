@@ -7,9 +7,10 @@
 
 using namespace std;
 
-Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, texture) {
-//    movingHorizontal = sqrt(10000/2);
-//    movingVertical = sqrt(10000/2);
+
+Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, "Ball", texture) {
+    movingHorizontal = sqrt(10000/2);
+    movingVertical = sqrt(10000/2);
     setPosition(0,250);
     movingHorizontal = 70;
     movingVertical = 70;

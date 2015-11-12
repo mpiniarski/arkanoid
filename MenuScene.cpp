@@ -17,7 +17,7 @@ void MenuScene::uploadResources() {
 }
 
 void MenuScene::createEntities() {
-    GraphicalEntity *bg = new GraphicalEntity(this, resourceManager.getTextureFromMap("texture1"));
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("texture1"));
     bg->setPosition(0,0);
     addEntity(bg);
 
@@ -56,7 +56,7 @@ void MenuScene::handleEvents() {
             exitScene();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::NEWGAME ) {
-            exitScene(new GameplayScene(game));
+            exitScene(new GameplayScene(game,1));
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
             EditMapScene *editmap_scene = new EditMapScene(game);

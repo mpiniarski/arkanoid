@@ -31,6 +31,9 @@ void Scene::createEntities() {
 void Scene::addEntity(Entity *entity) {
     EntityList.push_back(entity);
 }
+void Scene::removeEntity(Entity *entity) {
+    EntityList.remove(entity);
+}
 
 void Scene::run(){
     sf::Clock clock;
@@ -103,3 +106,4 @@ void Scene::exitScene(Scene *nextScene) {
         this->nextScene = nextScene;
     }
 }
+

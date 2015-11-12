@@ -9,11 +9,13 @@
 
 class EditMapScene : public Scene {
 private:
-    Platform* platform;
     Brick *brickCursor;
+    Ball *ball;
+    std::list<Entity*>mapEntities;
 public:
     EditMapScene(Game *game);
 private:
+    void loadMap();
 
     void moveEntity(Brick* brickCursor, int direction);
     void uploadResources() override;

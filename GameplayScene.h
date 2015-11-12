@@ -15,7 +15,8 @@ private:
     Ball *ball;
 
 public:
-    GameplayScene(Game *game);
+    GameplayScene(Game *game, int levelNumber);
+    GameplayScene(Game *game, std::list<Entity*> entityList);
 private:
     void uploadResources() override;
     void createEntities() override;

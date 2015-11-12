@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "../MenuScene.h"
 
-GraphicalEntity::GraphicalEntity(Scene *scene, const sf::Texture &texture) : Entity(scene), Sprite(texture)
+GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
 {
     movingHorizontal = 0;
     movingVertical = 0;

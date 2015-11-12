@@ -1,6 +1,7 @@
 #include "EditMapScene.h"
 #include "Brick.h"
 #include "MenuScene.h"
+#include "GameplayScene.h"
 
 EditMapScene::EditMapScene(Game *game) : Scene(game) {
     initialize();
@@ -9,11 +10,15 @@ EditMapScene::EditMapScene(Game *game) : Scene(game) {
 void EditMapScene::uploadResources() {
     resourceManager.loadTextureFromFile("Platform","res/img/hostile_shot.png");
     resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
+    resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
 }
 
 void EditMapScene::createEntities() {
-    platform = new Platform(this,resourceManager.getTextureFromMap("Platform"));
+    Platform* platform =new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
+    mapEntities.push_back(platform);
+    ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
+    mapEntities.push_back(ball);
 
 //    Brick *brick;
     for (int i=1; i<=1; i++){
@@ -31,30 +36,36 @@ void EditMapScene::createEntities() {
 void EditMapScene::handleEvents() {
     sf::Event event;
     while( game->Window.pollEvent( event ) ) {
-        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
-            exitScene(new MenuScene(game));
+        if( event.type == sf::Event::KeyPressed ) {
+            if ( event.key.code == sf::Keyboard::Escape ) {
+                exitScene(new MenuScene(game));
+            }
+            else if( event.key.code == sf::Keyboard::Right ) {
+                moveEntity(brickCursor, DIRECTION::RIGHT);
+            }
+            else if( event.key.code == sf::Keyboard::Left ) {
+                moveEntity(brickCursor, DIRECTION::LEFT);
+            }
+            else if( event.key.code == sf::Keyboard::Up ) {
+                moveEntity(brickCursor, DIRECTION::UP);
+            }
+            else if( event.key.code == sf::Keyboard::Down ) {
+                moveEntity(brickCursor, DIRECTION::DOWN);
+            }
+            else if( event.key.code == sf::Keyboard::Return ) {
+                Brick* brick;
+                brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+                sf::Color color = brick->getColor();
+                brick->setColor(sf::Color(color.r,color.g, color.b,255));
+                brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
+                addEntity(brick);
+                ball->addCollisionMaker(brick);
+                mapEntities.push_back(brick);
+            }
+            else if( event.key.code == sf::Keyboard::P ) {
+                loadMap();
+            }
         }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right ) {
-            moveEntity(brickCursor, DIRECTION::RIGHT);
-        }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left ) {
-            moveEntity(brickCursor, DIRECTION::LEFT);
-        }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up ) {
-            moveEntity(brickCursor, DIRECTION::UP);
-        }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down ) {
-            moveEntity(brickCursor, DIRECTION::DOWN);
-        }
-        else if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return ) {
-            Brick* brick;
-            brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-            sf::Color color = brick->getColor();
-            brick->setColor(sf::Color(color.r,color.g, color.b,255));
-            brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
-            addEntity(brick);
-        }
-        else break;
     }
 }
 
@@ -98,4 +109,13 @@ void EditMapScene::exitScene(Scene *nextScene) {
     else{
         Scene::exitScene(new MenuScene(game));
     }
+}
+
+void EditMapScene::loadMap() {
+    GameplayScene* gameplayScene = new GameplayScene(game, mapEntities);
+    for(auto i : mapEntities){
+        removeEntity(i);
+        i->scene = gameplayScene;
+    }
+    exitScene(gameplayScene);
 }

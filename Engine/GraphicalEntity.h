@@ -9,7 +9,7 @@ protected:
     float movingVertical;
     double velocity;
 public:
-    GraphicalEntity(Scene *scene, const sf::Texture &texture);
+    GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture);
     virtual ~GraphicalEntity() {};
 
     void draw();
