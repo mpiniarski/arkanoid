@@ -60,8 +60,17 @@ void Scene::handleEvents() {
 }
 
 void Scene::updateEntities() {
-    for( auto &i : EntityList){
-        i->update();
+    list<Entity*>::iterator i = EntityList.begin();
+    while(i!=EntityList.end()){
+        Entity* entity = *i;
+        if(entity->isBroken){
+            i++;
+            EntityList.remove(entity);
+            delete entity;
+            continue;
+        }
+        entity->update();
+        i++;
     }
 }
 

@@ -11,6 +11,5 @@ void Brick::update() {
 }
 
 void Brick::manageCollision(GraphicalEntity *ge) {
-//   delete this;
-   std::cout<<"BANG!";
+   isBroken = true;
 }

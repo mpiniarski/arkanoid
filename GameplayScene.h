@@ -22,5 +22,5 @@ private:
     void handleEvents() override;
 
 
-    void exitScene(Scene* nextScene = NULL) override;
+    void exitScene(Scene* nextScene) override;
 };

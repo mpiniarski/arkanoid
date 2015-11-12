@@ -171,8 +171,14 @@ void Ball::update() {
             detectCollision(platform);
         }
         else {
-            for(auto &i : collisionList){
-                detectCollision(i);
+            list<GraphicalEntity*>::iterator i;
+            for(i=collisionList.begin(); i != collisionList.end(); i++){
+                GraphicalEntity* entity = *i;
+                detectCollision(entity);
+                if(entity->isBroken){
+                    i++;
+                    collisionList.remove(entity);
+                }
             }
         }
     }

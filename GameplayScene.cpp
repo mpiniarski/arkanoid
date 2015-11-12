@@ -79,4 +79,3 @@ void GameplayScene::exitScene(Scene* nextScene){
         Scene::exitScene(new MenuScene(game));
     }
 }
-
