@@ -9,6 +9,7 @@
 
 GameplayScene::GameplayScene(Game *game): Scene(game) {
     initialize();
+    for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
 }
 
 void GameplayScene::uploadResources() {
