@@ -10,15 +10,11 @@ EditMapScene::EditMapScene(Game *game) : Scene(game) {
 void EditMapScene::uploadResources() {
     resourceManager.loadTextureFromFile("Platform","res/img/hostile_shot.png");
     resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
-    resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
 }
 
 void EditMapScene::createEntities() {
     Platform* platform =new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
-    mapEntities.push_back(platform);
-    ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
-    mapEntities.push_back(ball);
 
 //    Brick *brick;
     for (int i=1; i<=1; i++){
@@ -28,7 +24,6 @@ void EditMapScene::createEntities() {
             brickCursor->setColor(sf::Color(color.r,color.g, color.b,111));
             brickCursor->setPosition(brickCursor->getWidth()*i,100+brickCursor->getHeight()*j);
             addEntity(brickCursor);
-//            ball->addCollisionMaker(brick);
         }
     }
 }
@@ -59,7 +54,6 @@ void EditMapScene::handleEvents() {
                 brick->setColor(sf::Color(color.r,color.g, color.b,255));
                 brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
                 addEntity(brick);
-                ball->addCollisionMaker(brick);
                 mapEntities.push_back(brick);
             }
             else if( event.key.code == sf::Keyboard::P ) {

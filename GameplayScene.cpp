@@ -21,9 +21,8 @@ GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
 GameplayScene::GameplayScene(Game *game, std::list<Entity *> entityList) : Scene(game) {
     initialize();
     for (auto i: entityList){
-        if (i->type == "Platform") { platform = (Platform*)i; }
-        else if (i->type == "Ball") { ball = (Ball*)i; }
         addEntity(i);
+        ball->addCollisionMaker((GraphicalEntity*)i);
     }
 }
 
@@ -34,12 +33,11 @@ void GameplayScene::uploadResources() {
 }
 
 void GameplayScene::createEntities() {
+    platform = new Platform(this,resourceManager.getTextureFromMap("Platform"));
+    addEntity(platform);
 
-//    platform = new Platform(this,resourceManager.getTextureFromMap("Platform"));
-//    addEntity(platform);
-
-//    ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
-//    addEntity(ball);
+    ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
+    addEntity(ball);
 
     // tego nie będzie:
 //    Brick *brick;

@@ -10,7 +10,6 @@
 class EditMapScene : public Scene {
 private:
     Brick *brickCursor;
-    Ball *ball;
     std::list<Entity*>mapEntities;
 public:
     EditMapScene(Game *game);

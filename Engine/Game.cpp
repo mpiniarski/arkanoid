@@ -16,6 +16,7 @@ void Game::launchScene(Scene *scene) {
     if(scene != NULL){
         if(currentScene != NULL){
             delete currentScene;
+            currentScene = NULL;
         }
         currentScene = scene;
         currentScene->run();
@@ -25,6 +26,7 @@ void Game::launchScene(Scene *scene) {
 Game::~Game() {
     if (currentScene != NULL)
         delete currentScene;
+        currentScene = NULL;
 }
 
 void Game::endGame() {
