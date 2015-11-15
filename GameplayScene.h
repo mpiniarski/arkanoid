@@ -18,6 +18,8 @@ public:
     GameplayScene(Game *game, int levelNumber);
     GameplayScene(Game *game, std::list<GraphicalEntity*> entityList);
 private:
+    void loadMapFromFile(std::string filePath);
+
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;

@@ -24,6 +24,6 @@ set(SOURCE_FILES
         MenuScene.cpp
         MenuScene.h
         Platform.cpp
-        Platform.h Brick.cpp Brick.h EditMapScene.cpp EditMapScene.h)
+        Platform.h Brick.cpp Brick.h EditMapScene.cpp EditMapScene.h Engine/MapManager.cpp Engine/MapManager.h)
 
 add_executable(arkanoid ${SOURCE_FILES})

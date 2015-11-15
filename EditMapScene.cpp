@@ -4,6 +4,8 @@
 #include "GameplayScene.h"
 #include <list>
 
+#include <fstream>
+
 EditMapScene::EditMapScene(Game *game) : Scene(game) {
     initialize();
 }
@@ -50,7 +52,10 @@ void EditMapScene::handleEvents() {
                 placeBrick();
             }
             else if( event.key.code == sf::Keyboard::P ) {
-                loadMap();
+                playMap();
+            }
+            else if(event.key.code == sf::Keyboard::S ) {
+                saveMapToFile("map1.ark");
             }
         }
     }
@@ -125,7 +130,7 @@ void EditMapScene::exitScene(Scene *nextScene) {
     }
 }
 
-void EditMapScene::loadMap() {
+void EditMapScene::playMap() {
     GameplayScene* gameplayScene = new GameplayScene(game, mapEntities);
     for(auto i : mapEntities){
         removeEntity(i);
@@ -134,3 +139,13 @@ void EditMapScene::loadMap() {
     exitScene(gameplayScene);
 }
 
+void EditMapScene::saveMapToFile(std::string filePath) {
+    std::ofstream file(filePath.c_str());
+    if( !file.good() ) return;
+    for (auto i : mapEntities){
+        file<<i->type<<" "
+            <<i->getPosition().x<<" "
+            <<i->getPosition().y<<"\n";
+    }
+    file.close();
+}

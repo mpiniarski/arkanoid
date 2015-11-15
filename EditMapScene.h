@@ -14,7 +14,8 @@ private:
 public:
     EditMapScene(Game *game);
 private:
-    void loadMap();
+    void playMap();
+    void saveMapToFile(std::string filePath);
 
     void makeCursor(float pos_x, float pos_y);
     void placeBrick();

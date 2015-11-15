@@ -1,7 +1,7 @@
 #include "GameplayScene.h"
 #include "MenuScene.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include <fstream>
 
 #include "Platform.h"
 #include "Ball.h"
@@ -11,11 +11,11 @@
 GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
     initialize();
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
-//    switch(levelNumber){
-//        case 1:
-//            //załaduj lvl 1
-//            break;
-//    }
+    switch(levelNumber){
+        case 1:
+            loadMapFromFile("map1.ark");
+            break;
+    }
 }
 
 GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
@@ -94,3 +94,24 @@ void GameplayScene::exitScene(Scene* nextScene){
     }
 }
 
+void GameplayScene::loadMapFromFile(std::string filePath) {
+    std::string type;
+    int pos_x,pos_y;
+    std::ifstream file;
+    file.open(filePath.c_str());
+    if( !file.good() ) return;
+    while(1){
+        file>>type;
+        file>>pos_x;
+        file>>pos_y;
+        if (file.eof()) break;
+
+        if(type=="Brick"){
+            Brick *brick = new Brick(this,resourceManager.getTextureFromMap("Brick1"));
+            brick->setPosition(pos_x,pos_y);
+            addEntity(brick);
+            ball->addCollisionMaker(brick);
+        }
+    }
+    file.close();
+}
