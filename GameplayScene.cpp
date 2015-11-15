@@ -18,11 +18,11 @@ GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
 //    }
 }
 
-GameplayScene::GameplayScene(Game *game, std::list<Entity *> entityList) : Scene(game) {
+GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
     initialize();
     for (auto i: entityList){
         addEntity(i);
-        ball->addCollisionMaker((GraphicalEntity*)i);
+        ball->addCollisionMaker(i);
     }
 }
 

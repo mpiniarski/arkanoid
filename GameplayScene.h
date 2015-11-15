@@ -16,7 +16,7 @@ private:
 
 public:
     GameplayScene(Game *game, int levelNumber);
-    GameplayScene(Game *game, std::list<Entity*> entityList);
+    GameplayScene(Game *game, std::list<GraphicalEntity*> entityList);
 private:
     void uploadResources() override;
     void createEntities() override;

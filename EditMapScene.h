@@ -10,12 +10,13 @@
 class EditMapScene : public Scene {
 private:
     Brick *brickCursor;
-    std::list<Entity*>mapEntities;
+    std::list<GraphicalEntity*>mapEntities;
 public:
     EditMapScene(Game *game);
 private:
     void loadMap();
 
+    void placeBrick();
     void moveEntity(Brick* brickCursor, int direction);
     void uploadResources() override;
     void createEntities() override;

@@ -2,6 +2,7 @@
 #include "Brick.h"
 #include "MenuScene.h"
 #include "GameplayScene.h"
+#include <list>
 
 EditMapScene::EditMapScene(Game *game) : Scene(game) {
     initialize();
@@ -16,16 +17,12 @@ void EditMapScene::createEntities() {
     Platform* platform =new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
 
-//    Brick *brick;
-    for (int i=1; i<=1; i++){
-        for (int j=1; j<=1; j++){
-            brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-            sf::Color color = brickCursor->getColor();
-            brickCursor->setColor(sf::Color(color.r,color.g, color.b,111));
-            brickCursor->setPosition(brickCursor->getWidth()*i,100+brickCursor->getHeight()*j);
-            addEntity(brickCursor);
-        }
-    }
+    brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+//    sf::Color color = brickCursor->getColor();
+//    brickCursor->setColor(sf::Color(color.r,color.b,color.g,111));
+    brickCursor->setColor(sf::Color(100,255,255,111));
+    brickCursor->setPosition(brickCursor->getWidth(),100+brickCursor->getHeight());
+    addEntity(brickCursor);
 }
 
 void EditMapScene::handleEvents() {
@@ -47,19 +44,37 @@ void EditMapScene::handleEvents() {
             else if( event.key.code == sf::Keyboard::Down ) {
                 moveEntity(brickCursor, DIRECTION::DOWN);
             }
-            else if( event.key.code == sf::Keyboard::Return ) {
-                Brick* brick;
-                brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-                sf::Color color = brick->getColor();
-                brick->setColor(sf::Color(color.r,color.g, color.b,255));
-                brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
-                addEntity(brick);
-                mapEntities.push_back(brick);
+            else if( event.key.code == sf::Keyboard::Space ) {
+                placeBrick();
             }
             else if( event.key.code == sf::Keyboard::P ) {
                 loadMap();
             }
         }
+    }
+}
+
+void EditMapScene::placeBrick() {
+    bool draw = 1;
+    for(auto i: mapEntities) {
+        if( brickCursor->getPosition().x + brickCursor->getWidth() <= i->getPosition().x ||
+            brickCursor->getPosition().x >= i->getPosition().x + i->getWidth() ||
+            brickCursor->getPosition().y + brickCursor->getHeight() <= i->getPosition().y ||
+            brickCursor->getPosition().y >= i->getPosition().y + i->getHeight()) {
+        }
+        else {
+            draw = 0;
+            break;
+        }
+    }
+    if(draw) {
+        Brick* brick;
+        brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+        sf::Color color = brick->getColor();
+        brick->setColor(sf::Color(color.r,color.g, color.b,255));
+        brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
+        addEntity(brick);
+        mapEntities.push_back(brick);
     }
 }
 
@@ -113,3 +128,4 @@ void EditMapScene::loadMap() {
     }
     exitScene(gameplayScene);
 }
+
