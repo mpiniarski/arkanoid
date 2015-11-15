@@ -16,6 +16,7 @@ public:
 private:
     void loadMap();
 
+    void makeCursor(float pos_x, float pos_y);
     void placeBrick();
     void moveEntity(Brick* brickCursor, int direction);
     void uploadResources() override;

@@ -17,12 +17,14 @@ void EditMapScene::createEntities() {
     Platform* platform =new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
 
-    brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-//    sf::Color color = brickCursor->getColor();
-//    brickCursor->setColor(sf::Color(color.r,color.b,color.g,111));
-    brickCursor->setColor(sf::Color(100,255,255,111));
-    brickCursor->setPosition(brickCursor->getWidth(),100+brickCursor->getHeight());
+    makeCursor(0,0);
     addEntity(brickCursor);
+}
+
+void EditMapScene::makeCursor(float pos_x, float pos_y) {
+    brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+    brickCursor->setColor(sf::Color(100,255,255,111));
+    brickCursor->setPosition(pos_x, pos_y);
 }
 
 void EditMapScene::handleEvents() {
@@ -75,6 +77,9 @@ void EditMapScene::placeBrick() {
         brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
         addEntity(brick);
         mapEntities.push_back(brick);
+        mapEntities.remove(brickCursor);
+        makeCursor(brick->getPosition().x, brick->getPosition().y);
+        addEntity(brickCursor);
     }
 }
 
