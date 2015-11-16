@@ -24,6 +24,14 @@ set(SOURCE_FILES
         MenuScene.cpp
         MenuScene.h
         Platform.cpp
-        Platform.h Brick.cpp Brick.h EditMapScene.cpp EditMapScene.h)
+        Platform.h
+        Brick.cpp
+        Brick.h
+        EditMapScene.cpp
+        EditMapScene.h
+        SolidBrick.cpp
+        SolidBrick.h
+        Barrier.cpp
+        Barrier.h)
 
 add_executable(arkanoid ${SOURCE_FILES})

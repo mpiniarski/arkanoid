@@ -11,9 +11,7 @@ MenuScene::MenuScene(Game *game) : Scene(game) {
 
 void MenuScene::uploadResources() {
     resourceManager.loadTextureFromFile("texture1","res/img/menu_background.png");
-    resourceManager.loadFontFromFile("font1","res/font/8_bit_operator/8bitOperatorPlus8-Bold.ttf");
-//    resourceManager.loadFontFromFile("font1","res/font/pixcel/Pixcel.ttf");
-//    resourceManager.loadFontFromFile("font1","res/font/highscore_hero/HighscoreHero.ttf");
+    resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
 }
 
 void MenuScene::createEntities() {

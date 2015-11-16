@@ -2,17 +2,23 @@
 #include "Brick.h"
 #include "MenuScene.h"
 #include "GameplayScene.h"
+#include "SolidBrick.h"
+#include "Barrier.h"
 #include <list>
 
 #include <fstream>
 
 EditMapScene::EditMapScene(Game *game) : Scene(game) {
     initialize();
+    type = TYPE::BRICK;
 }
 
 void EditMapScene::uploadResources() {
-    resourceManager.loadTextureFromFile("Platform","res/img/hostile_shot.png");
-    resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
+    resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
+    resourceManager.loadTextureFromFile("Brick","res/img/brick.png");
+    resourceManager.loadTextureFromFile("SolidBrick","res/img/solidBrick.png");
+    resourceManager.loadTextureFromFile("Barrier","res/img/barrier.png");
+    resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
 }
 
 void EditMapScene::createEntities() {
@@ -20,10 +26,48 @@ void EditMapScene::createEntities() {
     addEntity(platform);
 
     makeCursor(0,0);
+
+    TextEntity* placeElement = new TextEntity(this, "Place element: Space", resourceManager.getFontFromMap("font1"));
+    placeElement->setCharacterSize(20);
+    placeElement->setPosition(10, (game->getWindowHeight() - 6*placeElement->getHeight()-16));
+    addEntity(placeElement);
+    TextEntityMap.insert({ "placeElement", placeElement });
+
+    TextEntity* undo = new TextEntity(this, "Undo: Backspace", resourceManager.getFontFromMap("font1"));
+    undo->setCharacterSize(20);
+    undo->setPosition(10, (game->getWindowHeight() - 4.5*undo->getHeight()-16));
+    addEntity(undo);
+    TextEntityMap.insert({ "undo", undo });
+
+    TextEntity* changeOption = new TextEntity(this, "Change type: C", resourceManager.getFontFromMap("font1"));
+    changeOption->setCharacterSize(20);
+    changeOption->setPosition(10, (game->getWindowHeight() - 3*changeOption->getHeight()-16));
+    addEntity(changeOption);
+    TextEntityMap.insert({ "changeOption", changeOption });
+
+    TextEntity* playMap = new TextEntity(this, "Play map: Enter", resourceManager.getFontFromMap("font1"));
+    playMap->setCharacterSize(20);
+    playMap->setPosition(10, (game->getWindowHeight() - 1.5*playMap->getHeight()-16));
+    addEntity(playMap);
+    TextEntityMap.insert({ "playMap", playMap });
 }
 
 void EditMapScene::makeCursor(float pos_x, float pos_y) {
-    brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
+    switch(type) {
+        case TYPE::BRICK:
+            brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick"));
+            break;
+        case TYPE::SOLIDBRICK:
+            brickCursor = new SolidBrick(this, resourceManager.getTextureFromMap("SolidBrick"));
+            break;
+        case TYPE::BARRIER:
+            brickCursor = new Barrier(this, resourceManager.getTextureFromMap("Barrier"));
+            break;
+        default:
+            brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick"));
+            break;
+
+    }
     brickCursor->setColor(sf::Color(100,255,255,111));
     brickCursor->setPosition(pos_x, pos_y);
     addEntity(brickCursor);
@@ -54,11 +98,20 @@ void EditMapScene::handleEvents() {
             else if( event.key.code == sf::Keyboard::BackSpace ) {
                 undo();
             }
-            else if( event.key.code == sf::Keyboard::P ) {
+            else if( event.key.code == sf::Keyboard::Return ) {
                 playMap();
             }
             else if(event.key.code == sf::Keyboard::S ) {
                 saveMapToFile("map1.ark");
+            }
+            else if(event.key.code == sf::Keyboard::C ) {
+                if(type == 2) { type = 0; }
+                else { type++; }
+                float pos_x = brickCursor->getPosition().x;
+                float pos_y = brickCursor->getPosition().y;
+                removeEntity(brickCursor);
+                mapEntities.remove(brickCursor);
+                makeCursor(pos_x, pos_y);
             }
         }
     }
@@ -78,17 +131,35 @@ void EditMapScene::placeBrick() {
         }
     }
     if(draw) {
-        Brick* brick;
-        brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-        sf::Color color = brick->getColor();
-        brick->setColor(sf::Color(color.r,color.g, color.b,255));
-        brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
-        addEntity(brick);
-        mapEntities.push_back(brick);
+        GraphicalEntity* brick = makeBrick();
         removeEntity(brickCursor);
         mapEntities.remove(brickCursor);
         makeCursor(brick->getPosition().x, brick->getPosition().y);
     }
+}
+
+GraphicalEntity* EditMapScene::makeBrick() {
+    GraphicalEntity* brick;
+    switch(type) {
+        case TYPE::BRICK:
+            brick = new Brick(this, resourceManager.getTextureFromMap("Brick"));
+            break;
+        case TYPE::SOLIDBRICK:
+            brick = new SolidBrick(this, resourceManager.getTextureFromMap("SolidBrick"));
+            break;
+        case TYPE::BARRIER:
+            brick = new Barrier(this, resourceManager.getTextureFromMap("Barrier"));
+            break;
+        default:
+            brick = new Brick(this, resourceManager.getTextureFromMap("Brick"));
+            break;
+    }
+    sf::Color color = brick->getColor();
+    brick->setColor(sf::Color(color.r,color.g, color.b,255));
+    brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
+    addEntity(brick);
+    mapEntities.push_back(brick);
+    return brick;
 }
 
 void EditMapScene::undo() {
@@ -102,7 +173,7 @@ void EditMapScene::undo() {
     }
 }
 
-void EditMapScene::moveEntity(Brick *brickCursor, int direction) {
+void EditMapScene::moveEntity(GraphicalEntity *brickCursor, int direction) {
     float x = brickCursor->getPosition().x;
     float y = brickCursor->getPosition().y;
     float width = brickCursor->getWidth();

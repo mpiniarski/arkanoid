@@ -67,8 +67,8 @@ void GraphicalEntity::update() {
     makeStep();
 }
 
-float GraphicalEntity::getWidth() {return getTexture()->getSize().x;};
-float GraphicalEntity::getHeight() {return getTexture()->getSize().y;}
+float GraphicalEntity::getWidth() {return getTextureRect().width;};
+float GraphicalEntity::getHeight() {return getTextureRect().height;}
 
 void GraphicalEntity::stretchToWindowSize() {
     setScale(scene->getWindowWidth()/getWidth(),scene->getWindowHeight()/getHeight());

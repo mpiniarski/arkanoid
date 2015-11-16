@@ -6,6 +6,8 @@
 #include "Platform.h"
 #include "Ball.h"
 #include "Brick.h"
+#include "SolidBrick.h"
+#include "Barrier.h"
 
 
 GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
@@ -30,6 +32,8 @@ void GameplayScene::uploadResources() {
     resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
     resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
     resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
+    resourceManager.loadTextureFromFile("SolidBrick","res/img/solidBrick.png");
+    resourceManager.loadTextureFromFile("Barrier","res/img/barrier.png");
 }
 
 void GameplayScene::createEntities() {
@@ -38,18 +42,6 @@ void GameplayScene::createEntities() {
 
     ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
     addEntity(ball);
-
-    // tego nie będzie:
-//    Brick *brick;
-//    for (int i=1; i<=10; i++){
-//        for (int j=1; j<=5; j++){
-//            brick = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
-//            brick->setPosition(brick->getWidth()*i,100+brick->getHeight()*j);
-//            addEntity(brick);
-//            ball->addCollisionMaker(brick);
-//        }
-//    }
-
 }
 
 void GameplayScene::handleEvents() {
@@ -111,6 +103,18 @@ void GameplayScene::loadMapFromFile(std::string filePath) {
             brick->setPosition(pos_x,pos_y);
             addEntity(brick);
             ball->addCollisionMaker(brick);
+        }
+        if(type=="SolidBrick"){
+            SolidBrick *solidBrick = new SolidBrick(this,resourceManager.getTextureFromMap("SolidBrick"));
+            solidBrick->setPosition(pos_x,pos_y);
+            addEntity(solidBrick);
+            ball->addCollisionMaker(solidBrick);
+        }
+        if(type=="Barrier"){
+            Barrier *barrier = new Barrier(this,resourceManager.getTextureFromMap("Barrier"));
+            barrier->setPosition(pos_x,pos_y);
+            addEntity(barrier);
+            ball->addCollisionMaker(barrier);
         }
     }
     file.close();

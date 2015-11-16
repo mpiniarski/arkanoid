@@ -7,10 +7,15 @@
 #include "Engine/Scene.h"
 #include "Brick.h"
 
+namespace TYPE {
+    enum { BRICK, SOLIDBRICK, BARRIER };
+}
 class EditMapScene : public Scene {
 private:
-    Brick *brickCursor;
+    GraphicalEntity *brickCursor;
+    int type;
     std::list<GraphicalEntity*>mapEntities;
+    std::map<std::string,TextEntity*> TextEntityMap;
 public:
     EditMapScene(Game *game);
 private:
@@ -19,8 +24,9 @@ private:
 
     void makeCursor(float pos_x, float pos_y);
     void placeBrick();
+    GraphicalEntity* makeBrick();
     void undo();
-    void moveEntity(Brick* brickCursor, int direction);
+    void moveEntity(GraphicalEntity* brickCursor, int direction);
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
