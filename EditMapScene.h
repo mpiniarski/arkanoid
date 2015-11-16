@@ -19,6 +19,7 @@ private:
 
     void makeCursor(float pos_x, float pos_y);
     void placeBrick();
+    void undo();
     void moveEntity(Brick* brickCursor, int direction);
     void uploadResources() override;
     void createEntities() override;

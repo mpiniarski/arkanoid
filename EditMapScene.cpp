@@ -20,13 +20,13 @@ void EditMapScene::createEntities() {
     addEntity(platform);
 
     makeCursor(0,0);
-    addEntity(brickCursor);
 }
 
 void EditMapScene::makeCursor(float pos_x, float pos_y) {
     brickCursor = new Brick(this, resourceManager.getTextureFromMap("Brick1"));
     brickCursor->setColor(sf::Color(100,255,255,111));
     brickCursor->setPosition(pos_x, pos_y);
+    addEntity(brickCursor);
 }
 
 void EditMapScene::handleEvents() {
@@ -50,6 +50,9 @@ void EditMapScene::handleEvents() {
             }
             else if( event.key.code == sf::Keyboard::Space ) {
                 placeBrick();
+            }
+            else if( event.key.code == sf::Keyboard::BackSpace ) {
+                undo();
             }
             else if( event.key.code == sf::Keyboard::P ) {
                 playMap();
@@ -82,9 +85,20 @@ void EditMapScene::placeBrick() {
         brick->setPosition(brickCursor->getPosition().x,brickCursor->getPosition().y);
         addEntity(brick);
         mapEntities.push_back(brick);
+        removeEntity(brickCursor);
         mapEntities.remove(brickCursor);
         makeCursor(brick->getPosition().x, brick->getPosition().y);
-        addEntity(brickCursor);
+    }
+}
+
+void EditMapScene::undo() {
+    if(!mapEntities.empty()) {
+        removeEntity(brickCursor);
+        float pos_x = mapEntities.back()->getPosition().x;
+        float pos_y = mapEntities.back()->getPosition().y;
+        removeEntity(mapEntities.back());
+        mapEntities.pop_back();
+        makeCursor(pos_x, pos_y);
     }
 }
 
@@ -149,3 +163,4 @@ void EditMapScene::saveMapToFile(std::string filePath) {
     }
     file.close();
 }
+
