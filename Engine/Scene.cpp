@@ -1,13 +1,9 @@
 #include "Scene.h"
 
-
 #include "Entity.h"
 #include "GraphicalEntity.h"
 #include "TextEntity.h"
 #include <SFML/Graphics.hpp>
-
-#include <iostream>
-
 
 using namespace std;
 
@@ -47,7 +43,6 @@ void Scene::run(){
         if(timeSinceLastRender >= timePerFrame) render = true;
 
         handleEvents();
-//        if (!game->Window.isOpen()) break;
 
         if(render){
             updateEntities();

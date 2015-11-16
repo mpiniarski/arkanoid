@@ -17,6 +17,8 @@ public:
 
     float getWidth();
     float getHeight();
+    void stretchToWindowSize();
+//    void unifyWithResolutoin(int width, int height);
 
     void changeDirection(int direction);
     void resetDirection(int direction);

@@ -1,15 +1,19 @@
+#include <iostream>
 #include "Game.h"
 #include "Scene.h"
 
 using namespace std;
 
-Game::Game(string title, int width, int height):
-        Window(sf::VideoMode( width, height ), title/*, sf::Style::Fullscreen*/ )
+
+
+Game::Game(string gameTitle):
+        Window(/*sf::VideoMode::getFullscreenModes()[1]*/sf::VideoMode(1280,720), gameTitle, sf::Style::Fullscreen)
 {
     currentScene = NULL;
     FPS = 60.0;
     Window.setFramerateLimit(75);
     Window.setVerticalSyncEnabled(true);
+    Window.setMouseCursorVisible(false);
 }
 
 void Game::launchScene(Scene *scene) {
@@ -27,7 +31,4 @@ Game::~Game() {
     if (currentScene != NULL)
         delete currentScene;
         currentScene = NULL;
-}
-
-void Game::endGame() {
 }

@@ -13,10 +13,10 @@ public:
     Scene* currentScene;
 
 public:
-    Game(std::string title, int width, int height);
+    Game(std::string gameTitle);
     ~Game();
-    void endGame();
     void launchScene(Scene* scene);
+
     int getWindowWidth() { return Window.getSize().x;}
     int getWindowHeight() { return Window.getSize().y;}
     float getFPS() { return FPS;}

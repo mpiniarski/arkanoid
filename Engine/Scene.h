@@ -25,7 +25,6 @@ private:
     bool endScene;
 
 protected:
-    ResourceManager resourceManager;
     Game *game;
     std::map<std::string,TextEntity*> TextEntityMap;
 
@@ -41,6 +40,7 @@ public:
 
     virtual void exitScene(Scene* nextScene = NULL);
 
+    ResourceManager resourceManager;
 protected:
     void initialize();
     void addEntity(Entity *entity);

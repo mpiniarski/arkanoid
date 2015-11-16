@@ -27,7 +27,7 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
 }
 
 void GameplayScene::uploadResources() {
-    resourceManager.loadTextureFromFile("Platform","res/img/hostile_shot.png");
+    resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
     resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
     resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
 }

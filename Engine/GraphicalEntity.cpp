@@ -4,6 +4,7 @@
 
 GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
 {
+//    unifyWithResolutoin(800,600);
     movingHorizontal = 0;
     movingVertical = 0;
     velocity = 0;
@@ -69,3 +70,10 @@ void GraphicalEntity::update() {
 float GraphicalEntity::getWidth() {return getTexture()->getSize().x;};
 float GraphicalEntity::getHeight() {return getTexture()->getSize().y;}
 
+void GraphicalEntity::stretchToWindowSize() {
+    setScale(scene->getWindowWidth()/getWidth(),scene->getWindowHeight()/getHeight());
+}
+
+//void GraphicalEntity::unifyWithResolutoin(int width, int height) {
+//    setScale((float)scene->getWindowWidth()/width, (float)scene->getWindowHeight()/height);
+//}

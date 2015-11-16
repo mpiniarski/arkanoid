@@ -18,7 +18,7 @@ void MenuScene::uploadResources() {
 
 void MenuScene::createEntities() {
     GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("texture1"));
-    bg->setPosition(0,0);
+    bg->stretchToWindowSize();
     addEntity(bg);
 
     TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("font1"));
