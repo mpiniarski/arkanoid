@@ -1,9 +1,8 @@
-#include <iostream>
 #include "Ball.h"
-#include "GameplayScene.h"
-#include "MenuScene.h"
 
 #include "Platform.h"
+#include "../Scenes/GameplayScene.h"
+
 
 using namespace std;
 

@@ -16,22 +16,22 @@ set(SOURCE_FILES
         Engine/Scene.h
         Engine/TextEntity.cpp
         Engine/TextEntity.h
-        Ball.cpp
-        Ball.h
-        GameplayScene.cpp
-        GameplayScene.h
+        Entities/Ball.cpp
+        Entities/Ball.h
+        Scenes/GameplayScene.cpp
+        Scenes/GameplayScene.h
         main.cpp
-        MenuScene.cpp
-        MenuScene.h
-        Platform.cpp
-        Platform.h
-        Brick.cpp
-        Brick.h
-        EditMapScene.cpp
-        EditMapScene.h
-        SolidBrick.cpp
-        SolidBrick.h
-        Barrier.cpp
-        Barrier.h)
+        Scenes/MenuScene.cpp
+        Scenes/MenuScene.h
+        Entities/Platform.cpp
+        Entities/Platform.h
+        Entities/Brick.cpp
+        Entities/Brick.h
+        Scenes/EditMapScene.cpp
+        Scenes/EditMapScene.h
+        Entities/SolidBrick.cpp
+        Entities/SolidBrick.h
+        Entities/Barrier.cpp
+        Entities/Barrier.h)
 
 add_executable(arkanoid ${SOURCE_FILES})

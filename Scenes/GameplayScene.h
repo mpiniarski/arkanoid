@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include "Engine/Scene.h"
+#include "../Engine/Scene.h"
 
 class Ball;
 class Platform;

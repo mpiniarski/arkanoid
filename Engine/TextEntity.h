@@ -1,7 +1,8 @@
 #pragma once
 
-#include <SFML/Graphics/Text.hpp>
 #include "Entity.h"
+
+#include <SFML/Graphics/Text.hpp>
 
 class TextEntity : public Entity, public sf::Text {
 

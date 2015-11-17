@@ -1,10 +1,9 @@
 #include "EditMapScene.h"
-#include "Brick.h"
+
 #include "MenuScene.h"
 #include "GameplayScene.h"
-#include "SolidBrick.h"
-#include "Barrier.h"
-#include <list>
+#include "../Entities/SolidBrick.h"
+#include "../Entities/Barrier.h"
 
 #include <fstream>
 

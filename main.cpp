@@ -1,6 +1,6 @@
 #include "Engine/Game.h"
-#include "GameplayScene.h"
-#include "MenuScene.h"
+#include "Scenes/GameplayScene.h"
+#include "Scenes/MenuScene.h"
 
 using namespace std;
 

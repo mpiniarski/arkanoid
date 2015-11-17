@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/GraphicalEntity.h"
+#include "../Engine/GraphicalEntity.h"
 
 class Barrier : public GraphicalEntity {
 

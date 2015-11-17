@@ -1,5 +1,6 @@
 #include "Platform.h"
-#include "GameplayScene.h"
+
+#include "../Scenes/GameplayScene.h"
 
 using namespace std;
 

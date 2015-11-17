@@ -1,13 +1,13 @@
 #include "GameplayScene.h"
-#include "MenuScene.h"
-#include <SFML/Graphics.hpp>
-#include <fstream>
 
-#include "Platform.h"
-#include "Ball.h"
-#include "Brick.h"
-#include "SolidBrick.h"
-#include "Barrier.h"
+#include "MenuScene.h"
+#include "../Entities/Platform.h"
+#include "../Entities/Ball.h"
+#include "../Entities/Brick.h"
+#include "../Entities/SolidBrick.h"
+#include "../Entities/Barrier.h"
+
+#include <fstream>
 
 
 GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {

@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Engine/TextEntity.h"
-#include "Engine/GraphicalEntity.h"
-
-#include "Engine/Scene.h"
+#include "../Engine/TextEntity.h"
+#include "../Engine/GraphicalEntity.h"
+#include "../Engine/Scene.h"
 
 namespace OPTION {
     enum { NEWGAME, EDITMAP, EXIT };

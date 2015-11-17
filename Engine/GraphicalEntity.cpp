@@ -1,6 +1,4 @@
 #include "GraphicalEntity.h"
-#include "Scene.h"
-#include "../MenuScene.h"
 
 GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
 {

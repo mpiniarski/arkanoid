@@ -1,9 +1,6 @@
 #include "Scene.h"
 
 #include "Entity.h"
-#include "GraphicalEntity.h"
-#include "TextEntity.h"
-#include <SFML/Graphics.hpp>
 
 using namespace std;
 

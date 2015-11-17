@@ -1,10 +1,11 @@
 #pragma once
 
-#include <string>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Text.hpp>
+
+#include <string>
 #include <map>
 #include <memory>
-#include <SFML/Graphics/Text.hpp>
 
 class ResourceManager {
 private:

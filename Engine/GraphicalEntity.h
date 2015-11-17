@@ -1,7 +1,8 @@
 #pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
 #include "Entity.h"
+
+#include <SFML/Graphics/Sprite.hpp>
 
 class GraphicalEntity : public Entity, public sf::Sprite {
 protected:

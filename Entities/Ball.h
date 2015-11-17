@@ -1,7 +1,8 @@
 #pragma once
 
+#include "../Engine/GraphicalEntity.h"
+
 #include <list>
-#include "Engine/GraphicalEntity.h"
 
 class GameplayScene;
 class Platform;

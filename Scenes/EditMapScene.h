@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Engine/GraphicalEntity.h"
-#include "Platform.h"
-#include "Ball.h"
-
-#include "Engine/Scene.h"
-#include "Brick.h"
+#include "../Engine/GraphicalEntity.h"
+#include "../Engine/Scene.h"
+#include "../Entities/Platform.h"
+#include "../Entities/Ball.h"
+#include "../Entities/Brick.h"
 
 namespace TYPE {
     enum { BRICK, SOLIDBRICK, BARRIER };

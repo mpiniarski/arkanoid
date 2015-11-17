@@ -1,11 +1,11 @@
 #pragma once
 
+#include "Game.h"
+#include "ResourceManager.h"
+
 #include <string>
 #include <unordered_map>
 #include <list>
-
-#include "Game.h"
-#include "ResourceManager.h"
 
 
 namespace DIRECTION {

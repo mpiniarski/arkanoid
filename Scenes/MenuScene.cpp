@@ -1,7 +1,7 @@
 #include "MenuScene.h"
+
 #include "GameplayScene.h"
 #include "EditMapScene.h"
-#include <map>
 
 MenuScene::MenuScene(Game *game) : Scene(game) {
     initialize();
