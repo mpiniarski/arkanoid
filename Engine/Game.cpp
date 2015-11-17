@@ -7,7 +7,7 @@ using namespace std;
 
 
 Game::Game(string gameTitle):
-        Window(/*sf::VideoMode::getFullscreenModes()[1]*/sf::VideoMode(1280,720), gameTitle, sf::Style::Fullscreen)
+        Window(/*sf::VideoMode::getFullscreenModes()[1]*/sf::VideoMode(1280,720), gameTitle/*, sf::Style::Fullscreen*/)
 {
     currentScene = NULL;
     FPS = 60.0;
