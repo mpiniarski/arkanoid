@@ -6,18 +6,26 @@
 #include "../Entities/Brick.h"
 #include "../Entities/SolidBrick.h"
 #include "../Entities/Barrier.h"
+#include "ResultScene.h"
 
 #include <fstream>
 
 
-GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
-    points = 0;
+GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(game) {
+    this->points += points;
     this->levelNumber = levelNumber;
     initialize();
+    this->entitiesLeft = 0;
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     switch(levelNumber){
         case 1:
             loadMapFromFile("map1.ark");
+            break;
+        case 2:
+            loadMapFromFile("map2.ark");
+            break;
+        case 3:
+            loadMapFromFile("map3.ark");
             break;
     }
     moveTextEntitiesToFront();
@@ -28,9 +36,11 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
     levelNumber = 0;
     initialize();
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
+    this->entitiesLeft = 0;
     for (auto i: entityList){
         addEntity(i);
         ball->addCollisionMaker(i);
+        this->entitiesLeft++;
     }
     moveTextEntitiesToFront();
 }
@@ -105,7 +115,7 @@ void GameplayScene::exitScene(Scene* nextScene){
         Scene::exitScene(nextScene);
     }
     else{
-        Scene::exitScene(new MenuScene(game));
+        Scene::exitScene(new ResultScene(game, points, this->entitiesLeft));
     }
 }
 
@@ -126,12 +136,14 @@ void GameplayScene::loadMapFromFile(std::string filePath) {
             brick->setPosition(pos_x,pos_y);
             addEntity(brick);
             ball->addCollisionMaker(brick);
+            this->entitiesLeft++;
         }
         if(type=="SolidBrick"){
             SolidBrick *solidBrick = new SolidBrick(this,resourceManager.getTextureFromMap("SolidBrick"));
             solidBrick->setPosition(pos_x,pos_y);
             addEntity(solidBrick);
             ball->addCollisionMaker(solidBrick);
+            this->entitiesLeft++;
         }
         if(type=="Barrier"){
             Barrier *barrier = new Barrier(this,resourceManager.getTextureFromMap("Barrier"));
@@ -147,4 +159,12 @@ void GameplayScene::addPoints(int points) {
     this->points += points;
     TextEntity* pointsText = TextEntityMap.find("pointsText")->second;
     pointsText->setString("Points: " + std::to_string(this->points) );
+}
+
+void GameplayScene::finishGame() {
+    if(this->entitiesLeft == 0 && levelNumber < 3) {
+        levelNumber++;
+        Scene::exitScene(new GameplayScene(game, levelNumber, this->points));
+    }
+    else Scene::exitScene(new ResultScene(game, points, this->entitiesLeft));
 }

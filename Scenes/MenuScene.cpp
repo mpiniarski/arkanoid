@@ -54,7 +54,7 @@ void MenuScene::handleEvents() {
             exitScene();
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::NEWGAME ) {
-            exitScene(new GameplayScene(game,1));
+            exitScene(new GameplayScene(game,1,0));
         }
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return && chosenOption == OPTION::EDITMAP ) {
             exitScene(new EditMapScene(game));
