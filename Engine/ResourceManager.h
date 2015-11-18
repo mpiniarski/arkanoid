@@ -13,7 +13,7 @@ private:
     std::map<std::string,sf::Font&>FontMap;
 
 public:
-    ~ResourceManager() {};
+    ~ResourceManager();
     void loadTextureFromFile(std::string name, std::string filepath);
     void addTextureToMap(std::string name, sf::Texture *texture);
     sf::Texture & getTextureFromMap(std::string name);

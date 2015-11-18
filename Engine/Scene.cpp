@@ -1,3 +1,5 @@
+#include <iostream>
+#include <unistd.h>
 #include "Scene.h"
 
 #include "Entity.h"
@@ -32,7 +34,7 @@ void Scene::removeEntity(Entity *entity) {
 void Scene::run(){
     sf::Clock clock;
     float timeSinceLastRender = 0.0;
-    double timePerFrame =  (1.0 / game->getFPS() );
+    double timePerFrame =  (float)(1.0 / game->getFPS() );
     bool render = true;
 
     while(!endScene)
@@ -45,6 +47,7 @@ void Scene::run(){
         if(render){
             updateEntities();
             renderWindow();
+//            cout<<timeSinceLastRender<<endl;
             timeSinceLastRender -= timePerFrame;
             render = false;
         }

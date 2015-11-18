@@ -11,6 +11,8 @@
 
 
 GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
+    points = 0;
+    this->levelNumber = levelNumber;
     initialize();
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     switch(levelNumber){
@@ -18,12 +20,14 @@ GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
             loadMapFromFile("map1.ark");
             break;
     }
-    points = 0;
     moveTextEntitiesToFront();
 }
 
 GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
+    points = 0;
+    levelNumber = 0;
     initialize();
+    for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     for (auto i: entityList){
         addEntity(i);
         ball->addCollisionMaker(i);
@@ -53,6 +57,14 @@ void GameplayScene::createEntities() {
     pointsText->setPosition(10, -12);
     addEntity(pointsText);
     TextEntityMap.insert({ "pointsText", pointsText });
+
+    if (levelNumber){
+        TextEntity* levelNumberText = new TextEntity(this, "LEVEL " + std::to_string(levelNumber), resourceManager.getFontFromMap("font1"));
+        levelNumberText->setCharacterSize(40);
+        levelNumberText->setPosition(getWindowWidth()-230, -12);
+        addEntity(levelNumberText);
+        TextEntityMap.insert({ "levelNumberText", levelNumberText });
+    }
 }
 
 void GameplayScene::handleEvents() {

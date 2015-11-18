@@ -9,7 +9,8 @@ class Platform;
 class GameplayScene : public Scene {
 private:
     bool isKeyHeld[4];
-    int points;
+    unsigned int points;
+    unsigned int levelNumber;
 
     Platform *platform;
     Ball *ball;

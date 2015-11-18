@@ -13,5 +13,4 @@ void Brick::manageCollision(GraphicalEntity *ge) {
    isBroken = true;
    GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(scene);
    if (gameplayScene != NULL) gameplayScene->addPoints(100);
-
 }

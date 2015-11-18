@@ -31,3 +31,12 @@ sf::Font &ResourceManager::getFontFromMap(std::string name) {
     auto found = FontMap.find(name);
     return (found->second);
 }
+
+ResourceManager::~ResourceManager() {
+    for (auto i :TextureMap){
+        delete(&i.second);
+    }
+    for (auto i :FontMap){
+        delete(&i.second);
+    }
+}
