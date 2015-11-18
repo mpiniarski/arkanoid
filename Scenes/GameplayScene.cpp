@@ -38,6 +38,7 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     this->entitiesLeft = 0;
     for (auto i: entityList){
+        i->setTexture(resourceManager.getTextureFromMap(i->type));
         addEntity(i);
         ball->addCollisionMaker(i);
         this->entitiesLeft++;
@@ -48,7 +49,7 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
 void GameplayScene::uploadResources() {
     resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
     resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
-    resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
+    resourceManager.loadTextureFromFile("Brick","res/img/brick.png");
     resourceManager.loadTextureFromFile("SolidBrick","res/img/solidBrick.png");
     resourceManager.loadTextureFromFile("Barrier","res/img/barrier.png");
     resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
@@ -132,7 +133,7 @@ void GameplayScene::loadMapFromFile(std::string filePath) {
         if (file.eof()) break;
 
         if(type=="Brick"){
-            Brick *brick = new Brick(this,resourceManager.getTextureFromMap("Brick1"));
+            Brick *brick = new Brick(this,resourceManager.getTextureFromMap("Brick"));
             brick->setPosition(pos_x,pos_y);
             addEntity(brick);
             ball->addCollisionMaker(brick);

@@ -11,7 +11,7 @@ Game::Game(string gameTitle):
 {
     currentScene = NULL;
     FPS = 60.0;
-    Window.setFramerateLimit(75);
+    Window.setFramerateLimit(60);
     Window.setVerticalSyncEnabled(true);
     Window.setMouseCursorVisible(false);
 }

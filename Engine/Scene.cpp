@@ -35,24 +35,26 @@ void Scene::run(){
     sf::Clock clock;
     float timeSinceLastRender = 0.0;
     double timePerFrame =  (float)(1.0 / game->getFPS() );
-    bool render = true;
 
+    clock.restart();
     while(!endScene)
     {
-        timeSinceLastRender += clock.restart().asSeconds();
-        if(timeSinceLastRender >= timePerFrame) render = true;
-
         handleEvents();
 
-        if(render){
-            updateEntities();
-            renderWindow();
-//            cout<<timeSinceLastRender<<endl;
-            timeSinceLastRender -= timePerFrame;
-            render = false;
+        timeSinceLastRender = clock.restart().asSeconds();
+        if(timeSinceLastRender <  timePerFrame){
+            usleep((__useconds_t) (int)((timePerFrame - timeSinceLastRender) * 1000000)); // not sure if working
         }
+        updateEntities();
+        renderWindow();
     }
     game->launchScene(nextScene);
+
+// if (Timer::Instance()->getTimeFromLastDelta() + 0.010 < Timer::Instance()->getTargetFrametime()) {
+//        SDL_Delay((Timer::Instance()->getTargetFrametime() - Timer::Instance()->getTimeFromLastDelta())*975);
+//    }
+
+
 }
 
 void Scene::handleEvents() {
