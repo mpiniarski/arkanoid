@@ -1,4 +1,5 @@
 #include "SolidBrick.h"
+#include "../Scenes/GameplayScene.h"
 
 
 SolidBrick::SolidBrick(Scene *scene, const sf::Texture &texture) : GraphicalEntity(scene, "SolidBrick", texture){
@@ -22,5 +23,9 @@ void SolidBrick::manageCollision(GraphicalEntity *ge) {
                 break;
         }
     }
-    else { isBroken = true; }
+    else {
+        isBroken = true;
+        GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(scene);
+        if (gameplayScene != NULL) gameplayScene->addPoints(500);
+    }
 }

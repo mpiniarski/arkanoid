@@ -18,6 +18,8 @@ GameplayScene::GameplayScene(Game *game, int levelNumber) : Scene(game) {
             loadMapFromFile("map1.ark");
             break;
     }
+    points = 0;
+    moveTextEntitiesToFront();
 }
 
 GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
@@ -26,6 +28,7 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
         addEntity(i);
         ball->addCollisionMaker(i);
     }
+    moveTextEntitiesToFront();
 }
 
 void GameplayScene::uploadResources() {
@@ -34,6 +37,7 @@ void GameplayScene::uploadResources() {
     resourceManager.loadTextureFromFile("Brick1","res/img/brick.png");
     resourceManager.loadTextureFromFile("SolidBrick","res/img/solidBrick.png");
     resourceManager.loadTextureFromFile("Barrier","res/img/barrier.png");
+    resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
 }
 
 void GameplayScene::createEntities() {
@@ -42,6 +46,13 @@ void GameplayScene::createEntities() {
 
     ball = new Ball(this,resourceManager.getTextureFromMap("Ball"),platform);
     addEntity(ball);
+
+    TextEntity* pointsText = new TextEntity(this, "Points: ", resourceManager.getFontFromMap("font1"));
+    pointsText->setString("Points: " + std::to_string(points) );
+    pointsText->setCharacterSize(40);
+    pointsText->setPosition(10, -12);
+    addEntity(pointsText);
+    TextEntityMap.insert({ "pointsText", pointsText });
 }
 
 void GameplayScene::handleEvents() {
@@ -118,4 +129,10 @@ void GameplayScene::loadMapFromFile(std::string filePath) {
         }
     }
     file.close();
+}
+
+void GameplayScene::addPoints(int points) {
+    this->points += points;
+    TextEntity* pointsText = TextEntityMap.find("pointsText")->second;
+    pointsText->setString("Points: " + std::to_string(this->points) );
 }

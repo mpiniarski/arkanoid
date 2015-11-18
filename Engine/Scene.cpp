@@ -1,6 +1,7 @@
 #include "Scene.h"
 
 #include "Entity.h"
+#include "TextEntity.h"
 
 using namespace std;
 
@@ -99,3 +100,10 @@ void Scene::exitScene(Scene *nextScene) {
     }
 }
 
+void Scene::moveTextEntitiesToFront() {
+    for (auto element: TextEntityMap){
+        TextEntity* textEntity = (element.second);
+        removeEntity(textEntity);
+        addEntity(textEntity);
+    }
+}

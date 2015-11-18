@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include "../Scenes/GameplayScene.h"
 
 
 Brick::Brick(Scene *scene, const sf::Texture &texture) : GraphicalEntity(scene, "Brick", texture){
@@ -10,4 +11,7 @@ void Brick::update() {
 
 void Brick::manageCollision(GraphicalEntity *ge) {
    isBroken = true;
+   GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(scene);
+   if (gameplayScene != NULL) gameplayScene->addPoints(100);
+
 }

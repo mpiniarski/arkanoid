@@ -27,6 +27,7 @@ private:
 protected:
     Game *game;
     std::map<std::string,TextEntity*> TextEntityMap;
+    void moveTextEntitiesToFront();
 
 public:
     Scene(Game *game);
