@@ -32,6 +32,6 @@ set(SOURCE_FILES
         Entities/SolidBrick.cpp
         Entities/SolidBrick.h
         Entities/Barrier.cpp
-        Entities/Barrier.h Scenes/ResultScene.cpp Scenes/ResultScene.h)
+        Entities/Barrier.h Scenes/ResultScene.cpp Scenes/ResultScene.h Scenes/BestScoresScene.cpp Scenes/BestScoresScene.h)
 
 add_executable(arkanoid ${SOURCE_FILES})

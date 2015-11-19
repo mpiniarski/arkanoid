@@ -9,6 +9,7 @@
 #include "ResultScene.h"
 
 #include <fstream>
+#include <iostream>
 
 
 GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(game) {
@@ -117,6 +118,7 @@ void GameplayScene::exitScene(Scene* nextScene){
         Scene::exitScene(nextScene);
     }
     else{
+        saveScore("score.txt");
         Scene::exitScene(new ResultScene(game, points, this->entitiesLeft));
     }
 }
@@ -157,6 +159,41 @@ void GameplayScene::loadMapFromFile(std::string filePath) {
     file.close();
 }
 
+void GameplayScene::saveScore(std::string filePath) {
+    std::list<int> scoreList;
+    std::ifstream file;
+    file.open(filePath.c_str());
+    if( !file.good() ) return;
+    int score;
+    while(true) {
+        file >> score;
+        if(file.eof()) break;
+        scoreList.push_back(score);
+    }
+    scoreList.push_back(points);
+
+    scoreList.sort();
+
+    file.close();
+
+    std::ofstream ofile;
+    ofile.open(filePath.c_str());
+    if( !ofile.good() ) return;
+
+    int counter = 10;
+    int last_value = -1;
+    while(!scoreList.empty() && counter > 0) {
+        score = scoreList.back();
+        if(score != last_value && score != 0) {
+            ofile << score << "\n";
+            counter--;
+            last_value = score;
+        }
+        scoreList.pop_back();
+    }
+    ofile.close();
+}
+
 void GameplayScene::addPoints(int points) {
     this->points += points;
     TextEntity* pointsText = TextEntityMap.find("pointsText")->second;
@@ -168,5 +205,9 @@ void GameplayScene::finishGame() {
         levelNumber++;
         Scene::exitScene(new GameplayScene(game, levelNumber, this->points));
     }
-    else Scene::exitScene(new ResultScene(game, points, this->entitiesLeft));
+    else {
+        saveScore("score.txt");
+        Scene::exitScene(new ResultScene(game, points, this->entitiesLeft));
+    }
 }
+

@@ -5,7 +5,7 @@
 #include "../Engine/Scene.h"
 
 namespace OPTION {
-    enum { NEWGAME, EDITMAP, EXIT };
+    enum { NEWGAME, EDITMAP, BESTSCORES, EXIT };
 }
 
 class MenuScene : public Scene {

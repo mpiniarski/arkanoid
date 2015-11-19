@@ -24,6 +24,7 @@ public:
     void finishGame();
 private:
     void loadMapFromFile(std::string filePath);
+    void saveScore(std::string filePath);
 
     void uploadResources() override;
     void createEntities() override;
