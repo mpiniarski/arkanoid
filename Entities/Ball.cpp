@@ -8,11 +8,11 @@ using namespace std;
 
 
 Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, "Ball", texture) {
-    movingHorizontal = (float) ((-1) * sqrt(10000 / 2));
+    int random = rand() % (int) platform->getWidth();
+    setPosition(platform->getPosition().x + random, platform->getPosition().y - this->getHeight() );
+    if(random > platform->getWidth()/2) { movingHorizontal = (float) (sqrt(10000 / 2)); }
+    else { movingHorizontal = (float) ((-1) * sqrt(10000 / 2)); }
     movingVertical = (float) sqrt(10000 / 2);
-    setPosition(platform->getPosition().x, platform->getPosition().y - this->getHeight() );
-    movingHorizontal = 70;
-    movingVertical = 70;
     velocity = 6.0;
     this->platform = platform;
 }

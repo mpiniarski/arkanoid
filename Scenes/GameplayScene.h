@@ -12,7 +12,7 @@ public:
 private:
     bool isKeyHeld[4];
     unsigned int points;
-    unsigned int levelNumber;
+    int levelNumber;
 
     Platform *platform;
     Ball *ball;

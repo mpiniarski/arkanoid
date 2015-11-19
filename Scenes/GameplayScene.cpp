@@ -12,6 +12,7 @@
 
 
 GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(game) {
+    if(levelNumber == 1) { this->points = 0; }
     this->points += points;
     this->levelNumber = levelNumber;
     initialize();
@@ -33,7 +34,7 @@ GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(ga
 
 GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
     points = 0;
-    levelNumber = 0;
+    levelNumber = -1;
     initialize();
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     this->entitiesLeft = 0;
@@ -69,7 +70,7 @@ void GameplayScene::createEntities() {
     addEntity(pointsText);
     TextEntityMap.insert({ "pointsText", pointsText });
 
-    if (levelNumber){
+    if (levelNumber > 0){
         TextEntity* levelNumberText = new TextEntity(this, "LEVEL " + std::to_string(levelNumber), resourceManager.getFontFromMap("font1"));
         levelNumberText->setCharacterSize(40);
         levelNumberText->setPosition(getWindowWidth()-230, -12);
@@ -163,7 +164,7 @@ void GameplayScene::addPoints(int points) {
 }
 
 void GameplayScene::finishGame() {
-    if(this->entitiesLeft == 0 && levelNumber < 3) {
+    if(this->entitiesLeft == 0 && levelNumber < 3 && levelNumber > 0) {
         levelNumber++;
         Scene::exitScene(new GameplayScene(game, levelNumber, this->points));
     }
