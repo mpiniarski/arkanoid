@@ -9,12 +9,9 @@
 #include "ResultScene.h"
 
 #include <fstream>
-#include <iostream>
-
 
 GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(game) {
-    if(levelNumber == 1) { this->points = 0; }
-    this->points += points;
+    this->points = points;
     this->levelNumber = levelNumber;
     initialize();
     this->entitiesLeft = 0;
@@ -35,7 +32,7 @@ GameplayScene::GameplayScene(Game *game, int levelNumber, int points) : Scene(ga
 
 GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList) : Scene(game) {
     points = 0;
-    levelNumber = -1;
+    levelNumber = 0;
     initialize();
     for(int i = 0; i < 4; i++) { isKeyHeld[i] = 0; }
     this->entitiesLeft = 0;
@@ -200,7 +197,12 @@ void GameplayScene::addPoints(int points) {
     pointsText->setString("Points: " + std::to_string(this->points) );
 }
 
-void GameplayScene::finishGame() {
+void GameplayScene::subtractEntity() {
+    entitiesLeft--;
+    if(!entitiesLeft) winGame();
+}
+
+void GameplayScene::winGame() {
     if(this->entitiesLeft == 0 && levelNumber < 3 && levelNumber > 0) {
         levelNumber++;
         Scene::exitScene(new GameplayScene(game, levelNumber, this->points));

@@ -27,10 +27,7 @@ void SolidBrick::manageCollision(GraphicalEntity *ge) {
         GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(scene);
         if (gameplayScene != NULL) {
             gameplayScene->addPoints(500);
-            gameplayScene->entitiesLeft--;
-            if(gameplayScene->entitiesLeft == 0) {
-                gameplayScene->finishGame();
-            }
+            gameplayScene->subtractEntity();
         }
     }
 }

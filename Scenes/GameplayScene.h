@@ -7,12 +7,11 @@ class Platform;
 
 
 class GameplayScene : public Scene {
-public:
-    int entitiesLeft;
 private:
     bool isKeyHeld[4];
     unsigned int points;
-    int levelNumber;
+    unsigned int levelNumber;
+    int entitiesLeft;
 
     Platform *platform;
     Ball *ball;
@@ -21,10 +20,11 @@ public:
     GameplayScene(Game *game, int levelNumber, int points);
     GameplayScene(Game *game, std::list<GraphicalEntity*> entityList);
     void addPoints(int points);
-    void finishGame();
+    void subtractEntity();
 private:
     void loadMapFromFile(std::string filePath);
     void saveScore(std::string filePath);
+    void winGame();
 
     void uploadResources() override;
     void createEntities() override;

@@ -1,10 +1,10 @@
-#include <fstream>
-#include <iostream>
 #include "BestScoresScene.h"
 
 #include "../Engine/GraphicalEntity.h"
 #include "../Engine/TextEntity.h"
 #include "MenuScene.h"
+
+#include <fstream>
 
 BestScoresScene::BestScoresScene(Game *game) : Scene(game) {
     initialize();
