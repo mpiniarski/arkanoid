@@ -1,7 +1,7 @@
 #include "Brick.h"
 #include "../Scenes/GameplayScene.h"
 
-Brick::Brick(Scene *scene, const sf::Texture &texture) : GraphicalEntity(scene, "Brick", texture){
+Brick::Brick(Scene *scene, sf::Texture &texture) : GraphicalEntity(scene, "Brick", texture){
    velocity = 0.0;
 }
 

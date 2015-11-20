@@ -11,7 +11,7 @@ protected:
     double velocity;
 
 public:
-    GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture);
+    GraphicalEntity(Scene *scene, std::string entityType, sf::Texture &texture);
     virtual ~GraphicalEntity() {};
 
     void draw();

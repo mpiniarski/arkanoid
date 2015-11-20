@@ -29,29 +29,13 @@ void EditMapScene::createEntities() {
 
     makeCursor(0,0);
 
-    TextEntity* placeElement = new TextEntity(this, "Place element: Space", resourceManager.getFontFromMap("Font1"));
-    placeElement->setCharacterSize(20);
-    placeElement->setPosition(10, (game->getWindowHeight() - 6*placeElement->getHeight()-16));
-    addEntity(placeElement);
-    TextEntityMap.insert({ "placeElement", placeElement });
+    std::string text = "Place element: Space\nUndo: Backspace\nChange type: C\nPlay map: Enter\nExit edit mode: Escape";
 
-    TextEntity* undo = new TextEntity(this, "Undo: Backspace", resourceManager.getFontFromMap("Font1"));
-    undo->setCharacterSize(20);
-    undo->setPosition(10, (game->getWindowHeight() - 4.5*undo->getHeight()-16));
-    addEntity(undo);
-    TextEntityMap.insert({ "undo", undo });
-
-    TextEntity* changeOption = new TextEntity(this, "Change type: C", resourceManager.getFontFromMap("Font1"));
-    changeOption->setCharacterSize(20);
-    changeOption->setPosition(10, (game->getWindowHeight() - 3*changeOption->getHeight()-16));
-    addEntity(changeOption);
-    TextEntityMap.insert({ "changeOption", changeOption });
-
-    TextEntity* playMap = new TextEntity(this, "Play map: Enter", resourceManager.getFontFromMap("Font1"));
-    playMap->setCharacterSize(20);
-    playMap->setPosition(10, (game->getWindowHeight() - 1.5*playMap->getHeight()-16));
-    addEntity(playMap);
-    TextEntityMap.insert({ "playMap", playMap });
+    TextEntity* legend = new TextEntity(this, text, resourceManager.getFontFromMap("Font1"));
+    legend->setCharacterSize(30);
+    legend->setPosition(10, game->getWindowHeight() - 1.3*legend->getHeight());
+    addEntity(legend);
+    TextEntityMap.insert({ "legend", legend });
 }
 
 void EditMapScene::makeCursor(float pos_x, float pos_y) {
@@ -231,7 +215,7 @@ void EditMapScene::moveEntity(GraphicalEntity *brickCursor, int direction) {
     else if( direction == DIRECTION::DOWN ) {
         float pos_x = x;
         float pos_y = y + height;
-        float minHeight = height*16;
+        float minHeight = height*14;
         if(pos_y >= minHeight) pos_y = minHeight - height;
         brickCursor->setPosition(pos_x, pos_y);
     }

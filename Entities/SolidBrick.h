@@ -7,7 +7,7 @@ private:
     int lives;
 
 public:
-    SolidBrick(Scene *scene, const sf::Texture &texture);
+    SolidBrick(Scene *scene, sf::Texture &texture);
     ~SolidBrick() {};
 
     //Main GrapficalEntity functionality

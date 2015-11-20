@@ -7,12 +7,12 @@
 using namespace std;
 
 
-Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, "Ball", texture) {
+Ball::Ball(Scene *scene, sf::Texture &texture, Platform* platform) : GraphicalEntity( scene, "Ball", texture) {
     int random = rand() % (int) platform->getWidth();
     setPosition(platform->getPosition().x + random, platform->getPosition().y - this->getHeight() );
     if(random > platform->getWidth()/2) { movingHorizontal = (float) (sqrt(10000 / 2)); }
     else { movingHorizontal = (float) ((-1) * sqrt(10000 / 2)); }
-    movingVertical = (float) sqrt(10000 / 2);
+    movingVertical = (float) (-1)*(sqrt(10000 / 2));
     velocity = 6.0;
     this->platform = platform;
 }

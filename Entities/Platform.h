@@ -6,7 +6,7 @@ class GameplayScene;
 class Platform : public GraphicalEntity {
 
 public:
-    Platform(Scene *scene, const sf::Texture &texture);
+    Platform(Scene *scene, sf::Texture &texture);
     ~Platform() {};
 
     //Main GrapficalEntity functionality

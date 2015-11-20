@@ -5,7 +5,7 @@
 class Brick : public GraphicalEntity {
 
 public:
-    Brick(Scene *scene, const sf::Texture &texture);
+    Brick(Scene *scene, sf::Texture &texture);
     ~Brick() {};
 
     //Main GrapficalEntity functionality

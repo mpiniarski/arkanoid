@@ -1,7 +1,7 @@
 #include "SolidBrick.h"
 #include "../Scenes/GameplayScene.h"
 
-SolidBrick::SolidBrick(Scene *scene, const sf::Texture &texture) : GraphicalEntity(scene, "SolidBrick", texture){
+SolidBrick::SolidBrick(Scene *scene, sf::Texture &texture) : GraphicalEntity(scene, "SolidBrick", texture){
     velocity = 0.0;
     lives = 3;
     this->setTextureRect(sf::Rect<int>(0,0,this->getWidth(),this->getHeight()/3));

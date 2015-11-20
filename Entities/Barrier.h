@@ -5,7 +5,7 @@
 class Barrier : public GraphicalEntity {
 
 public:
-    Barrier(Scene *scene, const sf::Texture &texture);
+    Barrier(Scene *scene, sf::Texture &texture);
     ~Barrier() {};
 
     //Main GrapficalEntity functionality

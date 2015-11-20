@@ -14,7 +14,7 @@ private:
     Platform* platform; // ball can exist only with platform assigned to it
 
 public:
-    Ball(Scene *scene, const sf::Texture &texture, Platform* platform);
+    Ball(Scene *scene, sf::Texture &texture, Platform* platform);
     ~Ball();
 
     void update();

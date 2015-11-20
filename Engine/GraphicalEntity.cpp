@@ -1,11 +1,12 @@
 #include "GraphicalEntity.h"
 
-GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
+GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
 {
     movingHorizontal = 0;
     movingVertical = 0;
     velocity = 0;
     setPosition(0,0);
+    texture.setSmooth(true);
 }
 
 void GraphicalEntity::draw() {

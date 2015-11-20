@@ -1,7 +1,7 @@
 #include "Barrier.h"
 
 
-Barrier::Barrier(Scene *scene, const sf::Texture &texture) : GraphicalEntity(scene, "Barrier", texture){
+Barrier::Barrier(Scene *scene, sf::Texture &texture) : GraphicalEntity(scene, "Barrier", texture){
     velocity = 0.0;
 }
 
