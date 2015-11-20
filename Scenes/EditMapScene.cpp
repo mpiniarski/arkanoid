@@ -87,8 +87,14 @@ void EditMapScene::handleEvents() {
             else if( event.key.code == sf::Keyboard::Return ) {
                 playMap();
             }
-            else if(event.key.code == sf::Keyboard::S ) {
+            else if(event.key.code == sf::Keyboard::Num1) {
                 saveMapToFile("map1.ark");
+            }
+            else if(event.key.code == sf::Keyboard::Num2 ) {
+                saveMapToFile("map2.ark");
+            }
+            else if(event.key.code == sf::Keyboard::Num3 ) {
+                saveMapToFile("map3.ark");
             }
             else if(event.key.code == sf::Keyboard::C ) {
                 if(chosenCursor == 2) { chosenCursor = 0; }

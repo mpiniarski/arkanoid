@@ -13,7 +13,7 @@ Ball::Ball(Scene *scene, sf::Texture &texture, Platform* platform) : GraphicalEn
     if(random > platform->getWidth()/2) { movingHorizontal = (float) (sqrt(10000 / 2)); }
     else { movingHorizontal = (float) ((-1) * sqrt(10000 / 2)); }
     movingVertical = (float) (-1)*(sqrt(10000 / 2));
-    velocity = 6.0;
+    velocity = 9.0;
     this->platform = platform;
 }
 

@@ -11,7 +11,7 @@ MenuScene::MenuScene(Game *game) : Scene(game) {
 }
 
 void MenuScene::uploadResources() {
-    resourceManager.loadTextureFromFile("Background","res/img/menu_background.png");
+    resourceManager.loadTextureFromFile("Background","res/img/menu_background.jpg");
     resourceManager.loadFontFromFile("Font1","res/font/new-academy/new-academy.ttf");
 }
 
@@ -22,7 +22,8 @@ void MenuScene::createEntities() {
 
     TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("Font1"));
     title->setCharacterSize(111);
-    title->setPosition( (game->getWindowWidth() - title->getWidth())/2, (game->getWindowHeight() - title->getHeight())/9);
+    title->setPosition( (game->getWindowWidth() - title->getWidth())/2 , 30);
+//    title->setColor(sf::Color(111,0,0));
     addEntity(title);
     TextEntityMap.insert( {"title",title} );
 
@@ -93,31 +94,31 @@ void MenuScene::markOption() {
     auto edit_map = TextEntityMap.find("edit_map");
     auto best_scores = TextEntityMap.find("best_scores");
     auto exit = TextEntityMap.find("exit");
-    sf::Color red = sf::Color(255,0,0);
-    sf::Color black = sf::Color(255,255,255);
+    sf::Color red = sf::Color(150,0,0);
+    sf::Color def = sf::Color(255,255,255);
 
     if(chosenOption == OPTION::NEWGAME) {
         new_game->second->setColor(red);
-        edit_map->second->setColor(black);
-        best_scores->second->setColor(black);
-        exit->second->setColor(black);
+        edit_map->second->setColor(def);
+        best_scores->second->setColor(def);
+        exit->second->setColor(def);
     }
     else if(chosenOption == OPTION::EDITMAP) {
-        new_game->second->setColor(black);
+        new_game->second->setColor(def);
         edit_map->second->setColor(red);
-        best_scores->second->setColor(black);
-        exit->second->setColor(black);
+        best_scores->second->setColor(def);
+        exit->second->setColor(def);
     }
     else if(chosenOption == OPTION::BESTSCORES) {
-        new_game->second->setColor(black);
-        edit_map->second->setColor(black);
+        new_game->second->setColor(def);
+        edit_map->second->setColor(def);
         best_scores->second->setColor(red);
-        exit->second->setColor(black);
+        exit->second->setColor(def);
     }
     else if(chosenOption == OPTION::EXIT) {
-        new_game->second->setColor(black);
-        edit_map->second->setColor(black);
-        best_scores->second->setColor(black);
+        new_game->second->setColor(def);
+        edit_map->second->setColor(def);
+        best_scores->second->setColor(def);
         exit->second->setColor(red);
     }
 }
