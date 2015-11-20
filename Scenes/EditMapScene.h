@@ -2,33 +2,33 @@
 
 #include "../Engine/GraphicalEntity.h"
 #include "../Engine/Scene.h"
-#include "../Entities/Platform.h"
-#include "../Entities/Ball.h"
-#include "../Entities/Brick.h"
 
 namespace TYPE {
     enum { BRICK, SOLIDBRICK, BARRIER };
 }
 class EditMapScene : public Scene {
 private:
+    int chosenCursor;
     GraphicalEntity *brickCursor;
-    int type;
-    std::list<GraphicalEntity*>mapEntities;
-    std::map<std::string,TextEntity*> TextEntityMap;
+    std::list<GraphicalEntity*>mapEntities; // hold all Grapghial Entities which create map
+
 public:
     EditMapScene(Game *game);
-private:
-    void playMap();
-    void saveMapToFile(std::string filePath);
+    ~EditMapScene(){};
 
+    void exitScene(Scene* nextScene = NULL) override; // overrides what happens, when You want to exitScene, and dont pass nextScene to this method
+private:
+    void moveEntity(GraphicalEntity* brickCursor, int direction);
     void makeCursor(float pos_x, float pos_y);
     void placeBrick();
     GraphicalEntity* makeBrick();
     void undo();
-    void moveEntity(GraphicalEntity* brickCursor, int direction);
+
+    void saveMapToFile(std::string filePath);
+    void playMap();
+
+    //Main scene funtionality:
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
-
-    void exitScene(Scene* nextScene = NULL) override;
 };

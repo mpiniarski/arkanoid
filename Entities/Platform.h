@@ -9,8 +9,8 @@ public:
     Platform(Scene *scene, const sf::Texture &texture);
     ~Platform() {};
 
+    //Main GrapficalEntity functionality
     void update() override;
-
     void manageCollision(GraphicalEntity* ge) override {};
 };
 

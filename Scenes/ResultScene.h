@@ -14,8 +14,10 @@ private:
 
 public:
     ResultScene(Game *game, int points, int entitiesLeft);
+    ~ResultScene(){};
 
 private:
+    //Main scene funtionality:
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;

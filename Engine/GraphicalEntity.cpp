@@ -2,7 +2,6 @@
 
 GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf::Texture &texture) : Entity(scene, entityType), Sprite(texture)
 {
-//    unifyWithResolutoin(800,600);
     movingHorizontal = 0;
     movingVertical = 0;
     velocity = 0;
@@ -10,7 +9,11 @@ GraphicalEntity::GraphicalEntity(Scene *scene, std::string entityType, const sf:
 }
 
 void GraphicalEntity::draw() {
-    scene->drawOnWindow(*this);
+    scene->drawOnWindow(*this);  // needs to be defined so entity can "draw itself" on screen
+}
+
+void GraphicalEntity::update() {
+    makeStep();
 }
 
 void GraphicalEntity::makeStep() {
@@ -61,8 +64,7 @@ void GraphicalEntity::resetDirection(int direction) {
     }
 }
 
-void GraphicalEntity::update() {
-    makeStep();
+void GraphicalEntity::manageCollision(GraphicalEntity *ge) { // different in every GraphicalEntinty children-class
 }
 
 float GraphicalEntity::getWidth() {return getTextureRect().width;};
@@ -72,6 +74,3 @@ void GraphicalEntity::stretchToWindowSize() {
     setScale(scene->getWindowWidth()/getWidth(),scene->getWindowHeight()/getHeight());
 }
 
-//void GraphicalEntity::unifyWithResolutoin(int width, int height) {
-//    setScale((float)scene->getWindowWidth()/width, (float)scene->getWindowHeight()/height);
-//}

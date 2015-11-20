@@ -25,7 +25,7 @@ void SolidBrick::manageCollision(GraphicalEntity *ge) {
     else {
         isBroken = true;
         GameplayScene* gameplayScene = dynamic_cast<GameplayScene*>(scene);
-        if (gameplayScene != NULL) {
+        if (gameplayScene != NULL) { // make only if scene is GraphicalScene
             gameplayScene->addPoints(500);
             gameplayScene->subtractEntity();
         }

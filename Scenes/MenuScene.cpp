@@ -11,40 +11,40 @@ MenuScene::MenuScene(Game *game) : Scene(game) {
 }
 
 void MenuScene::uploadResources() {
-    resourceManager.loadTextureFromFile("texture1","res/img/menu_background.png");
-    resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
+    resourceManager.loadTextureFromFile("Background","res/img/menu_background.png");
+    resourceManager.loadFontFromFile("Font1","res/font/new-academy/new-academy.ttf");
 }
 
 void MenuScene::createEntities() {
-    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("texture1"));
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("Background"));
     bg->stretchToWindowSize();
     addEntity(bg);
 
-    TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("font1"));
+    TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("Font1"));
     title->setCharacterSize(111);
     title->setPosition( (game->getWindowWidth() - title->getWidth())/2, (game->getWindowHeight() - title->getHeight())/9);
     addEntity(title);
     TextEntityMap.insert( {"title",title} );
 
-    TextEntity *new_game = new TextEntity(this, "NEW GAME", resourceManager.getFontFromMap("font1"));
+    TextEntity *new_game = new TextEntity(this, "NEW GAME", resourceManager.getFontFromMap("Font1"));
     new_game->setCharacterSize(40);
     new_game->setPosition( (game->getWindowWidth() - new_game->getWidth())/2, 2*(game->getWindowHeight() - new_game->getHeight())/6);
     addEntity(new_game);
     TextEntityMap.insert( {"new_game",new_game} );
 
-    TextEntity *edit_map = new TextEntity(this, "EDIT YOUR MAP", resourceManager.getFontFromMap("font1"));
+    TextEntity *edit_map = new TextEntity(this, "EDIT YOUR MAP", resourceManager.getFontFromMap("Font1"));
     edit_map->setCharacterSize(40);
     edit_map->setPosition( (game->getWindowWidth() - edit_map->getWidth())/2, 3*(game->getWindowHeight() - edit_map->getHeight())/6);
     addEntity(edit_map);
     TextEntityMap.insert( {"edit_map",edit_map} );
 
-    TextEntity *best_scores = new TextEntity(this, "BEST SCORES", resourceManager.getFontFromMap("font1"));
+    TextEntity *best_scores = new TextEntity(this, "BEST SCORES", resourceManager.getFontFromMap("Font1"));
     best_scores->setCharacterSize(40);
     best_scores->setPosition( (game->getWindowWidth() - best_scores->getWidth())/2, 4*(game->getWindowHeight() - best_scores->getHeight())/6);
     addEntity(best_scores);
     TextEntityMap.insert( {"best_scores",best_scores} );
 
-    TextEntity *exit = new TextEntity(this, "EXIT", resourceManager.getFontFromMap("font1"));
+    TextEntity *exit = new TextEntity(this, "EXIT", resourceManager.getFontFromMap("Font1"));
     exit->setCharacterSize(40);
     exit->setPosition( (game->getWindowWidth() - exit->getWidth())/2, 5*(game->getWindowHeight() - exit->getHeight())/6);
     addEntity(exit);

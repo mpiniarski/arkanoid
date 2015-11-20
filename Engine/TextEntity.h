@@ -14,6 +14,6 @@ public:
     void update() override { };
 
     float getWidth() {return getLocalBounds().width;};
-    float getHeight() {return getLocalBounds().height;}
+    float getHeight() {return getLocalBounds().height;};
 };
 

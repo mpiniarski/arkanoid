@@ -10,14 +10,16 @@ namespace OPTION {
 
 class MenuScene : public Scene {
 private:
-    std::map<std::string,TextEntity*> TextEntityMap;
     int chosenOption;
+
 public:
     MenuScene(Game *game);
+    ~MenuScene(){};
 private:
     void changeOption(int direction);
     void markOption();
 
+    //Main scene funtionality:
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;

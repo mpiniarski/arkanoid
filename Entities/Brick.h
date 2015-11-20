@@ -7,8 +7,9 @@ class Brick : public GraphicalEntity {
 public:
     Brick(Scene *scene, const sf::Texture &texture);
     ~Brick() {};
-    void update() override;
 
+    //Main GrapficalEntity functionality
+    void update() override;
     void manageCollision(GraphicalEntity* ge) override;
 };
 

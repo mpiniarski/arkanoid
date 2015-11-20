@@ -9,8 +9,9 @@ private:
 public:
     SolidBrick(Scene *scene, const sf::Texture &texture);
     ~SolidBrick() {};
-    void update() override;
 
+    //Main GrapficalEntity functionality
+    void update() override;
     void manageCollision(GraphicalEntity* ge) override;
 };
 

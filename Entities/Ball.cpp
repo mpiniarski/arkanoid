@@ -17,20 +17,27 @@ Ball::Ball(Scene *scene, const sf::Texture &texture, Platform* platform) : Graph
     this->platform = platform;
 }
 
-void Ball::wallCollision() {
-    float pos_x = getPosition().x;
-    float pos_y = getPosition().y;
-
-    if(pos_x<=0 || pos_x+getWidth() >= scene->getWindowWidth() ) movingHorizontal *= -1;
-    if(pos_y<=0) movingVertical *= -1;
-    if(pos_y >= scene->getWindowHeight()) {
-        scene->exitScene();
+void Ball::update() {
+    if(this->getPosition().y + (this->getHeight())  >= platform->getPosition().y) {
+        detectCollision(platform);
     }
+    else {
+        list<GraphicalEntity*>::iterator i;
+        for(i=collisionList.begin(); i != collisionList.end(); i++){
+            GraphicalEntity* entity = *i;
+            detectCollision(entity);
+            if(entity->isBroken){
+                i++;
+                collisionList.remove(entity);
+            }
+        }
+    }
+    wallCollision();
+    makeStep();
 }
 
-void Ball::detectCollision(Platform *ge) {
 
-    float edge = 80;        //max MovingHorizontal
+void Ball::detectCollision(Platform *ge) {
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
     float radius = this->getWidth()/2;
@@ -166,23 +173,14 @@ void Ball::detectCollision(GraphicalEntity *ge) {
     }
 }
 
-void Ball::update() {
-    if(this->getPosition().y + (this->getHeight())  >= platform->getPosition().y) {
-        detectCollision(platform);
+void Ball::wallCollision() {
+    float pos_x = getPosition().x;
+    float pos_y = getPosition().y;
+    if(pos_x<=0 || pos_x+getWidth() >= scene->getWindowWidth() ) movingHorizontal *= -1;
+    if(pos_y<=0) movingVertical *= -1;
+    if(pos_y >= scene->getWindowHeight()) {
+        scene->exitScene();
     }
-    else {
-        list<GraphicalEntity*>::iterator i;
-        for(i=collisionList.begin(); i != collisionList.end(); i++){
-            GraphicalEntity* entity = *i;
-            detectCollision(entity);
-            if(entity->isBroken){
-                i++;
-                collisionList.remove(entity);
-            }
-        }
-    }
-    wallCollision();
-    makeStep();
 }
 
 void Ball::addCollisionMaker(GraphicalEntity *ge) {

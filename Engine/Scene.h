@@ -3,20 +3,16 @@
 #include "Game.h"
 #include "ResourceManager.h"
 
-#include <string>
-#include <unordered_map>
 #include <list>
-
-
-namespace DIRECTION {
-    enum { UP, DOWN, LEFT, RIGHT };
-};
+#include <map>
 
 class Entity;
 class GraphicalEntity;
 class TextEntity;
 
-
+namespace DIRECTION {
+    enum { UP, DOWN, LEFT, RIGHT };
+};
 
 class Scene{
 private:
@@ -27,36 +23,32 @@ private:
 protected:
     Game *game;
     std::map<std::string,TextEntity*> TextEntityMap;
-    void moveTextEntitiesToFront();
+    ResourceManager resourceManager;
 
 public:
     Scene(Game *game);
     virtual ~Scene();
+
     void run();
+    virtual void exitScene(Scene* nextScene = NULL);
 
     void drawOnWindow(sf::Drawable &drawable);
-
     int getWindowWidth();
     int getWindowHeight();
 
-    virtual void exitScene(Scene* nextScene = NULL);
-
-    ResourceManager resourceManager;
 protected:
     void initialize();
     void addEntity(Entity *entity);
     void removeEntity(Entity *entity);
+    void moveTextEntitiesToFront();
 
 private:
-    virtual void uploadResources();
-    virtual void createEntities();
-
-    virtual void handleEvents();
-
     void updateEntities();
-
     void renderWindow();
 
+    virtual void uploadResources();
+    virtual void createEntities();
+    virtual void handleEvents();
 };
 
 

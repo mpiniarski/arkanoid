@@ -7,7 +7,8 @@ class Barrier : public GraphicalEntity {
 public:
     Barrier(Scene *scene, const sf::Texture &texture);
     ~Barrier() {};
-    void update() override;
 
+    //Main GrapficalEntity functionality
+    void update() override;
     void manageCollision(GraphicalEntity* ge) override;
 };

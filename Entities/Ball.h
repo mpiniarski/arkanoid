@@ -9,12 +9,14 @@ class Platform;
 
 class Ball : public GraphicalEntity {
 private:
-    std::list<GraphicalEntity*> collisionList;
-    Platform* platform;
+    float edge = 80;        //max MovingHorizontal
+    std::list<GraphicalEntity*> collisionList; // list of GraphicalEntities with which Ball collides
+    Platform* platform; // ball can exist only with platform assigned to it
 
 public:
     Ball(Scene *scene, const sf::Texture &texture, Platform* platform);
     ~Ball();
+
     void update();
     void addCollisionMaker(GraphicalEntity* ge);
 

@@ -5,8 +5,8 @@ Barrier::Barrier(Scene *scene, const sf::Texture &texture) : GraphicalEntity(sce
     velocity = 0.0;
 }
 
-void Barrier::update() {
+void Barrier::update() { //actually doing nothing
 }
 
-void Barrier::manageCollision(GraphicalEntity *ge) {
+void Barrier::manageCollision(GraphicalEntity *ge) { //actually doing nothing
 }
