@@ -1,3 +1,5 @@
+#include <fstream>
+#include <iostream>
 #include "BestScoresScene.h"
 
 #include "../Engine/GraphicalEntity.h"
@@ -18,11 +20,49 @@ void BestScoresScene::createEntities() {
     bg->stretchToWindowSize();
     addEntity(bg);
 
-    TextEntity *title = new TextEntity(this, "Arkanoid", resourceManager.getFontFromMap("font1"));
-    title->setCharacterSize(111);
-    title->setPosition( (game->getWindowWidth() - title->getWidth())/2, (game->getWindowHeight() - title->getHeight())/9);
-    addEntity(title);
-    TextEntityMap.insert( {"title",title} );
+    TextEntity *header = new TextEntity(this, "Top scores", resourceManager.getFontFromMap("font1"));
+    header->setCharacterSize(90);
+    header->setPosition( (game->getWindowWidth() - header->getWidth())/2, (game->getWindowHeight() - header->getHeight())/15);
+    addEntity(header);
+    TextEntityMap.insert( {"header",header} );
+
+    TextEntity *legend = new TextEntity(this, "Click Enter\nto return to menu", resourceManager.getFontFromMap("font1"));
+    legend->setCharacterSize(30);
+    legend->setPosition( 10, 14*(game->getWindowHeight() - legend->getHeight())/15);
+    addEntity(legend);
+    TextEntityMap.insert( {"legend",legend} );
+
+    std::string text = textFileToScoreList("score.txt");
+    TextEntity *scores = new TextEntity(this, text, resourceManager.getFontFromMap("font1"));
+    scores->setCharacterSize(50);
+    scores->setPosition( (game->getWindowWidth() - scores->getWidth())/2, 3*(game->getWindowHeight())/15);
+    addEntity(scores);
+    TextEntityMap.insert( {"scores",scores} );
+}
+
+std::string BestScoresScene::textFileToScoreList(std::string filePath) {
+    std::list<std::string> scoreList;
+    std::ifstream file;
+    file.open(filePath.c_str());
+    if( !file.good() ) return "";
+    std::string score;
+    while(true) {
+        file >> score;
+        if(file.eof()) break;
+        scoreList.push_back(score);
+    }
+
+    std::string text = "";
+    int counter = 1;
+    while( counter <= 10 && !scoreList.empty() ) {
+        score = scoreList.front();
+        text += std::to_string(counter) + ".\t" + score + "\n";
+        counter++;
+        scoreList.pop_front();
+    }
+    file.close();
+
+    return text;
 }
 
 void BestScoresScene::handleEvents() {
@@ -31,9 +71,10 @@ void BestScoresScene::handleEvents() {
         if( event.type == sf::Event::Closed ) {
             exitScene();
         }
-        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
+        if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return ) {
             exitScene(new MenuScene(game));
         }
         else break;
     }
 }
+
