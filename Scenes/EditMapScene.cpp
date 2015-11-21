@@ -16,6 +16,7 @@ EditMapScene::EditMapScene(Game *game) : Scene(game) {
 }
 
 void EditMapScene::uploadResources() {
+    resourceManager.loadTextureFromFile("Background","res/img/bg1.jpg");
     resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
     resourceManager.loadTextureFromFile("Brick","res/img/brick.png");
     resourceManager.loadTextureFromFile("SolidBrick","res/img/solidBrick.png");
@@ -24,6 +25,10 @@ void EditMapScene::uploadResources() {
 }
 
 void EditMapScene::createEntities() {
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("Background"));
+    bg->stretchToWindowSize();
+    addEntity(bg);
+
     Platform* platform =new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
 

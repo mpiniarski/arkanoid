@@ -46,6 +46,20 @@ GameplayScene::GameplayScene(Game *game, std::list<GraphicalEntity *> entityList
 }
 
 void GameplayScene::uploadResources() {
+    switch (levelNumber) {
+        case 0:
+            resourceManager.loadTextureFromFile("Background","res/img/bg1.jpg");
+            break;
+        case 1:
+            resourceManager.loadTextureFromFile("Background","res/img/bg1.jpg");
+            break;
+        case 2:
+            resourceManager.loadTextureFromFile("Background","res/img/bg2.jpg");
+            break;
+        case 3:
+            resourceManager.loadTextureFromFile("Background","res/img/bg3.jpg");
+            break;
+    }
     resourceManager.loadTextureFromFile("Platform","res/img/platform.png");
     resourceManager.loadTextureFromFile("Ball","res/img/ball.png");
     resourceManager.loadTextureFromFile("Brick","res/img/brick.png");
@@ -55,6 +69,10 @@ void GameplayScene::uploadResources() {
 }
 
 void GameplayScene::createEntities() {
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("Background"));
+    bg->stretchToWindowSize();
+    addEntity(bg);
+
     platform = new Platform(this,resourceManager.getTextureFromMap("Platform"));
     addEntity(platform);
 

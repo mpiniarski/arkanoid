@@ -14,12 +14,12 @@ ResultScene::ResultScene(Game *game, int points, int entitiesLeft) : Scene(game)
 }
 
 void ResultScene::uploadResources() {
-    resourceManager.loadTextureFromFile("texture1","res/img/menu_background.png");
+    resourceManager.loadTextureFromFile("Background","res/img/menu_background.jpg");
     resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
 }
 
 void ResultScene::createEntities() {
-    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("texture1"));
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("Background"));
     bg->stretchToWindowSize();
     addEntity(bg);
 
@@ -61,6 +61,18 @@ void ResultScene::createEntities() {
     enter->setPosition((game->getWindowWidth() - enter->getWidth())/2, 5*(game->getWindowHeight()/8));
     addEntity(enter);
     TextEntityMap.insert({ "enter", enter });
+
+    std::string text = "Credits\n";
+    text += "Graphical elements:\n";
+    text += "\t- Bricks, platform, ball: noway (LGPL) http://opengameart.org/\n";
+    text += "\t- Backgrounds: http://www.desktopnexus.com/\n";
+    text += "\t- Font: Gustavo Paz L. (CC) https://fontlibrary.org/\n";
+
+    TextEntity* credits = new TextEntity(this, text, resourceManager.getFontFromMap("font1"));
+    credits->setCharacterSize(20);
+    credits->setPosition(20, 6.7*(game->getWindowHeight()/8));
+    addEntity(credits);
+    TextEntityMap.insert({ "credits", credits });
 }
 
 void ResultScene::handleEvents() {

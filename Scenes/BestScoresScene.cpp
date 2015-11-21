@@ -11,12 +11,12 @@ BestScoresScene::BestScoresScene(Game *game) : Scene(game) {
 }
 
 void BestScoresScene::uploadResources() {
-    resourceManager.loadTextureFromFile("texture1","res/img/menu_background.png");
+    resourceManager.loadTextureFromFile("Background","res/img/menu_background.jpg");
     resourceManager.loadFontFromFile("font1","res/font/new-academy/new-academy.ttf");
 }
 
 void BestScoresScene::createEntities() {
-    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("texture1"));
+    GraphicalEntity *bg = new GraphicalEntity(this, "Background", resourceManager.getTextureFromMap("Background"));
     bg->stretchToWindowSize();
     addEntity(bg);
 
