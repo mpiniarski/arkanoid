@@ -4,13 +4,13 @@
 using namespace std;
 
 Game::Game(string gameTitle):
-        Window(/*sf::VideoMode::getFullscreenModes()[1]*/sf::VideoMode(1280,720), gameTitle/*, sf::Style::Fullscreen*/)
+        window(/*sf::VideoMode::getFullscreenModes()[1]*/sf::VideoMode(1280, 720), gameTitle/*, sf::Style::Fullscreen*/)
 {
     currentScene = NULL;
     FPS = 60.0;
-    Window.setFramerateLimit(60);
-    Window.setVerticalSyncEnabled(true);
-    Window.setMouseCursorVisible(false);
+    window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
+    window.setMouseCursorVisible(false);
 }
 
 void Game::launchScene(Scene *scene) {

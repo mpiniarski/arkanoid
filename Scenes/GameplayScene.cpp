@@ -84,20 +84,20 @@ void GameplayScene::createEntities() {
     pointsText->setCharacterSize(40);
     pointsText->setPosition(10, -12);
     addEntity(pointsText);
-    TextEntityMap.insert({ "pointsText", pointsText });
+    textEntityMap.insert({"pointsText", pointsText });
 
     if (levelNumber > 0){
         TextEntity* levelNumberText = new TextEntity(this, "LEVEL " + std::to_string(levelNumber), resourceManager.getFontFromMap("font1"));
         levelNumberText->setCharacterSize(40);
         levelNumberText->setPosition(getWindowWidth()-230, -12);
         addEntity(levelNumberText);
-        TextEntityMap.insert({ "levelNumberText", levelNumberText });
+        textEntityMap.insert({"levelNumberText", levelNumberText });
     }
 }
 
 void GameplayScene::handleEvents() {
     sf::Event event;
-    while( game->Window.pollEvent( event ) )
+    while( game->window.pollEvent(event ) )
     {
         if( event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape ) {
             exitScene(new MenuScene(game));
@@ -211,7 +211,7 @@ void GameplayScene::saveScore(std::string filePath) {
 
 void GameplayScene::addPoints(int points) {
     this->points += points;
-    TextEntity* pointsText = TextEntityMap.find("pointsText")->second;
+    TextEntity* pointsText = textEntityMap.find("pointsText")->second;
     pointsText->setString("Points: " + std::to_string(this->points) );
 }
 

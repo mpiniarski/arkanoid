@@ -32,6 +32,21 @@ sf::Font &ResourceManager::getFontFromMap(std::string name) {
     return (found->second);
 }
 
+//void ResourceManager::loadSoundBufferFromFile(string name, string filepath) {
+//    sf::SoundBuffer *sb = new sf::SoundBuffer();
+//    sb->loadFromFile(filepath);
+//    addSoundBufferToMap(name,sb);
+//}
+//
+//void ResourceManager::addSoundBufferToMap(std::string name, sf::SoundBuffer *sb) {
+//    SoundBufferMap.insert( {name,*sb} );
+//}
+//
+//sf::SoundBuffer &ResourceManager::getSoundBufferFromMap(std::string name) {
+//    auto found = SoundBufferMap.find(name);
+//    return (found->second);
+//}
+
 ResourceManager::~ResourceManager() {
     for (auto i :TextureMap){
         delete(&i.second);

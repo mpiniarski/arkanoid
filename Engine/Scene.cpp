@@ -50,12 +50,12 @@ void Scene::handleEvents() { // different in every scene
 }
 
 void Scene::updateEntities() { // updates every entity in scene, destroys broken ones
-    list<Entity*>::iterator i = EntityList.begin();
-    while(i!=EntityList.end()){
+    list<Entity*>::iterator i = entityList.begin();
+    while(i != entityList.end()){
         Entity* entity = *i;
         if(entity->isBroken){
             i++;
-            EntityList.remove(entity);
+            entityList.remove(entity);
             delete entity;
             continue;
         }
@@ -65,15 +65,15 @@ void Scene::updateEntities() { // updates every entity in scene, destroys broken
 }
 
 void Scene::renderWindow() {  // draws every entity in scene
-    game->Window.clear( sf::Color( 30, 30, 30 ) );
-    for( auto &i : EntityList){
+    game->window.clear(sf::Color(30, 30, 30 ) );
+    for( auto &i : entityList){
         i->draw();
     }
-    game->Window.display();
+    game->window.display();
 }
 
 void Scene::drawOnWindow(sf::Drawable &drawable) {  // this method is needed so each entity can use draw() funcion (can "draw itself" on screen)
-    game->Window.draw(drawable);                    // couse Entity itself isnt drawable, but its childrens, who define "draw()" are,
+    game->window.draw(drawable);                    // couse Entity itself isnt drawable, but its childrens, who define "draw()" are,
 }
 
 void Scene::exitScene(Scene *nextScene) { // manages exiting scenes, loading next scenes
@@ -85,14 +85,14 @@ void Scene::exitScene(Scene *nextScene) { // manages exiting scenes, loading nex
 
 
 void Scene::addEntity(Entity *entity) {
-    EntityList.push_back(entity);
+    entityList.push_back(entity);
 }
 void Scene::removeEntity(Entity *entity) {
-    EntityList.remove(entity);
+    entityList.remove(entity);
 }
 
 void Scene::moveTextEntitiesToFront() {
-    for (auto element: TextEntityMap){
+    for (auto element: textEntityMap){
         TextEntity* textEntity = (element.second);
         removeEntity(textEntity);
         addEntity(textEntity);
@@ -103,7 +103,7 @@ int Scene::getWindowWidth() { return game->getWindowWidth();}
 int Scene::getWindowHeight() { return game->getWindowHeight();}
 
 Scene::~Scene() {
-    for (auto i : EntityList){
+    for (auto i : entityList){
         delete i;
     }
 }

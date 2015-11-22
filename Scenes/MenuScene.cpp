@@ -25,36 +25,36 @@ void MenuScene::createEntities() {
     title->setPosition( (game->getWindowWidth() - title->getWidth())/2 , 30);
 //    title->setColor(sf::Color(111,0,0));
     addEntity(title);
-    TextEntityMap.insert( {"title",title} );
+    textEntityMap.insert({"title", title} );
 
     TextEntity *new_game = new TextEntity(this, "NEW GAME", resourceManager.getFontFromMap("Font1"));
     new_game->setCharacterSize(40);
     new_game->setPosition( (game->getWindowWidth() - new_game->getWidth())/2, 2*(game->getWindowHeight() - new_game->getHeight())/6);
     addEntity(new_game);
-    TextEntityMap.insert( {"new_game",new_game} );
+    textEntityMap.insert({"new_game", new_game} );
 
     TextEntity *edit_map = new TextEntity(this, "EDIT YOUR MAP", resourceManager.getFontFromMap("Font1"));
     edit_map->setCharacterSize(40);
     edit_map->setPosition( (game->getWindowWidth() - edit_map->getWidth())/2, 3*(game->getWindowHeight() - edit_map->getHeight())/6);
     addEntity(edit_map);
-    TextEntityMap.insert( {"edit_map",edit_map} );
+    textEntityMap.insert({"edit_map", edit_map} );
 
     TextEntity *best_scores = new TextEntity(this, "BEST SCORES", resourceManager.getFontFromMap("Font1"));
     best_scores->setCharacterSize(40);
     best_scores->setPosition( (game->getWindowWidth() - best_scores->getWidth())/2, 4*(game->getWindowHeight() - best_scores->getHeight())/6);
     addEntity(best_scores);
-    TextEntityMap.insert( {"best_scores",best_scores} );
+    textEntityMap.insert({"best_scores", best_scores} );
 
     TextEntity *exit = new TextEntity(this, "EXIT", resourceManager.getFontFromMap("Font1"));
     exit->setCharacterSize(40);
     exit->setPosition( (game->getWindowWidth() - exit->getWidth())/2, 5*(game->getWindowHeight() - exit->getHeight())/6);
     addEntity(exit);
-    TextEntityMap.insert( {"exit",exit} );
+    textEntityMap.insert({"exit", exit} );
 }
 
 void MenuScene::handleEvents() {
     sf::Event event;
-    while( game->Window.pollEvent( event ) ) {
+    while( game->window.pollEvent(event ) ) {
         if( event.type == sf::Event::Closed ) {
             exitScene();
         }
@@ -90,10 +90,10 @@ void MenuScene::changeOption(int direction) {
 }
 
 void MenuScene::markOption() {
-    auto new_game = TextEntityMap.find("new_game");
-    auto edit_map = TextEntityMap.find("edit_map");
-    auto best_scores = TextEntityMap.find("best_scores");
-    auto exit = TextEntityMap.find("exit");
+    auto new_game = textEntityMap.find("new_game");
+    auto edit_map = textEntityMap.find("edit_map");
+    auto best_scores = textEntityMap.find("best_scores");
+    auto exit = textEntityMap.find("exit");
     sf::Color red = sf::Color(150,0,0);
     sf::Color def = sf::Color(255,255,255);
 

@@ -8,7 +8,6 @@ namespace RESULT {
 
 class ResultScene : public Scene {
 private:
-    std::map<std::string,TextEntity*> TextEntityMap;
     int result;
     int points;
 

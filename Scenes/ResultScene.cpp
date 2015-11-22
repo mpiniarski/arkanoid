@@ -28,39 +28,39 @@ void ResultScene::createEntities() {
         congrats->setCharacterSize(75);
         congrats->setPosition((game->getWindowWidth() - congrats->getWidth())/2, game->getWindowHeight()/8);
         addEntity(congrats);
-        TextEntityMap.insert({ "congrats", congrats });
+        textEntityMap.insert({"congrats", congrats });
 
         TextEntity* win = new TextEntity(this, "YOU WON!", resourceManager.getFontFromMap("font1"));
         win->setCharacterSize(75);
         win->setPosition((game->getWindowWidth() - win->getWidth())/2, 2*(game->getWindowHeight()/8));
         addEntity(win);
-        TextEntityMap.insert({ "win", win });
+        textEntityMap.insert({"win", win });
     }
     else if(result == RESULT::LOSE) {
         TextEntity* sorry = new TextEntity(this, "I'M SORRY", resourceManager.getFontFromMap("font1"));
         sorry->setCharacterSize(75);
         sorry->setPosition((game->getWindowWidth() - sorry->getWidth())/2, (game->getWindowHeight()/8));
         addEntity(sorry);
-        TextEntityMap.insert({ "sorry", sorry });
+        textEntityMap.insert({"sorry", sorry });
 
         TextEntity* lose = new TextEntity(this, "YOU LOST!", resourceManager.getFontFromMap("font1"));
         lose->setCharacterSize(75);
         lose->setPosition((game->getWindowWidth() - lose->getWidth())/2, 2*(game->getWindowHeight()/8));
         addEntity(lose);
-        TextEntityMap.insert({ "lose", lose });
+        textEntityMap.insert({"lose", lose });
     }
     TextEntity* score = new TextEntity(this, "YOUR SCORE:", resourceManager.getFontFromMap("font1"));
     score->setString("Points: " + std::to_string(points) );
     score->setCharacterSize(50);
     score->setPosition((game->getWindowWidth() - score->getWidth())/2, 4*(game->getWindowHeight()/8));
     addEntity(score);
-    TextEntityMap.insert({ "score", score });
+    textEntityMap.insert({"score", score });
 
     TextEntity* enter = new TextEntity(this, "CLICK ENTER TO RETURN TO MENU", resourceManager.getFontFromMap("font1"));
     enter->setCharacterSize(35);
     enter->setPosition((game->getWindowWidth() - enter->getWidth())/2, 5*(game->getWindowHeight()/8));
     addEntity(enter);
-    TextEntityMap.insert({ "enter", enter });
+    textEntityMap.insert({"enter", enter });
 
     std::string text = "Credits\n";
     text += "Graphical elements:\n";
@@ -72,12 +72,12 @@ void ResultScene::createEntities() {
     credits->setCharacterSize(20);
     credits->setPosition(20, 6.7*(game->getWindowHeight()/8));
     addEntity(credits);
-    TextEntityMap.insert({ "credits", credits });
+    textEntityMap.insert({"credits", credits });
 }
 
 void ResultScene::handleEvents() {
     sf::Event event;
-    while( game->Window.pollEvent( event ) ) {
+    while( game->window.pollEvent(event ) ) {
         if( event.type == sf::Event::Closed ) {
             exitScene(new MenuScene(game));
         }

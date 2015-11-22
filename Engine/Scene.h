@@ -16,13 +16,13 @@ namespace DIRECTION {
 
 class Scene{
 private:
-    std::list<Entity*> EntityList;
+    std::list<Entity*> entityList;
     Scene* nextScene;
     bool endScene;
 
 protected:
     Game *game;
-    std::map<std::string,TextEntity*> TextEntityMap;
+    std::map<std::string,TextEntity*> textEntityMap;
     ResourceManager resourceManager;
 
 public:

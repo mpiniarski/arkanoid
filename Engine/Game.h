@@ -9,7 +9,7 @@ class Game {
 private:
     float FPS;
 public:
-    sf::RenderWindow Window;
+    sf::RenderWindow window;
     Scene* currentScene;
 
 public:
@@ -17,8 +17,8 @@ public:
     ~Game();
     void launchScene(Scene* scene);
 
-    int getWindowWidth() { return Window.getSize().x;}
-    int getWindowHeight() { return Window.getSize().y;}
+    int getWindowWidth() { return window.getSize().x;}
+    int getWindowHeight() { return window.getSize().y;}
     float getFPS() { return FPS;}
 };
 

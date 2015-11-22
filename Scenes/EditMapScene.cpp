@@ -40,7 +40,7 @@ void EditMapScene::createEntities() {
     legend->setCharacterSize(30);
     legend->setPosition(10, game->getWindowHeight() - 1.3*legend->getHeight());
     addEntity(legend);
-    TextEntityMap.insert({ "legend", legend });
+    textEntityMap.insert({"legend", legend });
 }
 
 void EditMapScene::makeCursor(float pos_x, float pos_y) {
@@ -66,7 +66,7 @@ void EditMapScene::makeCursor(float pos_x, float pos_y) {
 
 void EditMapScene::handleEvents() {
     sf::Event event;
-    while( game->Window.pollEvent( event ) ) {
+    while( game->window.pollEvent(event ) ) {
         if( event.type == sf::Event::KeyPressed ) {
             if ( event.key.code == sf::Keyboard::Escape ) {
                 exitScene(new MenuScene(game));

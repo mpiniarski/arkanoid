@@ -24,20 +24,20 @@ void BestScoresScene::createEntities() {
     header->setCharacterSize(90);
     header->setPosition( (game->getWindowWidth() - header->getWidth())/2, (game->getWindowHeight() - header->getHeight())/15);
     addEntity(header);
-    TextEntityMap.insert( {"header",header} );
+    textEntityMap.insert({"header", header} );
 
     TextEntity *legend = new TextEntity(this, "Click Enter\nto return to menu", resourceManager.getFontFromMap("font1"));
     legend->setCharacterSize(30);
     legend->setPosition( 10, 14*(game->getWindowHeight() - legend->getHeight())/15);
     addEntity(legend);
-    TextEntityMap.insert( {"legend",legend} );
+    textEntityMap.insert({"legend", legend} );
 
     std::string text = textFileToScoreList("score.txt");
     TextEntity *scores = new TextEntity(this, text, resourceManager.getFontFromMap("font1"));
     scores->setCharacterSize(50);
     scores->setPosition( (game->getWindowWidth() - scores->getWidth())/2, 3*(game->getWindowHeight())/15);
     addEntity(scores);
-    TextEntityMap.insert( {"scores",scores} );
+    textEntityMap.insert({"scores", scores} );
 }
 
 std::string BestScoresScene::textFileToScoreList(std::string filePath) {
@@ -67,7 +67,7 @@ std::string BestScoresScene::textFileToScoreList(std::string filePath) {
 
 void BestScoresScene::handleEvents() {
     sf::Event event;
-    while( game->Window.pollEvent( event ) ) {
+    while( game->window.pollEvent(event ) ) {
         if( event.type == sf::Event::Closed ) {
             exitScene();
         }
