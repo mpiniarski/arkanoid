@@ -34,11 +34,11 @@ void EditMapScene::createEntities() {
 
     makeCursor(0,0);
 
-    std::string text = "Place element: Space\nUndo: Backspace\nChange type: C\nPlay map: Enter\nExit edit mode: Escape";
+    std::string text = "Place element: Space\nUndo: Backspace\nChange type: C\nPlay map: Enter\nSave map: S\nLoad last map: L\nExit edit mode: Escape";
 
     TextEntity* legend = new TextEntity(this, text, resourceManager.getFontFromMap("Font1"));
     legend->setCharacterSize(30);
-    legend->setPosition(10, game->getWindowHeight() - 1.3*legend->getHeight());
+    legend->setPosition(10, game->getWindowHeight() - 1.1*legend->getHeight());
     addEntity(legend);
     textEntityMap.insert({"legend", legend });
 }
@@ -101,6 +101,14 @@ void EditMapScene::handleEvents() {
             else if(event.key.code == sf::Keyboard::Num3 ) {
                 saveMapToFile("map3.ark");
             }
+            else if(event.key.code == sf::Keyboard::S ) {
+                saveMapToFile("mapUser.ark");
+            }
+            else if(event.key.code == sf::Keyboard::L ) {
+                loadMapFromFile("mapUser.ark");
+
+            }
+
             else if(event.key.code == sf::Keyboard::C ) {
                 if(chosenCursor == 2) { chosenCursor = 0; }
                 else { chosenCursor++; }
@@ -232,6 +240,42 @@ void EditMapScene::moveEntity(GraphicalEntity *brickCursor, int direction) {
     }
 }
 
+void EditMapScene::loadMapFromFile(std::string filePath) {
 
+    for(auto i : mapEntities){ // clear map
+        removeEntity(i);
+    }
+    mapEntities.clear();
 
+    std::string type;
+    int pos_x,pos_y;
+    std::ifstream file;
+    file.open(filePath.c_str());
+    if( !file.good() ) return;
+    while(1){
+        file>>type;
+        file>>pos_x;
+        file>>pos_y;
+        if (file.eof()) break;
 
+        if(type=="Brick"){
+            Brick *brick = new Brick(this,resourceManager.getTextureFromMap("Brick"));
+            brick->setPosition(pos_x,pos_y);
+            mapEntities.push_back(brick);
+            addEntity(brick);
+        }
+        if(type=="SolidBrick"){
+            SolidBrick *solidBrick = new SolidBrick(this,resourceManager.getTextureFromMap("SolidBrick"));
+            solidBrick->setPosition(pos_x,pos_y);
+            mapEntities.push_back(solidBrick);
+            addEntity(solidBrick);
+        }
+        if(type=="Barrier"){
+            Barrier *barrier = new Barrier(this,resourceManager.getTextureFromMap("Barrier"));
+            barrier->setPosition(pos_x,pos_y);
+            mapEntities.push_back(barrier);
+            addEntity(barrier);
+        }
+    }
+    file.close();
+}

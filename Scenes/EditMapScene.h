@@ -31,4 +31,6 @@ private:
     void uploadResources() override;
     void createEntities() override;
     void handleEvents() override;
+
+    void loadMapFromFile(std::string filePath);
 };
