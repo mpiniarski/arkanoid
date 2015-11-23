@@ -21,7 +21,7 @@ public:
     void addCollisionMaker(GraphicalEntity* ge);
 
 private:
-    void detectCollision(Platform *ge);
-    void detectCollision(GraphicalEntity *ge);
+    bool detectCollision(Platform *ge);
+    bool detectCollision(GraphicalEntity *ge);
     void wallCollision();
 };

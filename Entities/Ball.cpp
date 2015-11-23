@@ -25,7 +25,7 @@ void Ball::update() {
         list<GraphicalEntity*>::iterator i;
         for(i=collisionList.begin(); i != collisionList.end(); i++){
             GraphicalEntity* entity = *i;
-            detectCollision(entity);
+            if(detectCollision(entity)) break;
             if(entity->isBroken){
                 i++;
                 collisionList.remove(entity);
@@ -37,7 +37,7 @@ void Ball::update() {
 }
 
 
-void Ball::detectCollision(Platform *ge) {
+bool Ball::detectCollision(Platform *ge) {
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
     float radius = this->getWidth()/2;
@@ -92,7 +92,7 @@ void Ball::detectCollision(Platform *ge) {
     }
 }
 
-void Ball::detectCollision(GraphicalEntity *ge) {
+bool Ball::detectCollision(GraphicalEntity *ge) {
 
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
