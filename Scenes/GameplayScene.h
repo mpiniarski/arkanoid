@@ -21,8 +21,10 @@ public:
 
     void addPoints(int points);
     void subtractEntity();
-
     void exitScene(Scene* nextScene) override; // overrides what happens, when You want to exitScene, and dont pass nextScene to this method
+
+    void generateBonus();
+
 private:
     void loadMapFromFile(std::string filePath);
     void saveScore(std::string filePath);

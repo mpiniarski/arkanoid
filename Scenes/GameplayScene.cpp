@@ -6,6 +6,7 @@
 #include "../Entities/Brick.h"
 #include "../Entities/SolidBrick.h"
 #include "../Entities/Barrier.h"
+#include "../Entities/ColorBonus.h"
 #include "ResultScene.h"
 
 #include <fstream>
@@ -231,3 +232,7 @@ void GameplayScene::winGame() {
     }
 }
 
+void GameplayScene::generateBonus() {
+    ColorBonus* bonus = new ColorBonus(this,resourceManager.getTextureFromMap("Ball"),platform);
+    addEntity(bonus);
+}
