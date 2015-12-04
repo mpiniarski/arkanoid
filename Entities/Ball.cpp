@@ -25,10 +25,11 @@ void Ball::update() {
         list<GraphicalEntity*>::iterator i;
         for(i=collisionList.begin(); i != collisionList.end(); i++){
             GraphicalEntity* entity = *i;
-            if(detectCollision(entity)) break;
-            if(entity->isBroken){
-                i++;
-                collisionList.remove(entity);
+            if (detectCollision(entity)){
+                if (entity->isBroken){
+                    collisionList.remove(entity);
+                }
+                break;
             }
         }
     }
@@ -38,6 +39,7 @@ void Ball::update() {
 
 
 bool Ball::detectCollision(Platform *ge) {
+    bool detected = false;
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
     float radius = this->getWidth()/2;
@@ -52,6 +54,7 @@ bool Ball::detectCollision(Platform *ge) {
                && ballCenterHeight + radius/sqrt(2) >= ge->getPosition().y) {
                 movingHorizontal = -edge;
                 movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
+                detected = true;
             }
         }
         /** AREA 2 **/
@@ -60,10 +63,12 @@ bool Ball::detectCollision(Platform *ge) {
                 if(ballCenterWidth < platformCenter) {
                     movingHorizontal = (-1) * ((ballCenterWidth - platformCenter) * edge)/(platformStart - platformCenter);
                     movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
+                    detected = true;
                 }
                 else if(ballCenterWidth <= platformEnd) {
                     movingHorizontal = ((ballCenterWidth - platformCenter) * edge)/(platformEnd - platformCenter);
                     movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
+                    detected = true;
                 }
             }
         }
@@ -73,6 +78,7 @@ bool Ball::detectCollision(Platform *ge) {
                && ballCenterHeight + radius/sqrt(2) >= ge->getPosition().y) {
                 movingHorizontal = edge;
                 movingVertical = (-1) * sqrt((10000-(abs(movingHorizontal*movingHorizontal))));
+                detected = true;
             }
         }
     }
@@ -81,18 +87,23 @@ bool Ball::detectCollision(Platform *ge) {
         if(ballCenterWidth <= platformStart) {
             if(ballCenterWidth + radius >= platformStart) {
                 movingHorizontal = abs(movingHorizontal) * -1;
+                detected = true;
             }
         }
         /** AREA 5 **/
         else if(ballCenterWidth >= platformEnd) {
             if(ballCenterWidth - radius <= platformEnd) {
                 movingHorizontal = abs(movingHorizontal);
+                detected = true;
             }
         }
     }
+    if (detected) return true;
+    return false;
 }
 
 bool Ball::detectCollision(GraphicalEntity *ge) {
+    bool detected = false;
 
     float ballCenterWidth = this->getPosition().x + this->getWidth()/2;
     float ballCenterHeight = this->getPosition().y + this->getHeight()/2;
@@ -108,14 +119,14 @@ bool Ball::detectCollision(GraphicalEntity *ge) {
                && ballCenterHeight + radius/sqrt(2) >= ge->getPosition().y) {
                 movingHorizontal = abs(movingHorizontal) * -1;
                 movingVertical = abs(movingVertical) * -1;
-                ge->manageCollision(this);
+                detected = true;
             }
         }
         /** AREA 2 **/
         else if(ballCenterWidth >= geStart && ballCenterWidth <= geEnd) {
             if(ballCenterHeight + radius >= ge->getPosition().y) {
                 movingVertical = abs(movingVertical) * -1;
-                ge->manageCollision(this);
+                detected = true;
             }
         }
         /** AREA 3 **/
@@ -124,7 +135,7 @@ bool Ball::detectCollision(GraphicalEntity *ge) {
                && ballCenterHeight + radius/sqrt(2) >= ge->getPosition().y) {
                 movingHorizontal = abs(movingHorizontal);
                 movingVertical = abs(movingVertical) * -1;
-                ge->manageCollision(this);
+                detected = true;
             }
         }
     }
@@ -133,14 +144,14 @@ bool Ball::detectCollision(GraphicalEntity *ge) {
         if(ballCenterWidth <= geStart) {
             if(ballCenterWidth + radius >= geStart) {
                 movingHorizontal = abs(movingHorizontal) * -1;
-                ge->manageCollision(this);
+                detected = true;
             }
         }
         /** AREA 5 **/
         else if(ballCenterWidth >= geEnd) {
             if(ballCenterWidth - radius <= geEnd) {
                 movingHorizontal = abs(movingHorizontal);
-                ge->manageCollision(this);
+                detected = true;
             }
         }
     }
@@ -151,14 +162,14 @@ bool Ball::detectCollision(GraphicalEntity *ge) {
                && ballCenterHeight - radius/sqrt(2) <= ge->getPosition().y + ge->getHeight()) {
                 movingHorizontal = abs(movingHorizontal) * -1;
                 movingVertical = abs(movingVertical);
-                ge->manageCollision(this);
+                detected = true;
             }
         }
         /** AREA 7 **/
         else if(ballCenterWidth >= geStart && ballCenterWidth <= geEnd) {
             if(ballCenterHeight - radius < ge->getPosition().y + ge->getHeight()) {
                 movingVertical = abs(movingVertical);
-                ge->manageCollision(this);
+                detected = true;
             }
         }
         /** AREA 8 **/
@@ -167,10 +178,16 @@ bool Ball::detectCollision(GraphicalEntity *ge) {
                 && ballCenterHeight - radius / sqrt(2) <= ge->getPosition().y + ge->getHeight()) {
                 movingHorizontal = abs(movingHorizontal);
                 movingVertical = abs(movingVertical);
-                ge->manageCollision(this);
+                detected = true;
             }
         }
     }
+
+    if (detected){
+        ge->manageCollision(this);
+        return true;
+    }
+    return false;
 }
 
 void Ball::wallCollision() {
