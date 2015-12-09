@@ -23,7 +23,8 @@ public:
     void subtractEntity();
     void exitScene(Scene* nextScene) override; // overrides what happens, when You want to exitScene, and dont pass nextScene to this method
 
-    void generateBonus();
+    void generateColorBonus();
+    void generatePlatformResizeBonus();
 
 private:
     void loadMapFromFile(std::string filePath);

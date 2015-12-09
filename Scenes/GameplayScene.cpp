@@ -8,6 +8,7 @@
 #include "../Entities/Barrier.h"
 #include "../Entities/ColorBonus.h"
 #include "ResultScene.h"
+#include "../Entities/PlatformResizeBonus.h"
 
 #include <fstream>
 
@@ -232,7 +233,12 @@ void GameplayScene::winGame() {
     }
 }
 
-void GameplayScene::generateBonus() {
+void GameplayScene::generateColorBonus() {
     ColorBonus* bonus = new ColorBonus(this,resourceManager.getTextureFromMap("Ball"),platform);
+    addEntity(bonus);
+}
+
+void GameplayScene::generatePlatformResizeBonus() {
+    PlatformResizeBonus* bonus = new PlatformResizeBonus(this,resourceManager.getTextureFromMap("Ball"),platform);
     addEntity(bonus);
 }

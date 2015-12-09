@@ -68,8 +68,14 @@ void GraphicalEntity::resetDirection(int direction) {
 void GraphicalEntity::manageCollision(GraphicalEntity *ge) { // different in every GraphicalEntinty children-class
 }
 
-float GraphicalEntity::getWidth() {return getTextureRect().width;};
-float GraphicalEntity::getHeight() {return getTextureRect().height;}
+float GraphicalEntity::getWidth() {
+    sf::Vector2f scale = this->getScale();
+    return getTextureRect().width * scale.x;
+};
+float GraphicalEntity::getHeight() {
+    sf::Vector2f scale = this->getScale();
+    return getTextureRect().height * scale.y;
+}
 
 void GraphicalEntity::stretchToWindowSize() {
     setScale(scene->getWindowWidth()/getWidth(),scene->getWindowHeight()/getHeight());

@@ -28,6 +28,7 @@ void SolidBrick::manageCollision(GraphicalEntity *ge) {
         if (gameplayScene != NULL) { // make only if scene is GraphicalScene
             gameplayScene->addPoints(500);
             gameplayScene->subtractEntity();
+            gameplayScene->generatePlatformResizeBonus();
         }
     }
 }

@@ -14,6 +14,6 @@ void Brick::manageCollision(GraphicalEntity *ge) {
    if (gameplayScene != NULL) {
       gameplayScene->addPoints(100);
       gameplayScene->subtractEntity();
-      gameplayScene->generateBonus();
+      gameplayScene->generateColorBonus();
    }
 }
