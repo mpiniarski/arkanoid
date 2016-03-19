@@ -9,7 +9,7 @@ PlatformResizeBonus::PlatformResizeBonus(Scene *scene, sf::Texture &texture, Pla
 
 
 void PlatformResizeBonus::trigerBonus() {
-    bool scale = rand()%3;
+    int scale = (rand() % 3);
     switch(scale) {
         case 0:
             platform->setScale(0.75, 1);
