@@ -1,4 +1,6 @@
 This is an arkanoid game created by 
     Joanna Sołomiewicz and Marcin Piniarski.
-Launch ./Release/arkanoid to play.
+
+Install SFML library
+and launch ./Release/arkanoid to play.
 Have fun ;-)
